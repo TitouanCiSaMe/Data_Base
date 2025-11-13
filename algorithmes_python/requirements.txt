@@ -1,0 +1,6 @@
+# Dépendances pour l'analyse et les tests de performance
+pytest>=7.4.0
+pytest-benchmark>=4.0.0
+memory-profiler>=0.61.0
+matplotlib>=3.7.0
+pandas>=2.0.0
