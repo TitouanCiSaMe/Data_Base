@@ -15,15 +15,13 @@ from .processors import (
     FilterProcessor,
     TransformProcessor,
     MapProcessor,
-    DeduplicateProcessor,
-    XMLAnnotationProcessor
+    DeduplicateProcessor
 )
 from .writers import (
     FileWriter,
     JSONWriter,
     CSVWriter,
-    XMLWriter,
-    MultiFileXMLWriter
+    XMLWriter
 )
 from .pipeline import Pipeline, PipelineBuilder
 
@@ -46,13 +44,11 @@ __all__ = [
     'TransformProcessor',
     'MapProcessor',
     'DeduplicateProcessor',
-    'XMLAnnotationProcessor',
     # Writers
     'FileWriter',
     'JSONWriter',
     'CSVWriter',
     'XMLWriter',
-    'MultiFileXMLWriter',
     # Pipeline
     'Pipeline',
     'PipelineBuilder',

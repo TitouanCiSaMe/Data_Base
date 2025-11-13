@@ -135,38 +135,6 @@ class BatchCollector(Processor):
         return None
 
 
-class XMLAnnotationProcessor(Processor):
-    """
-    Processeur spécialisé pour annoter des éléments XML avec des données
-
-    Utilisé pour le script Gratien: ajoute les IDs trouvés comme attributs XML
-    """
-
-    def __init__(self,
-                 matcher_func: Callable[[ET.Element], list],
-                 attribute_name: str = "gratien_refs",
-                 name: Optional[str] = None):
-        """
-        Args:
-            matcher_func: Fonction qui prend un Element XML et retourne une liste d'IDs
-            attribute_name: Nom de l'attribut XML à ajouter
-            name: Nom du processeur
-        """
-        super().__init__(name)
-        self.matcher_func = matcher_func
-        self.attribute_name = attribute_name
-
-    def process(self, item: ET.Element, context: PipelineContext) -> ET.Element:
-        """Annote l'élément XML"""
-        ids = self.matcher_func(item)
-
-        if ids:
-            # Ajoute les IDs comme attribut (séparés par des virgules)
-            item.set(self.attribute_name, ",".join(str(id) for id in ids))
-
-        return item
-
-
 class DownloadProcessor(Processor):
     """
     Processeur pour télécharger des fichiers

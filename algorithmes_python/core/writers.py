@@ -205,55 +205,6 @@ class XMLWriter(Writer):
         return {'written': count, 'directory': str(self.output_dir)}
 
 
-class MultiFileXMLWriter(Writer):
-    """
-    Écrit des fichiers XML avec la même structure que les fichiers d'entrée
-
-    Utilisé pour le script Gratien: traite plusieurs fichiers XML,
-    les modifie et les sauvegarde.
-    """
-
-    def __init__(self,
-                 input_dir: Path,
-                 output_dir: Path,
-                 encoding: str = 'utf-8',
-                 name: Optional[str] = None):
-        """
-        Args:
-            input_dir: Dossier des fichiers d'origine
-            output_dir: Dossier de sortie
-            encoding: Encodage XML
-            name: Nom du writer
-        """
-        super().__init__(name)
-        self.input_dir = Path(input_dir)
-        self.output_dir = Path(output_dir)
-        self.encoding = encoding
-
-    def write(self, data: Iterator[tuple], context: PipelineContext) -> dict:
-        """
-        Écrit les fichiers XML modifiés
-
-        Attend des tuples (filename, tree)
-        """
-        self.output_dir.mkdir(parents=True, exist_ok=True)
-
-        count = 0
-        for filename, tree in data:
-            output_path = self.output_dir / filename
-
-            tree.write(
-                output_path,
-                encoding=self.encoding,
-                xml_declaration=True
-            )
-            count += 1
-
-        self.logger.info(f"{count} fichiers XML écrits dans {self.output_dir}")
-
-        return {'written': count, 'directory': str(self.output_dir)}
-
-
 class StatsWriter(Writer):
     """Génère un rapport de statistiques"""
 
