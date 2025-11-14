@@ -2,15 +2,30 @@
 """
 Convertisseur de corpus vertical vers pages texte standard
 Convertit un fichier corpus vertical en dossier de pages texte individuelles
+
+USAGE:
+    # Fichier unique
+    python corpus_to_pages_converter.py corpus.txt -o output_dir/
+
+    # Plusieurs fichiers
+    python corpus_to_pages_converter.py file1.txt file2.txt file3.txt -o output_dir/
+
+    # Tous les fichiers .txt d'un dossier
+    python corpus_to_pages_converter.py --directory corpus_dir/ -o output_dir/
+
+    # Avec options avancées
+    python corpus_to_pages_converter.py corpus.txt -o output/ --format diplomatic --lemmas
 """
 
 import re
 from pathlib import Path
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 from datetime import datetime
 import logging
 from dataclasses import dataclass
 import json
+import argparse
+import sys
 
 @dataclass
 class PageMetadata:
@@ -453,50 +468,300 @@ class CorpusToPageConverter:
         self.logger.info("=" * 60)
 
 
-def main():
-    """Fonction principale avec exemple d'usage"""
+class BatchConverter:
+    """Gère la conversion de plusieurs fichiers corpus"""
 
-    # Configuration - MODIFIEZ CES CHEMINS SELON VOS BESOINS
-    corpus_file = "/home/titouan/Bureau/HyperBase/Tractatus de Trinitate.txt"  # Votre fichier corpus
-    output_directory = "/home/titouan/Bureau/Tractatus de Trinitate"  # Dossier de sortie
+    def __init__(self,
+                 corpus_files: List[Path],
+                 output_base_directory: Path,
+                 **converter_options):
+        """
+        Initialise le convertisseur batch
 
-    # Vérifier que le fichier corpus existe
-    if not Path(corpus_file).exists():
-        print(f"❌ Fichier corpus non trouvé: {corpus_file}")
-        print("📝 Veuillez modifier le chemin dans la fonction main()")
-        return 1
+        Args:
+            corpus_files: Liste de fichiers corpus à convertir
+            output_base_directory: Dossier de base pour les sorties
+            **converter_options: Options à passer au convertisseur
+        """
+        self.corpus_files = corpus_files
+        self.output_base_directory = output_base_directory
+        self.converter_options = converter_options
 
-    # Créer le convertisseur
-    converter = CorpusToPageConverter(
-        corpus_file=corpus_file,
-        output_directory=output_directory,
-        create_metadata_index=True,
-        create_combined_file=True,  # ← NOUVEAU: Active le fichier combiné
-        text_format="clean",  # "clean", "diplomatic", "annotated"
-        include_lemmas=False,
-        page_filename_template="page_{page_number:03d}_{folio}.txt"
+        self.results = []
+        self.total_files = len(corpus_files)
+        self.success_count = 0
+        self.error_count = 0
+
+    def convert_all(self) -> bool:
+        """Convertit tous les fichiers"""
+        print(f"\n{'=' * 70}")
+        print(f"CONVERSION BATCH: {self.total_files} fichier(s) à traiter")
+        print(f"{'=' * 70}\n")
+
+        for i, corpus_file in enumerate(self.corpus_files, 1):
+            print(f"\n[{i}/{self.total_files}] Traitement de: {corpus_file.name}")
+            print("-" * 70)
+
+            try:
+                # Créer un sous-dossier pour chaque corpus
+                corpus_name = corpus_file.stem
+                output_dir = self.output_base_directory / corpus_name
+
+                # Créer le convertisseur pour ce fichier
+                converter = CorpusToPageConverter(
+                    corpus_file=str(corpus_file),
+                    output_directory=str(output_dir),
+                    **self.converter_options
+                )
+
+                # Convertir
+                converter.convert_corpus()
+
+                self.results.append({
+                    'file': corpus_file.name,
+                    'status': 'success',
+                    'output_dir': output_dir,
+                    'stats': converter.stats
+                })
+                self.success_count += 1
+
+                print(f"✓ Conversion réussie")
+                print(f"  Sortie: {output_dir}")
+
+            except Exception as e:
+                self.results.append({
+                    'file': corpus_file.name,
+                    'status': 'error',
+                    'error': str(e)
+                })
+                self.error_count += 1
+
+                print(f"✗ Erreur: {e}")
+
+        # Résumé final
+        self._print_summary()
+
+        return self.error_count == 0
+
+    def _print_summary(self):
+        """Affiche le résumé de la conversion batch"""
+        print(f"\n{'=' * 70}")
+        print("RÉSUMÉ DE LA CONVERSION BATCH")
+        print(f"{'=' * 70}")
+        print(f"Total: {self.total_files} fichier(s)")
+        print(f"✓ Réussis: {self.success_count}")
+        print(f"✗ Erreurs: {self.error_count}")
+        print(f"{'=' * 70}\n")
+
+        if self.error_count > 0:
+            print("Fichiers en erreur:")
+            for result in self.results:
+                if result['status'] == 'error':
+                    print(f"  - {result['file']}: {result['error']}")
+
+
+def parse_arguments() -> argparse.Namespace:
+    """Parse les arguments de ligne de commande"""
+    parser = argparse.ArgumentParser(
+        description="Convertisseur de corpus vertical vers pages texte",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+EXEMPLES D'UTILISATION:
+
+  # Convertir un seul fichier
+  python corpus_to_pages_converter.py corpus.txt -o output/
+
+  # Convertir plusieurs fichiers (chacun dans son sous-dossier)
+  python corpus_to_pages_converter.py file1.txt file2.txt file3.txt -o output/
+
+  # Convertir tous les .txt d'un dossier
+  python corpus_to_pages_converter.py --directory corpus_dir/ -o output/
+
+  # Format diplomatique avec lemmes
+  python corpus_to_pages_converter.py corpus.txt -o output/ --format diplomatic --lemmas
+
+  # Sans fichier combiné ni métadonnées
+  python corpus_to_pages_converter.py corpus.txt -o output/ --no-combined --no-metadata
+
+FORMATS DE SORTIE:
+  - clean:      Texte propre, mots uniquement
+  - diplomatic: Texte avec annotations POS
+  - annotated:  Format tabulaire complet (mot + POS + lemme)
+        """
     )
 
-    try:
-        # Lancer la conversion
-        converter.convert_corpus()
+    # Fichiers d'entrée
+    input_group = parser.add_mutually_exclusive_group(required=True)
+    input_group.add_argument(
+        'corpus_files',
+        nargs='*',
+        default=[],
+        help='Fichier(s) corpus à convertir'
+    )
+    input_group.add_argument(
+        '--directory', '-d',
+        type=str,
+        help='Dossier contenant les fichiers corpus (.txt)'
+    )
 
-        print("✅ Conversion terminée avec succès!")
-        print(f"📁 Fichiers créés dans: {output_directory}")
-        print(f"📄 Texte complet: texte_complet.txt")
-        print(f"📋 Index: pages_index.json")
-        print(f"🖼️  Correspondance images: images_mapping.txt")
+    # Sortie
+    parser.add_argument(
+        '--output', '-o',
+        type=str,
+        required=True,
+        help='Dossier de sortie'
+    )
+
+    # Options de format
+    parser.add_argument(
+        '--format', '-f',
+        type=str,
+        choices=['clean', 'diplomatic', 'annotated'],
+        default='clean',
+        help='Format de sortie du texte (défaut: clean)'
+    )
+
+    parser.add_argument(
+        '--lemmas', '-l',
+        action='store_true',
+        help='Inclure les lemmes dans les annotations'
+    )
+
+    # Options de fichiers de sortie
+    parser.add_argument(
+        '--no-combined',
+        action='store_true',
+        help='Ne pas créer le fichier texte complet'
+    )
+
+    parser.add_argument(
+        '--no-metadata',
+        action='store_true',
+        help='Ne pas créer le fichier JSON de métadonnées'
+    )
+
+    # Template de nom de fichier
+    parser.add_argument(
+        '--template',
+        type=str,
+        default='page_{page_number:04d}_{folio}.txt',
+        help='Template pour les noms de fichiers de pages'
+    )
+
+    # Pattern de recherche pour --directory
+    parser.add_argument(
+        '--pattern',
+        type=str,
+        default='*.txt',
+        help='Pattern de fichiers à chercher avec --directory (défaut: *.txt)'
+    )
+
+    return parser.parse_args()
+
+
+def get_corpus_files(args: argparse.Namespace) -> List[Path]:
+    """Récupère la liste des fichiers corpus à traiter"""
+    corpus_files = []
+
+    if args.directory:
+        # Mode dossier: chercher tous les fichiers correspondant au pattern
+        directory = Path(args.directory)
+        if not directory.exists():
+            print(f"❌ Dossier non trouvé: {directory}")
+            sys.exit(1)
+
+        if not directory.is_dir():
+            print(f"❌ Le chemin n'est pas un dossier: {directory}")
+            sys.exit(1)
+
+        corpus_files = list(directory.glob(args.pattern))
+
+        if not corpus_files:
+            print(f"❌ Aucun fichier {args.pattern} trouvé dans: {directory}")
+            sys.exit(1)
+
+        print(f"✓ {len(corpus_files)} fichier(s) trouvé(s) dans {directory}")
+
+    else:
+        # Mode fichiers directs
+        for file_path in args.corpus_files:
+            path = Path(file_path)
+            if not path.exists():
+                print(f"❌ Fichier non trouvé: {path}")
+                sys.exit(1)
+            corpus_files.append(path)
+
+    return corpus_files
+
+
+def main():
+    """Fonction principale avec interface CLI"""
+    args = parse_arguments()
+
+    # Récupérer la liste des fichiers à traiter
+    corpus_files = get_corpus_files(args)
+
+    # Préparer les options du convertisseur
+    converter_options = {
+        'create_metadata_index': not args.no_metadata,
+        'create_combined_file': not args.no_combined,
+        'text_format': args.format,
+        'include_lemmas': args.lemmas,
+        'page_filename_template': args.template
+    }
+
+    output_dir = Path(args.output)
+
+    try:
+        if len(corpus_files) == 1:
+            # Conversion d'un seul fichier
+            print(f"\n🔄 Conversion de: {corpus_files[0].name}")
+            print(f"📁 Sortie: {output_dir}\n")
+
+            converter = CorpusToPageConverter(
+                corpus_file=str(corpus_files[0]),
+                output_directory=str(output_dir),
+                **converter_options
+            )
+
+            converter.convert_corpus()
+
+            print("\n✅ Conversion terminée avec succès!")
+            print(f"📁 Fichiers créés dans: {output_dir}")
+            if not args.no_combined:
+                print(f"📄 Texte complet: texte_complet.txt")
+            if not args.no_metadata:
+                print(f"📋 Index: pages_index.json")
+            print(f"🖼️  Correspondance images: images_mapping.txt")
+
+        else:
+            # Conversion batch de plusieurs fichiers
+            batch_converter = BatchConverter(
+                corpus_files=corpus_files,
+                output_base_directory=output_dir,
+                **converter_options
+            )
+
+            success = batch_converter.convert_all()
+
+            if not success:
+                return 1
+
+            print("✅ Conversion batch terminée!")
+            print(f"📁 Fichiers créés dans: {output_dir}/")
+
+        return 0
+
+    except KeyboardInterrupt:
+        print("\n\n⚠️  Conversion interrompue par l'utilisateur")
+        return 1
 
     except Exception as e:
-        print(f"❌ Erreur lors de la conversion: {e}")
+        print(f"\n❌ Erreur fatale: {e}")
         import traceback
         traceback.print_exc()
         return 1
 
-    return 0
-
 
 if __name__ == "__main__":
-    import sys
-
     sys.exit(main())
