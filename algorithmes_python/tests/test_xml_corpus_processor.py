@@ -5,7 +5,7 @@ Pour exécuter les tests :
     pytest test_xml_corpus_processor.py -v
 
 Pour exécuter avec couverture :
-    pytest test_xml_corpus_processor.py --cov=xml_corpus_processor --cov-report=html
+    pytest test_xml_corpus_processor.py --cov=xml_corpus --cov-report=html
 """
 
 import unittest
@@ -17,9 +17,9 @@ import xml.etree.ElementTree as ET
 
 # Import du module à tester
 import sys
-sys.path.insert(0, os.path.dirname(__file__))
+sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
-from xml_corpus_processor import (
+from xml_corpus import (
     XMLCorpusProcessor,
     ProcessingConfig,
     PageMetadata,
