@@ -1,0 +1,24 @@
+# Requirements pour XMLCorpusProcessor
+# Installation : pip install -r requirements_xml_corpus.txt
+
+# Dépendance principale : TreeTagger wrapper
+treetaggerwrapper>=2.3
+
+# Dépendances optionnelles pour développement et tests
+# (décommenter si nécessaire)
+
+# Tests unitaires
+# pytest>=7.0.0
+# pytest-cov>=4.0.0
+
+# Linting et formatage
+# pylint>=2.15.0
+# black>=22.0.0
+# flake8>=5.0.0
+
+# Type checking
+# mypy>=1.0.0
+
+# Documentation
+# sphinx>=5.0.0
+# sphinx-rtd-theme>=1.0.0
