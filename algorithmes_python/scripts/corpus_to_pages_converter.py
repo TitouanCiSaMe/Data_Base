@@ -38,12 +38,19 @@ class PageMetadata:
 
     def to_dict(self) -> Dict[str, Any]:
         """Convertit en dictionnaire pour sauvegarde JSON"""
+        # Filtrer les métadonnées vides pour la conformité Dublin Core
+        # Les champs vides ne doivent pas être inclus dans les métadonnées
+        filtered_metadata = {
+            key: value for key, value in self.metadata.items()
+            if value and value.strip()  # Exclure les valeurs vides ou composées uniquement d'espaces
+        }
+
         return {
             'folio': self.folio,
             'page_number': self.page_number,
             'running_title': self.running_title,
             'image_filename': self.image_filename,
-            'metadata': self.metadata
+            'metadata': filtered_metadata
         }
 
 
@@ -246,12 +253,12 @@ class CorpusToPageConverter:
         header_lines.append(f"Image: {metadata.image_filename}")
         header_lines.append(f"Titre courant: {metadata.running_title}")
 
-        # Métadonnées importantes
-        if 'title' in metadata.metadata:
+        # Métadonnées importantes (n'afficher que si non vides)
+        if metadata.metadata.get('title', '').strip():
             header_lines.append(f"Œuvre: {metadata.metadata['title']}")
-        if 'author' in metadata.metadata:
+        if metadata.metadata.get('author', '').strip():
             header_lines.append(f"Auteur: {metadata.metadata['author']}")
-        if 'date' in metadata.metadata:
+        if metadata.metadata.get('date', '').strip():
             header_lines.append(f"Date: {metadata.metadata['date']}")
 
         header_lines.append("=" * 80)
