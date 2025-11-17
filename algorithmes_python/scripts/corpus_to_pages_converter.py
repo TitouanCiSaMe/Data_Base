@@ -38,19 +38,12 @@ class PageMetadata:
 
     def to_dict(self) -> Dict[str, Any]:
         """Convertit en dictionnaire pour sauvegarde JSON"""
-        # Filtrer les métadonnées vides pour la conformité Dublin Core
-        # Les champs vides ne doivent pas être inclus dans les métadonnées
-        filtered_metadata = {
-            key: value for key, value in self.metadata.items()
-            if value and value.strip()  # Exclure les valeurs vides ou composées uniquement d'espaces
-        }
-
         return {
             'folio': self.folio,
             'page_number': self.page_number,
             'running_title': self.running_title,
             'image_filename': self.image_filename,
-            'metadata': filtered_metadata
+            'metadata': self.metadata
         }
 
 
@@ -253,12 +246,12 @@ class CorpusToPageConverter:
         header_lines.append(f"Image: {metadata.image_filename}")
         header_lines.append(f"Titre courant: {metadata.running_title}")
 
-        # Métadonnées importantes (n'afficher que si non vides)
-        if metadata.metadata.get('title', '').strip():
+        # Métadonnées importantes
+        if 'title' in metadata.metadata:
             header_lines.append(f"Œuvre: {metadata.metadata['title']}")
-        if metadata.metadata.get('author', '').strip():
+        if 'author' in metadata.metadata:
             header_lines.append(f"Auteur: {metadata.metadata['author']}")
-        if metadata.metadata.get('date', '').strip():
+        if 'date' in metadata.metadata:
             header_lines.append(f"Date: {metadata.metadata['date']}")
 
         header_lines.append("=" * 80)
@@ -290,6 +283,10 @@ class CorpusToPageConverter:
 
                     # Extraire les métadonnées du nouveau document
                     metadata_dict = self._extract_doc_metadata(line)
+
+                    # Remplacer les dates vides par "unknown" pour conformité Dublin Core
+                    if 'date' in metadata_dict and not metadata_dict['date'].strip():
+                        metadata_dict['date'] = 'unknown'
 
                     current_metadata = PageMetadata(
                         folio=metadata_dict.get('folio', f'unknown_{line_num}'),
