@@ -369,8 +369,8 @@ class CorpusAnnotator:
 📁 Fichiers générés:
    • Corpus annoté: {self.output_path.name}
    • Taille: {self.output_path.stat().st_size / 1024 / 1024:.2f} Mo
-   • Titres seuls: {self.output_path.stem}_titles.csv
-   • Sous-titres seuls: {self.output_path.stem}_subtitles.csv
+   • Corpus des titres: {self.output_path.stem}_titles.txt
+   • Corpus des sous-titres: {self.output_path.stem}_subtitles.txt
 
 📝 Format SketchEngine:
    • Chaque article est dans une balise <doc>
@@ -401,64 +401,123 @@ class CorpusAnnotator:
 
         print(f"📄 Rapport sauvegardé: {report_path}\n")
 
-    def save_titles_csv(self) -> Path:
+    def save_titles_txt(self) -> Path:
         """
-        Génère un fichier CSV avec les titres et leurs métadonnées.
+        Génère un fichier texte annoté contenant uniquement les titres.
 
-        Colonnes: ID, Titre, Date, Journal, URL
+        Format: Corpus XML avec balises <doc> contenant les titres seuls
 
         Returns:
             Chemin du fichier généré
         """
-        titles_path = self.output_path.parent / f"{self.output_path.stem}_titles.csv"
-        print(f"\n📋 Génération du fichier des titres: {titles_path}")
+        titles_path = self.output_path.parent / f"{self.output_path.stem}_titles.txt"
+        print(f"\n📋 Génération du corpus des titres: {titles_path}")
 
-        with open(titles_path, 'w', encoding='utf-8', newline='') as f:
-            writer = csv.DictWriter(f, fieldnames=['ID', 'Titre', 'Date', 'Journal', 'URL'])
-            writer.writeheader()
+        content = []
 
-            for article in self.matched_articles:
-                writer.writerow({
-                    'ID': article['id'],
-                    'Titre': article['title'],
-                    'Date': article['date'],
-                    'Journal': article['journal'],
-                    'URL': article['url']
-                })
+        # En-tête du corpus
+        content.append('<?xml version="1.0" encoding="UTF-8"?>')
+        content.append('<corpus name="Liberation_Titles" '
+                      'source="Libération - Titres" '
+                      f'created="{datetime.now().strftime("%Y-%m-%d")}">')
+        content.append('')
+
+        for article in self.matched_articles:
+            # Balise d'ouverture avec métadonnées
+            attributes = [
+                f'id="{article["id"]}"',
+                f'date="{article["date"]}"',
+                f'journal="{article["journal"]}"',
+                f'url="{self.escape_xml(article["url"])}"'
+            ]
+
+            # Ajouter année, mois, jour si date disponible
+            if article['date']:
+                date_match = re.match(r'(\d{4})-(\d{2})-(\d{2})', article['date'])
+                if date_match:
+                    attributes.append(f'year="{date_match.group(1)}"')
+                    attributes.append(f'month="{date_match.group(2)}"')
+                    attributes.append(f'day="{date_match.group(3)}"')
+
+            content.append('<doc ' + ' '.join(attributes) + '>')
+
+            # Le titre comme contenu
+            content.append(article['title'])
+
+            content.append('</doc>')
+            content.append('')
+
+        # Fermeture du corpus
+        content.append('</corpus>')
+
+        # Sauvegarder
+        with open(titles_path, 'w', encoding='utf-8') as f:
+            f.write('\n'.join(content))
 
         print(f"   ✓ {len(self.matched_articles)} titres exportés")
         return titles_path
 
-    def save_subtitles_csv(self) -> Path:
+    def save_subtitles_txt(self) -> Path:
         """
-        Génère un fichier CSV avec les sous-titres et leurs métadonnées.
+        Génère un fichier texte annoté contenant uniquement les sous-titres.
 
-        Colonnes: ID, Sous-titre, Date, Journal, URL
+        Format: Corpus XML avec balises <doc> contenant les sous-titres seuls
 
         Returns:
             Chemin du fichier généré
         """
-        subtitles_path = self.output_path.parent / f"{self.output_path.stem}_subtitles.csv"
-        print(f"\n📋 Génération du fichier des sous-titres: {subtitles_path}")
+        subtitles_path = self.output_path.parent / f"{self.output_path.stem}_subtitles.txt"
+        print(f"\n📋 Génération du corpus des sous-titres: {subtitles_path}")
 
-        with open(subtitles_path, 'w', encoding='utf-8', newline='') as f:
-            writer = csv.DictWriter(f, fieldnames=['ID', 'Sous-titre', 'Date', 'Journal', 'URL'])
-            writer.writeheader()
+        content = []
 
-            for article in self.matched_articles:
-                # Inclure seulement si le sous-titre existe
-                if article['subtitle']:
-                    writer.writerow({
-                        'ID': article['id'],
-                        'Sous-titre': article['subtitle'],
-                        'Date': article['date'],
-                        'Journal': article['journal'],
-                        'URL': article['url']
-                    })
+        # En-tête du corpus
+        content.append('<?xml version="1.0" encoding="UTF-8"?>')
+        content.append('<corpus name="Liberation_Subtitles" '
+                      'source="Libération - Sous-titres" '
+                      f'created="{datetime.now().strftime("%Y-%m-%d")}">')
+        content.append('')
 
-        # Compter combien d'articles ont un sous-titre
-        count_with_subtitle = sum(1 for a in self.matched_articles if a['subtitle'])
-        print(f"   ✓ {count_with_subtitle} sous-titres exportés")
+        count = 0
+        for article in self.matched_articles:
+            # N'inclure que si le sous-titre existe
+            if not article['subtitle']:
+                continue
+
+            count += 1
+
+            # Balise d'ouverture avec métadonnées
+            attributes = [
+                f'id="{article["id"]}"',
+                f'date="{article["date"]}"',
+                f'journal="{article["journal"]}"',
+                f'url="{self.escape_xml(article["url"])}"'
+            ]
+
+            # Ajouter année, mois, jour si date disponible
+            if article['date']:
+                date_match = re.match(r'(\d{4})-(\d{2})-(\d{2})', article['date'])
+                if date_match:
+                    attributes.append(f'year="{date_match.group(1)}"')
+                    attributes.append(f'month="{date_match.group(2)}"')
+                    attributes.append(f'day="{date_match.group(3)}"')
+
+            content.append('<doc ' + ' '.join(attributes) + '>')
+
+            # Le sous-titre comme contenu
+            content.append(article['subtitle'])
+
+            content.append('</doc>')
+            content.append('')
+
+        # Fermeture du corpus
+        content.append('</corpus>')
+
+        # Sauvegarder
+        with open(subtitles_path, 'w', encoding='utf-8') as f:
+            f.write('\n'.join(content))
+
+        print(f"   ✓ {count} sous-titres exportés")
         return subtitles_path
 
     def process(self):
@@ -475,8 +534,8 @@ class CorpusAnnotator:
         self.annotate_corpus()
 
         # Générer les fichiers supplémentaires
-        self.save_titles_csv()
-        self.save_subtitles_csv()
+        self.save_titles_txt()
+        self.save_subtitles_txt()
 
         # Générer le rapport
         self.save_report()
