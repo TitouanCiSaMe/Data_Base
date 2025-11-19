@@ -46,6 +46,7 @@ class CorpusAnnotator:
         self.articles_text = []
         self.matched_count = 0
         self.unmatched_articles = []
+        self.matched_articles = []  # Pour stocker les articles appariés
 
     def load_csv(self) -> List[Dict]:
         """Charge le fichier CSV des métadonnées."""
@@ -269,14 +270,6 @@ class CorpusAnnotator:
                 safe_key = key.lower().replace(' ', '_').replace('-', '_')
                 attributes.append(f'{safe_key}="{self.escape_xml(metadata[key])}"')
 
-        # Informations de matching
-        if txt_article:
-            attributes.append('matched="true"')
-            attributes.append(f'source_start_line="{txt_article["start_line"]}"')
-            attributes.append(f'source_end_line="{txt_article["end_line"]}"')
-        else:
-            attributes.append('matched="false"')
-
         return '<doc ' + ' '.join(attributes) + '>'
 
     def annotate_corpus(self) -> str:
@@ -307,6 +300,17 @@ class CorpusAnnotator:
 
             if txt_article:
                 self.matched_count += 1
+
+                # Stocker l'article apparié pour les exports titres/sous-titres
+                self.matched_articles.append({
+                    'id': article_id,
+                    'title': csv_article['Titre'],
+                    'subtitle': csv_article.get('Sous-titre', ''),
+                    'date': csv_article.get('Date', ''),
+                    'journal': 'Libération',
+                    'url': csv_article.get('Lien', '')
+                })
+
                 # Balise d'ouverture avec métadonnées
                 doc_tag = self.create_doc_tag(article_id, csv_article, txt_article)
                 annotated_content.append(doc_tag)
@@ -365,11 +369,13 @@ class CorpusAnnotator:
 📁 Fichiers générés:
    • Corpus annoté: {self.output_path.name}
    • Taille: {self.output_path.stat().st_size / 1024 / 1024:.2f} Mo
+   • Titres seuls: {self.output_path.stem}_titles.csv
+   • Sous-titres seuls: {self.output_path.stem}_subtitles.csv
 
 📝 Format SketchEngine:
    • Chaque article est dans une balise <doc>
    • Tous les attributs du CSV sont inclus dans les balises
-   • Attributs disponibles: id, title, subtitle, date, year, month, day, url, matched
+   • Attributs disponibles: id, title, subtitle, date, year, month, day, url
 
 🔍 Utilisation dans SketchEngine:
    1. Uploadez le fichier {self.output_path.name}
@@ -395,6 +401,66 @@ class CorpusAnnotator:
 
         print(f"📄 Rapport sauvegardé: {report_path}\n")
 
+    def save_titles_csv(self) -> Path:
+        """
+        Génère un fichier CSV avec les titres et leurs métadonnées.
+
+        Colonnes: ID, Titre, Date, Journal, URL
+
+        Returns:
+            Chemin du fichier généré
+        """
+        titles_path = self.output_path.parent / f"{self.output_path.stem}_titles.csv"
+        print(f"\n📋 Génération du fichier des titres: {titles_path}")
+
+        with open(titles_path, 'w', encoding='utf-8', newline='') as f:
+            writer = csv.DictWriter(f, fieldnames=['ID', 'Titre', 'Date', 'Journal', 'URL'])
+            writer.writeheader()
+
+            for article in self.matched_articles:
+                writer.writerow({
+                    'ID': article['id'],
+                    'Titre': article['title'],
+                    'Date': article['date'],
+                    'Journal': article['journal'],
+                    'URL': article['url']
+                })
+
+        print(f"   ✓ {len(self.matched_articles)} titres exportés")
+        return titles_path
+
+    def save_subtitles_csv(self) -> Path:
+        """
+        Génère un fichier CSV avec les sous-titres et leurs métadonnées.
+
+        Colonnes: ID, Sous-titre, Date, Journal, URL
+
+        Returns:
+            Chemin du fichier généré
+        """
+        subtitles_path = self.output_path.parent / f"{self.output_path.stem}_subtitles.csv"
+        print(f"\n📋 Génération du fichier des sous-titres: {subtitles_path}")
+
+        with open(subtitles_path, 'w', encoding='utf-8', newline='') as f:
+            writer = csv.DictWriter(f, fieldnames=['ID', 'Sous-titre', 'Date', 'Journal', 'URL'])
+            writer.writeheader()
+
+            for article in self.matched_articles:
+                # Inclure seulement si le sous-titre existe
+                if article['subtitle']:
+                    writer.writerow({
+                        'ID': article['id'],
+                        'Sous-titre': article['subtitle'],
+                        'Date': article['date'],
+                        'Journal': article['journal'],
+                        'URL': article['url']
+                    })
+
+        # Compter combien d'articles ont un sous-titre
+        count_with_subtitle = sum(1 for a in self.matched_articles if a['subtitle'])
+        print(f"   ✓ {count_with_subtitle} sous-titres exportés")
+        return subtitles_path
+
     def process(self):
         """Exécute le processus complet d'annotation."""
         print("\n" + "="*70)
@@ -407,6 +473,10 @@ class CorpusAnnotator:
 
         # Annoter le corpus
         self.annotate_corpus()
+
+        # Générer les fichiers supplémentaires
+        self.save_titles_csv()
+        self.save_subtitles_csv()
 
         # Générer le rapport
         self.save_report()
