@@ -1,0 +1,42 @@
+
+╔══════════════════════════════════════════════════════════════╗
+║           RAPPORT D'ANNOTATION DU CORPUS                      ║
+╚══════════════════════════════════════════════════════════════╝
+
+📊 Statistiques:
+   • Total d'articles dans le CSV: 299
+   • Articles extraits du fichier texte: 317
+   • Articles appariés: 27
+   • Articles non appariés: 272
+   • Taux d'appariement: 9.0%
+
+📁 Fichiers générés:
+   • Corpus annoté: liberation_01012020_31122022(1)_annotated.txt
+   • Taille: 0.37 Mo
+
+📝 Format SketchEngine:
+   • Chaque article est dans une balise <doc>
+   • Tous les attributs du CSV sont inclus dans les balises
+   • Attributs disponibles: id, title, subtitle, date, year, month, day, url, matched
+
+🔍 Utilisation dans SketchEngine:
+   1. Uploadez le fichier liberation_01012020_31122022(1)_annotated.txt
+   2. Les métadonnées seront automatiquement détectées
+   3. Vous pourrez filtrer par date, titre, etc.
+   4. Exemple de requête: [word="vaccin"] within <doc date="2020-.*"/>
+
+
+⚠️  272 articles non trouvés dans le fichier texte:
+
+   • LIB_2025_001: «Cluster», «gestes barrières», «tests antigéniques»… L’abécé...
+   • LIB_2025_002: Vieillissement : quand un vaccin contre le zona protège du d...
+   • LIB_2025_003: Fin du soutien américain à l’Alliance du vaccin : «Les risqu...
+   • LIB_2025_004: Cinq ans après l’apparition du Covid, le retour d’expérience...
+   • LIB_2025_005: Pandémies : à l’OMS, un «accord de principe» trouvé entre le...
+   • LIB_2025_006: Deux morts de la rougeole au Texas dans un contexte de défia...
+   • LIB_2024_007: Baisse du nombre d’injections contre le Covid-19 : «Il y a u...
+   • LIB_2025_008: Covid-19 : cinq ans après l’épidémie, la France immunisée co...
+   • LIB_2025_009: Le Covid à long terme, ou les séquelles de la pandémie sur l...
+   • LIB_2025_010: Rougeole aux Etats-Unis : un deuxième enfant est mort, Donal...
+
+   ... et 262 autres
