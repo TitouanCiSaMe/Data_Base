@@ -318,19 +318,12 @@ class CorpusAnnotator:
                 annotated_content.append('</doc>')
                 annotated_content.append('')
             else:
-                # Article non trouvé dans le texte, mais on garde les métadonnées
+                # Article non trouvé : on ne l'inclut pas dans le corpus annoté
                 self.unmatched_articles.append({
                     'id': article_id,
                     'title': csv_article['Titre'],
                     'date': csv_article.get('Date', '')
                 })
-
-                # On peut choisir de l'inclure quand même avec un contenu vide
-                doc_tag = self.create_doc_tag(article_id, csv_article, None)
-                annotated_content.append(doc_tag)
-                annotated_content.append(f'<!-- Article non trouvé dans le fichier texte -->')
-                annotated_content.append('</doc>')
-                annotated_content.append('')
 
             # Afficher la progression
             if i % 50 == 0:
