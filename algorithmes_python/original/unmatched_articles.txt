@@ -1,0 +1,1303 @@
+ARTICLES NON APPARIÉS (260)
+================================================================================
+
+ID: LIB_2025_001
+Titre: «Cluster», «gestes barrières», «tests antigéniques»… L’abécédaire du Covid-19
+Date: 2025-03-17
+Lien: https://www.liberation.fr/societe/sante/cluster-gestes-barrieres-tests-antigeniques-labecedaire-du-covid-19-20250317_ELGKAOSBRZHARD57BLVZMIVTVY/
+--------------------------------------------------------------------------------
+ID: LIB_2025_002
+Titre: Vieillissement : quand un vaccin contre le zona protège du déclin cognitif
+Date: 2025-04-02
+Lien: https://www.liberation.fr/societe/sante/vieillissement-quand-un-vaccin-contre-le-zona-protege-du-declin-cognitif-20250402_ZCFCOHJFCJCX5D2ZK6TG2EHVLM/
+--------------------------------------------------------------------------------
+ID: LIB_2025_003
+Titre: Fin du soutien américain à l’Alliance du vaccin : «Les risques concernent le monde entier»
+Date: 2025-03-30
+Lien: https://www.liberation.fr/societe/sante/fin-du-soutien-americain-a-lalliance-du-vaccin-les-risques-concernent-le-monde-entier-20250330_235UUF33WNFOTE5DZYBOYWVF5E/
+--------------------------------------------------------------------------------
+ID: LIB_2025_004
+Titre: Cinq ans après l’apparition du Covid, le retour d’expérience de scientifiques
+Date: 2025-03-31
+Lien: https://www.liberation.fr/societe/sante/cinq-ans-apres-lapparition-du-covid-le-retour-dexperience-de-scientifiques-20250331_XD7BSTQ5FZCIHOZYVZEDDKVFTY/
+--------------------------------------------------------------------------------
+ID: LIB_2025_005
+Titre: Pandémies : à l’OMS, un «accord de principe» trouvé entre les pays pour mieux protéger le monde, les Etats-Unis grands absents
+Date: 2025-04-12
+Lien: https://www.liberation.fr/societe/sante/pandemies-a-loms-un-accord-de-principe-trouve-entre-les-pays-pour-mieux-proteger-le-monde-les-etats-unis-grands-absents-20250412_34KAOI5IFFHK5JHZCTX5YMXXAI/
+--------------------------------------------------------------------------------
+ID: LIB_2025_006
+Titre: Deux morts de la rougeole au Texas dans un contexte de défiance à l’égard des vaccins
+Date: 2025-02-26
+Lien: https://www.liberation.fr/international/amerique/deux-morts-de-la-rougeole-au-texas-dans-un-contexte-de-defiance-a-legard-des-vaccins-20250226_AH4NIBAQRRDY3CEP5MOEBTU5WY/
+--------------------------------------------------------------------------------
+ID: LIB_2024_007
+Titre: Baisse du nombre d’injections contre le Covid-19 : «Il y a une mauvaise compréhension de la nécessité de se faire vacciner»
+Date: 2024-12-12
+Lien: https://www.liberation.fr/societe/sante/covid-19-il-y-a-une-mauvaise-comprehension-de-la-necessite-de-se-faire-vacciner-20241212_FO2ZJTHPDZBYZN7SBSDCJPHSZE/
+--------------------------------------------------------------------------------
+ID: LIB_2025_008
+Titre: Covid-19 : cinq ans après l’épidémie, la France immunisée contre les ratés ?
+Date: 2025-02-16
+Lien: https://www.liberation.fr/societe/sante/covid-19-cinq-ans-apres-la-france-immunisee-contre-les-rates-20250216_MQYRUZUMARDSND3HGIWG4J454M/
+--------------------------------------------------------------------------------
+ID: LIB_2025_009
+Titre: Le Covid à long terme, ou les séquelles de la pandémie sur le système de santé
+Date: 2025-03-13
+Lien: https://www.liberation.fr/societe/sante/le-covid-a-long-terme-ou-les-sequelles-de-la-pandemie-sur-le-systeme-de-sante-20250313_7UMDGF6YGNFUVO64ZKT47IC77Q/
+--------------------------------------------------------------------------------
+ID: LIB_2025_010
+Titre: Rougeole aux Etats-Unis : un deuxième enfant est mort, Donald Trump minimise l’épidémie
+Date: 2025-04-07
+Lien: https://www.liberation.fr/societe/sante/rougeole-aux-etats-unis-un-deuxieme-enfant-est-mort-trump-minimise-lepidemie-20250407_YI5IVKSJDRDI3M2EPNSWHLY4SY/
+--------------------------------------------------------------------------------
+ID: LIB_2025_011
+Titre: Vaccins, symptômes persistants, prévention… Que reste-t-il du Covid, cinq ans après le premier mort à Wuhan ?
+Date: 2025-01-11
+Lien: https://www.liberation.fr/societe/sante/vaccins-symptomes-persistants-prevention-que-reste-t-il-du-covid-cinq-ans-apres-le-premier-mort-a-wuhan-20250111_QGQ4YTWVCZCURC47TAMYUICUQY/
+--------------------------------------------------------------------------------
+ID: LIB_2024_012
+Titre: Covid : seuls 5 % des enfants ont été vaccinés en France, le Sud-Est et les familles défavorisées moins bien lotis
+Date: 2024-12-10
+Lien: https://www.liberation.fr/societe/sante/covid-seuls-5-des-enfants-ont-ete-vaccines-en-france-le-sud-est-et-les-familles-defavorisees-moins-bien-lotis-20241210_7G7OG5HYCZH6XGCOZETRDCE5BA/
+--------------------------------------------------------------------------------
+ID: LIB_2025_013
+Titre: Cinq ans après, le Covid en voie de banalisation
+Date: 2025-02-24
+Lien: https://www.liberation.fr/societe/sante/cinq-ans-apres-le-covid-en-voie-de-banalisation-20250224_4FHZKYUZGZCUJNRRIPRPIWZ6BM/
+--------------------------------------------------------------------------------
+ID: LIB_2025_014
+Titre: Le vaccino-sceptique Kennedy confirmé comme ministre de la Santé et félicité par le patron de l’OMS
+Date: 2025-02-13
+Lien: https://www.liberation.fr/international/amerique/le-vaccino-sceptique-kennedy-confirme-comme-ministre-de-la-sante-et-felicite-par-le-patron-de-loms-20250213_QMXV3WW5CFGANFNIYZ7M2K74AQ/
+--------------------------------------------------------------------------------
+ID: LIB_2024_015
+Titre: Grippe et Covid : tout savoir sur la campagne de vaccination annuelle qui débute ce mardi
+Date: 2024-10-15
+Lien: https://www.liberation.fr/societe/sante/grippe-et-covid-tout-savoir-sur-la-campagne-de-vaccination-annuelle-qui-debute-ce-mardi-20241015_3ZT3GP6BC5H7RPL4ODYSBAM6TQ/
+--------------------------------------------------------------------------------
+ID: LIB_2024_016
+Titre: Covid-19 : face au déclin de la demande, AstraZeneca retire son vaccin de la vente
+Date: 2024-05-08
+Lien: https://www.liberation.fr/societe/sante/covid-19-face-au-declin-de-la-demande-astrazeneca-retire-son-vaccin-de-la-vente-20240508_L4G2URSJOBH45MABHXCEWNBATM/
+--------------------------------------------------------------------------------
+ID: LIB_2023_017
+Titre: Covid-19 : le gouvernement «se tient prêt» à avancer la campagne de vaccination
+Date: 2023-09-05
+Lien: https://www.liberation.fr/societe/sante/covid-19-le-gouvernement-se-tient-pret-a-avancer-la-campagne-de-vaccination-20230905_YJBSCLLCEREW5NH2S4H2Z27QTU/
+--------------------------------------------------------------------------------
+ID: LIB_2024_018
+Titre: Pfizer a-t-il reconnu un lien entre la mort de Mauricette Doyer, décédée de Creutzfeldt-Jakob, et le vaccin anti-Covid, comme l’affirme son fils?
+Date: 2024-01-10
+Lien: https://www.liberation.fr/checknews/pfizer-a-t-il-reconnu-un-lien-entre-la-mort-de-mauricette-doyer-decedee-de-creutzfeldt-jakob-et-le-vaccin-anti-covid-comme-laffirme-son-fils-20240110_HASBIPNW6ZAYJL7FNM3MDTQ4Y4/
+--------------------------------------------------------------------------------
+ID: LIB_2024_019
+Titre: Face aux dangers du Covid, le rapport bénéfice-risque évident du vaccin
+Date: 2024-08-26
+Lien: https://www.liberation.fr/societe/sante/face-aux-dangers-du-covid-le-rapport-benefice-risque-evident-du-vaccin-20240826_FI5CGG6H2VCZ5ERJMK2SX5E4UM/
+--------------------------------------------------------------------------------
+ID: LIB_2025_020
+Titre: Vaccination contre la grippe : «L’objectif est avant tout de protéger les plus fragiles contre les formes sévères»
+Date: 2025-01-10
+Lien: https://www.liberation.fr/societe/sante/vaccination-contre-la-grippe-lobjectif-est-avant-tout-de-proteger-les-plus-fragiles-contre-les-formes-severes-20250110_IESHAVCRBVGC3DMZFN5EEINMPM/
+--------------------------------------------------------------------------------
+ID: LIB_2024_021
+Titre: Covid-19 : Booba relaie la théorie de Marc Doyer sur le lien entre vaccin et maladie de Creutzfeldt-Jakob
+Date: 2024-01-19
+Lien: https://www.liberation.fr/checknews/covid-19-booba-relaie-la-theorie-de-marc-doyer-sur-le-lien-entre-vaccin-et-maladie-de-creutzfeldt-jakob-20240119_T7K7UR2P6FARVF2PKGSRM6K754/
+--------------------------------------------------------------------------------
+ID: LIB_2022_022
+Titre: Covid-19 : le vaccin perd-il en efficacité si les rappels sont trop rapprochés ?
+Date: 2022-12-21
+Lien: https://www.liberation.fr/checknews/covid-19-le-vaccin-perd-il-en-efficacite-si-les-rappels-sont-trop-rapproches-20221221_V66FLSDM2JHSPDYDPKXVAAKHX4/
+--------------------------------------------------------------------------------
+ID: LIB_2024_023
+Titre: Pourquoi la création d’un prix à la mémoire de Michèle Rivasi suscite-t-elle la controverse ?
+Date: 2024-12-21
+Lien: https://www.liberation.fr/checknews/pourquoi-la-creation-dun-prix-a-la-memoire-de-michele-rivasi-suscite-t-elle-la-controverse-20241221_E5PI7BY6QZGQLAEZQKBJ226GIQ/
+--------------------------------------------------------------------------------
+ID: LIB_2021_024
+Titre: Covid-19 : éviter les non-dits sur les effets indésirables du vaccin
+Date: 2021-11-19
+Lien: https://www.liberation.fr/societe/sante/covid-19-eviter-les-non-dits-sur-les-effets-indesirables-du-vaccin-20211119_XFBRIBSH45HU7JGKVXYNRB3BCI/
+--------------------------------------------------------------------------------
+ID: LIB_2022_025
+Titre: Covid-19 : la vaccination des enfants à risque recommandée dès 6 mois
+Date: 2022-12-19
+Lien: https://www.liberation.fr/societe/sante/covid-19-la-vaccination-des-enfants-a-risque-recommandee-des-6-mois-20221219_HZSAFGPPC5CHDOVSHG5F4RN2GY/
+--------------------------------------------------------------------------------
+ID: LIB_2023_026
+Titre: Peut-on affirmer comme Aurélien Rousseau qu’il n’y a «pas d’effets secondaires» avec les vaccins anti-Covid?
+Date: 2023-10-04
+Lien: https://www.liberation.fr/checknews/peut-on-affirmer-comme-aurelien-rousseau-quil-ny-a-pas-deffets-secondaires-avec-les-vaccins-anti-covid-20231004_MI4NIZHAXBGBJNREEXGJFHV4AQ/
+--------------------------------------------------------------------------------
+ID: LIB_2023_027
+Titre: Grippe, Covid-19, bronchiolite… En cette saison de vaccinations, quelles piqûres et pour qui ?
+Date: 2023-10-17
+Lien: https://www.liberation.fr/societe/sante/grippe-covid-19-bronchiolite-en-cette-saison-de-vaccinations-quelles-piqures-et-pour-qui-20231017_PVO4YPJN6VAXJFXLWZGWTNJN6A/
+--------------------------------------------------------------------------------
+ID: LIB_2021_028
+Titre: Vaccin obligatoire dans l’armée américaine, la justice refuse le couvre-feu à Barcelone, vaccination dans les écoles en Israël... Le point sur la pandémie de Covid-19
+Date: 2021-08-23
+Lien: https://www.liberation.fr/societe/sante/vaccin-obligatoire-dans-larmee-americaine-la-justice-refuse-le-couvre-feu-a-barcelone-vaccination-dans-les-ecoles-en-israel-le-point-sur-la-pandemie-de-covid-19-20210823_7CG2KW67CVFSBOHVVLFRZGNZO4/
+--------------------------------------------------------------------------------
+ID: LIB_2022_029
+Titre: Covid-19 : campagne de vaccination à ARN messager pour 20 000 Allemands en Chine
+Date: 2022-12-21
+Lien: https://www.liberation.fr/international/asie-pacifique/covid-19-campagne-de-vaccination-a-arn-messager-pour-20000-allemands-en-chine-20221221_ENQ46IJ7XFHRXMCG7KI6YZN5SE/
+--------------------------------------------------------------------------------
+ID: LIB_2023_030
+Titre: Covid-19 : la campagne de vaccination avancée au 2 octobre, sur fond de reprise épidémique en France
+Date: 2023-09-15
+Lien: https://www.liberation.fr/societe/sante/covid-19-la-campagne-de-vaccination-avancee-au-2-octobre-sur-fond-de-reprise-epidemique-en-france-20230915_LC7BQLVR6FA6LAIJCRXSTBXJVM/
+--------------------------------------------------------------------------------
+ID: LIB_2023_031
+Titre: Covid-19 : qui peut se faire vacciner ?
+Date: 2023-10-01
+Lien: https://www.liberation.fr/societe/sante/covid-19-quels-vaccins-par-qui-et-pour-qui-20231001_WFX3V4VFYVDYFDNX5BOLYMSOZY/
+--------------------------------------------------------------------------------
+ID: LIB_2024_032
+Titre: Covid-19 pendant les JO : «Tester tout le monde n’est pas la meilleure chose à faire»
+Date: 2024-07-11
+Lien: https://www.liberation.fr/societe/sante/covid-19-pendant-les-jo-tester-tout-le-monde-nest-pas-la-meilleure-chose-a-faire-20240711_XJMMYOSZFVEFHAMMYBIV53ZAGY/
+--------------------------------------------------------------------------------
+ID: LIB_2024_033
+Titre: Les vaccins ont sauvé au moins 154 millions de vies depuis 50 ans, selon l’OMS
+Date: 2024-04-24
+Lien: https://www.liberation.fr/societe/sante/les-vaccins-ont-sauve-au-moins-154-millions-de-vies-depuis-50-ans-selon-loms-20240424_HFQBHXRP6BHIVPJ4X2CH7P3CWE/
+--------------------------------------------------------------------------------
+ID: LIB_2022_034
+Titre: Covid-19: le régulateur européen autorise un vaccin Pfizer contre des sous-variants d’omicron
+Date: 2022-09-12
+Lien: https://www.liberation.fr/societe/sante/covid-19-le-regulateur-europeen-autorise-un-vaccin-pfizer-contre-des-sous-variants-domicron-20220912_WLNWXLGDKVEEVPEYYRFR7ABGOY/
+--------------------------------------------------------------------------------
+ID: LIB_2022_035
+Titre: Covid-19: la huitième vague se confirme, le gouvernement s’en tient aux vaccins
+Date: 2022-09-23
+Lien: https://www.liberation.fr/societe/sante/covid-19-la-huitieme-vague-se-confirme-le-gouvernement-sen-tient-aux-vaccins-20220923_GV2SQNNAYZC6TEGHVVBTPV4LXE/
+--------------------------------------------------------------------------------
+ID: LIB_2022_036
+Titre: Covid-19: la HAS préconise une campagne de rappel avec les nouveaux vaccins bivalents
+Date: 2022-09-20
+Lien: https://www.liberation.fr/societe/sante/covid-19-la-has-preconise-une-campagne-de-rappel-avec-les-nouveaux-vaccins-bivalents-20220920_4Q62SVH7IBHDNKSW3WKSDSYJRQ/
+--------------------------------------------------------------------------------
+ID: LIB_2024_037
+Titre: Un hôpital a-t-il organisé un concours de la «seringue d’or» pour inciter à la vaccination?
+Date: 2024-11-18
+Lien: https://www.liberation.fr/checknews/un-hopital-a-t-il-organise-un-concours-de-la-seringue-dor-pour-inciter-a-la-vaccination-20241118_UNONIOIDF5DJHJP472K4DDMH6I/
+--------------------------------------------------------------------------------
+ID: LIB_2021_038
+Titre: Covid-19 : la Haute Autorité de santé donne son feu vert à la vaccination de tous les 5-11 ans
+Date: 2021-12-20
+Lien: https://www.liberation.fr/societe/sante/covid-19-la-haute-autorite-de-sante-donne-son-feu-vert-a-la-vaccination-de-tous-les-5-11-ans-20211220_6PEX567GYBGDFOERXRJPMJY52I/
+--------------------------------------------------------------------------------
+ID: LIB_2022_039
+Titre: Covid-19: la vaccination peut perturber le cycle menstruel mais sans réelle gravité, selon une étude
+Date: 2022-01-07
+Lien: https://www.liberation.fr/societe/sante/covid-19-la-vaccination-peut-perturber-le-cycle-menstruel-mais-sans-reelle-gravite-selon-une-etude-20220107_W4PRMVG3QBAPPCWDESXZ3PWJEM/
+--------------------------------------------------------------------------------
+ID: LIB_2022_040
+Titre: L’Oniam pourra-t-il indemniser les victimes d’effets secondaires imputables au vaccin contre le Covid-19?
+Date: 2022-01-26
+Lien: https://www.liberation.fr/checknews/loniam-pourra-t-il-indemniser-les-victimes-deffets-secondaires-imputables-au-vaccin-contre-le-covid-19-20220126_PS72S2SZARHKVBT7DESP667HSM/
+--------------------------------------------------------------------------------
+ID: LIB_2022_041
+Titre: Covid-19: le vaccin de Pfizer jugé «efficace» pour les moins de 5 ans
+Date: 2022-05-23
+Lien: https://www.liberation.fr/societe/sante/covid-19-le-vaccin-de-pfizer-juge-efficace-pour-les-moins-de-5-ans-20220523_NOLXNYDDTFEQVOTRUG6Y6F7TJQ/
+--------------------------------------------------------------------------------
+ID: LIB_2022_042
+Titre: Covid-19: les nouveaux vaccins bivalents préconisés pour la campagne de rappel
+Date: 2022-09-20
+Lien: https://www.liberation.fr/societe/sante/covid-19-les-nouveaux-vaccins-bivalents-preconises-pour-la-campagne-de-rappel-20220920_YU5AGJS4PRA4HDLKQRURNUUZGA/
+--------------------------------------------------------------------------------
+ID: LIB_2022_043
+Titre: Covid-19 : campagne poussive pour la quatrième dose de vaccin en France
+Date: 2022-11-14
+Lien: https://www.liberation.fr/checknews/covid-19-campagne-poussive-pour-la-quatrieme-dose-de-vaccin-en-france-20221114_LW6B7APGSNH4ZAFJ2366X3EKHE/
+--------------------------------------------------------------------------------
+ID: LIB_2023_044
+Titre: Crise du Covid : 67 millions d’enfants dans le monde ont été privés de vaccins vitaux
+Date: 2023-04-20
+Lien: https://www.liberation.fr/societe/sante/crise-du-covid-67-millions-denfants-dans-le-monde-ont-ete-prives-de-vaccins-vitaux-20230420_RQXJJZ7AJNFRHJVF6ALSC4WMXA/
+--------------------------------------------------------------------------------
+ID: LIB_2024_045
+Titre: Covid : Sanofi renonce à son vaccin et va commercialiser celui de son concurrent américain, Novavax
+Date: 2024-05-10
+Lien: https://www.liberation.fr/societe/sante/covid-sanofi-renonce-a-son-vaccin-et-va-commercialiser-celui-de-son-concurrent-americain-novavax-20240510_T4YSYVIIHJC3FHCDJWCH2A2IVM/
+--------------------------------------------------------------------------------
+ID: LIB_2022_046
+Titre: L’OMS a-t-elle critiqué l’efficacité des vaccins contre le Covid-19 ?
+Date: 2022-01-12
+Lien: https://www.liberation.fr/checknews/loms-a-t-elle-a-critique-lefficacite-des-vaccins-contre-le-covid-19-20220112_SZ77DXWPBRB5TKZDPJH6EHBG2E/
+--------------------------------------------------------------------------------
+ID: LIB_2023_047
+Titre: Covid-19 : le nouveau variant «Pirola» efficacement bloqué par le vaccin Moderna, selon les premiers tests
+Date: 2023-09-06
+Lien: https://www.liberation.fr/societe/sante/covid-19-le-nouveau-variant-pirola-efficacement-bloque-par-le-vaccin-moderna-selon-les-premiers-tests-20230906_EO3J4RON2BDBZAA3JWGKXFJH6Y/
+--------------------------------------------------------------------------------
+ID: LIB_2021_048
+Titre: Olivier Véran peut-il affirmer qu’il n’y a aucun décès «imputable à la vaccination» contre le Covid-19 en France ?
+Date: 2021-10-25
+Lien: https://www.liberation.fr/checknews/olivier-veran-peut-il-affirmer-quil-ny-a-aucun-deces-imputable-a-la-vaccination-contre-le-covid-19-en-france-20211025_WUX4X43XIVEUJK4IVVSVSMMOBQ/
+--------------------------------------------------------------------------------
+ID: LIB_2022_049
+Titre: Covid-19 : pourquoi les commandes de vaccins par les pharmaciens et médecins ont-elles chuté de 27% ?
+Date: 2022-01-05
+Lien: https://www.liberation.fr/checknews/covid-19-pourquoi-les-commandes-de-vaccins-par-les-pharmaciens-et-medecins-ont-elles-chute-de-27-20220105_TN66YJI2YRFZNMXKHLD5BRFBLI/
+--------------------------------------------------------------------------------
+ID: LIB_2023_051
+Titre: Covid : ne délaissons pas la vaccination !
+Date: 2023-02-25
+Lien: https://www.liberation.fr/societe/sante/covid-ne-delaissons-pas-la-vaccination-20230225_MCBS7ZJLYJB2TIPQ62KQQSQ3Z4/
+--------------------------------------------------------------------------------
+ID: LIB_2021_052
+Titre: Covid-19 : le vaccin Moderna est-il «le plus efficace dans le temps» ?
+Date: 2021-12-06
+Lien: https://www.liberation.fr/checknews/le-vaccin-moderna-est-il-le-plus-efficace-dans-le-temps-20211206_OHPFUB7U7FCTJFZFJXA2FAOJE4/
+--------------------------------------------------------------------------------
+ID: LIB_2022_053
+Titre: Covid-19: une infection après primo-vaccination compte-t-elle pour un rappel?
+Date: 2022-02-03
+Lien: https://www.liberation.fr/checknews/covid-19-une-infection-apres-primo-vaccination-compte-t-elle-pour-un-rappel-20220202_MNFTGC76XZHUJO6GD6FHMDPQFY/
+--------------------------------------------------------------------------------
+ID: LIB_2023_054
+Titre: Résurgence du Covid-19 : «La priorité est de comprendre le nouveau variant et préparer la campagne de vaccination»
+Date: 2023-08-22
+Lien: https://www.liberation.fr/societe/sante/resurgence-du-covid-la-priorite-est-de-comprendre-le-nouveau-variant-et-preparer-la-campagne-de-vaccination-20230822_ENQW5OW3IJCOFOYRJWHABCC2II/
+--------------------------------------------------------------------------------
+ID: LIB_2022_055
+Titre: Vaccination contre le Covid-19: enfants partout, créneaux nulle part
+Date: 2022-01-07
+Lien: https://www.liberation.fr/societe/vaccination-contre-le-covid-19-enfants-partout-creneaux-nulle-part-20220107_A7ITCWN2JNG45GCB6ZTYXZJWQI/
+--------------------------------------------------------------------------------
+ID: LIB_2022_056
+Titre: Covid-19: crispations et silences autour de la vaccination et du télétravail des forces de l’ordre
+Date: 2022-01-25
+Lien: https://www.liberation.fr/societe/police-justice/covid-19-crispations-et-silences-autour-de-la-vaccination-et-du-teletravail-des-forces-de-lordre-20220125_KY6P2KN7DRAFTIGDGRHOR7V2K4/
+--------------------------------------------------------------------------------
+ID: LIB_2023_057
+Titre: Covid-19 : pas besoin d’une nouvelle dose de vaccin pour les adultes en bonne santé, selon l’OMS
+Date: 2023-03-29
+Lien: https://www.liberation.fr/societe/sante/covid-pas-besoin-dune-nouvelle-dose-de-vaccin-pour-les-adultes-en-bonne-sante-selon-loms-20230329_KEHSUOCWSBA4HLBI4GUBS5N5DQ/
+--------------------------------------------------------------------------------
+ID: LIB_2021_058
+Titre: Covid-19 : le vaccin, perturbateur «potentiel» du cycle menstruel
+Date: 2021-08-04
+Lien: https://www.liberation.fr/societe/covid-19-le-vaccin-perturbateur-potentiel-du-cycle-menstruel-20210804_KWM2O23HTRDQJJQEJIDK7WJYEY/
+--------------------------------------------------------------------------------
+ID: LIB_2021_059
+Titre: Covid-19 : les Etats-Unis autorisent pleinement le vaccin Pfizer, qui devient obligatoire dans l’armée
+Date: 2021-08-23
+Lien: https://www.liberation.fr/societe/sante/covid-19-les-etats-unis-autorisent-pleinement-le-vaccin-pfizer-qui-devient-obligatoire-dans-larmee-20210823_P74OS3XYHFFARPG6T62F5JD7OQ/
+--------------------------------------------------------------------------------
+ID: LIB_2021_060
+Titre: Covid-19 : «La vaccination aurait déjà permis d’éviter environ 50 000 morts en France»
+Date: 2021-08-31
+Lien: https://www.liberation.fr/societe/sante/covid-19-la-vaccination-aurait-deja-permis-deviter-environ-50-000-morts-en-france-20210831_OC6ZY5FAFBA6NI7CDB6KZO4RKI/
+--------------------------------------------------------------------------------
+ID: LIB_2021_062
+Titre: Covid-19 : la vaccination conduit-elle à rendre un test PCR positif ?
+Date: 2021-05-26
+Lien: https://www.liberation.fr/checknews/covid-19-la-vaccination-conduit-elle-a-rendre-un-test-pcr-positif-20210526_NRNVMLPAUVG3FD7B56GP3IHQKA/
+--------------------------------------------------------------------------------
+ID: LIB_2021_063
+Titre: Covid-19 : où en est la campagne de vaccination en France ?
+Date: 2021-09-01
+Lien: https://www.liberation.fr/checknews/covid-19-ou-en-est-la-campagne-de-vaccination-en-france-20210901_C34XX63KLZAQ7PEYAEKODC4OOQ/
+--------------------------------------------------------------------------------
+ID: LIB_2023_064
+Titre: Un âge d’or pour les vaccins ? «Il n’y a pas de nouvelles découvertes, c’est surtout l’aboutissement d’une recherche de longue haleine»
+Date: 2023-12-31
+Lien: https://www.liberation.fr/societe/sante/un-age-dor-pour-les-vaccins-il-ny-a-pas-de-nouvelles-decouvertes-cest-surtout-laboutissement-dune-recherche-de-longue-haleine-20231231_YFC2RDHVRZBA3G5ULXGLLRD6YE/
+--------------------------------------------------------------------------------
+ID: LIB_2021_065
+Titre: Les regrets des fraudeurs au pass, destruction de vaccins à Toulouse et Nouvelle-Zélande confinée.... Le point sur la pandémie de Covid-19
+Date: 2021-08-17
+Lien: https://www.liberation.fr/societe/sante/les-regrets-des-fraudeurs-au-pass-destruction-de-vaccins-a-toulouse-et-nouvelle-zelande-confinee-le-point-sur-la-pandemie-de-covid-19-20210817_MCBNBQPCCBHAZKH63GWBI3EURI/
+--------------------------------------------------------------------------------
+ID: LIB_2022_066
+Titre: Covid-19: «Tous les Français ne sont pas égaux devant l’accès à la vaccination»
+Date: 2022-01-06
+Lien: https://www.liberation.fr/societe/sante/tous-les-francais-ne-sont-pas-egaux-devant-lacces-a-la-vaccination-20220106_ZWCZLVT5VBF67LUUI5JFVWASB4/
+--------------------------------------------------------------------------------
+ID: LIB_2021_067
+Titre: Covid-19: quelle part des Français éligibles à la vaccination la refuse ?
+Date: 2021-05-20
+Lien: https://www.liberation.fr/checknews/covid-19-quelle-part-des-francais-eligibles-a-la-vaccination-la-refuse-20210520_YRQYINL5WJH3FKDAPU6VV26DLE/
+--------------------------------------------------------------------------------
+ID: LIB_2021_068
+Titre: Covid-19 : le vaccin réduit-il le risque de transmission du virus?
+Date: 2021-06-13
+Lien: https://www.liberation.fr/checknews/covid-19-le-vaccin-reduit-il-aussi-le-risque-de-transmission-du-virus-20210613_NKPLCFH7PJC2VAYF2P7D6J3VLI/
+--------------------------------------------------------------------------------
+ID: LIB_2022_069
+Titre: Epidémies : la grippe menace alors que le Covid-19 circule encore activement
+Date: 2022-10-23
+Lien: https://www.liberation.fr/societe/sante/epidemies-la-grippe-menace-alors-que-le-covid-19-circule-encore-activement-20221023_D2MOZZJNRRB3BD3LK4DRQTO5RQ/
+--------------------------------------------------------------------------------
+ID: LIB_2022_070
+Titre: Covid-19 : Le ministre de la Santé lance un «appel solennel» à la vaccination
+Date: 2022-12-04
+Lien: https://www.liberation.fr/societe/sante/covid-19-le-ministre-de-la-sante-lance-un-appel-solennel-a-la-vaccination-20221204_2X5ZSQNCO5HW3FI6NCKJ2ZHASQ/
+--------------------------------------------------------------------------------
+ID: LIB_2024_071
+Titre: Vaccination Covid : en santé publique, il n’y a pas de camp, il y a la vérité scientifique
+Date: 2024-01-28
+Lien: https://www.liberation.fr/societe/sante/vaccination-covid-en-sante-publique-il-ny-a-pas-de-camp-il-y-a-la-verite-scientifique-20240128_A4ZSBBVXZJFINFZGKMNBZVGFYQ/
+--------------------------------------------------------------------------------
+ID: LIB_2021_073
+Titre: Covid-19 : y a-t-il des professions pour lesquelles le vaccin est obligatoire ?
+Date: 2021-02-20
+Lien: https://www.liberation.fr/checknews/covid-19-y-a-t-il-des-professions-pour-lesquelles-le-vaccin-est-obligatoire-20210220_HBPESPZGQJAEZFOI3G7WGCZCOM/
+--------------------------------------------------------------------------------
+ID: LIB_2021_074
+Titre: Covid-19 : au Mexique, pas de vaccins sans uniformes
+Date: 2021-03-19
+Lien: https://www.liberation.fr/international/amerique/covid-19-au-mexique-pas-de-vaccins-sans-uniformes-20210319_5TURDNTITVBXFKBSUBWBSGEJGY/
+--------------------------------------------------------------------------------
+ID: LIB_2021_075
+Titre: Vaccin Covid-19 : des mesures incitatives pour dépasser le plafond de verre ?
+Date: 2021-06-04
+Lien: https://www.liberation.fr/idees-et-debats/tribunes/vaccin-covid-19-des-mesures-incitatives-pour-depasser-le-plafond-de-verre-20210604_KH6ONCPMMJDC5FQI7VJCIF2RDE/
+--------------------------------------------------------------------------------
+ID: LIB_2021_076
+Titre: Peut-on donner son sang après un vaccin contre le Covid-19 ?
+Date: 2021-08-10
+Lien: https://www.liberation.fr/checknews/peut-on-donner-son-sang-apres-un-vaccin-contre-le-covid-19-20210810_6AAUVJP4C5EQDPXMASKZ42P3UY/
+--------------------------------------------------------------------------------
+ID: LIB_2022_077
+Titre: Vaccination contre le Covid : un bon coût pour la Cour des comptes
+Date: 2022-12-14
+Lien: https://www.liberation.fr/societe/sante/vaccination-contre-le-covid-un-bon-cout-pour-la-cour-des-comptes-20221214_7UTBUBBBYFCJPFA5THO53DLGTA/
+--------------------------------------------------------------------------------
+ID: LIB_2021_080
+Titre: Washington favorable à la levée des brevets sur les vaccins anti-Covid-19
+Date: 2021-05-05
+Lien: https://www.liberation.fr/societe/sante/retrouvez-toute-lactualite-sur-la-pandemie-de-covid-19-20210505_H3MLYZHNKNFVDLTMGZBBIVYTKU/
+--------------------------------------------------------------------------------
+ID: LIB_2023_081
+Titre: Covid-19, la menace fantôme
+Date: 2023-05-07
+Lien: https://www.liberation.fr/societe/sante/covid-19-la-menace-fantome-20230507_XR2IG644QFACPGZHA77TLZPTCY/
+--------------------------------------------------------------------------------
+ID: LIB_2021_082
+Titre: Covid-19 : la Belgique reporte l’administration du vaccin Johnson & Johnson
+Date: 2021-04-14
+Lien: https://www.liberation.fr/societe/sante/retrouvez-les-dernieres-informations-sur-lepidemie-de-covid-19-20210414_AWB3HXBRS5C23PFC3RT37C3HA4/
+--------------------------------------------------------------------------------
+ID: LIB_2021_083
+Titre: Est-il vrai que les vaccins utilisés contre le Covid-19 sont toujours en phase d’évaluation ?
+Date: 2021-05-30
+Lien: https://www.liberation.fr/checknews/est-il-vrai-que-les-vaccins-utilises-contre-le-covid-19-sont-toujours-en-phase-devaluation-20210530_DWNZBLZDJZAJBKC7V6ZYABDUTY/
+--------------------------------------------------------------------------------
+ID: LIB_2022_084
+Titre: Grippe et Covid-19 : les vaccinations à la peine en France
+Date: 2022-11-30
+Lien: https://www.liberation.fr/societe/sante/grippe-et-covid-19-les-vaccinations-a-la-peine-en-france-20221130_4ATHFHAXSFGXBIXNQWFYPFYYCI/
+--------------------------------------------------------------------------------
+ID: LIB_2023_085
+Titre: Covid-19 : la vaccination ne sera plus obligatoire pour entrer aux Etats-Unis à partir du 11 mai
+Date: 2023-05-02
+Lien: https://www.liberation.fr/international/amerique/covid-19-la-vaccination-ne-sera-plus-obligatoire-pour-entrer-aux-etats-unis-a-partir-du-11-mai-20230502_6GN75TF5QVADNNCJ3RQ56WDJRE/
+--------------------------------------------------------------------------------
+ID: LIB_2021_087
+Titre: Le vaccin contre la Covid-19 ne doit pas être laissé au marché
+Date: 2021-04-06
+Lien: https://www.liberation.fr/idees-et-debats/tribunes/le-vaccin-contre-la-covid-19-ne-doit-pas-etre-laisse-au-marche-20210406_KFO25ZYRDFEAPG6LTAGAHCHBCI/
+--------------------------------------------------------------------------------
+ID: LIB_2022_088
+Titre: Covid-19: près de 20 millions de morts auraient été évités grâce aux vaccins, surtout dans les pays riches
+Date: 2022-06-24
+Lien: https://www.liberation.fr/societe/sante/covid-19-pres-de-20-millions-de-morts-auraient-ete-evites-grace-aux-vaccins-surtout-dans-les-pays-riches-20220624_LY7EXZ3OLBD5RC6OA5GZM3U7BM/
+--------------------------------------------------------------------------------
+ID: LIB_2022_089
+Titre: La campagne d’affichage antivaccins Covid-19 de Réinfo Liberté à Toulouse est-elle légale?
+Date: 2022-08-17
+Lien: https://www.liberation.fr/checknews/la-campagne-daffichage-antivaccins-covid-19-de-reinfo-liberte-a-toulouse-est-elle-legale-20220817_2MHPDMV4ZJG3TMYWR6JATK2L5Q/
+--------------------------------------------------------------------------------
+ID: LIB_2021_091
+Titre: Covid-19 : quel est l’impact de la vaccination sur les risques d’hospitalisation en France ?
+Date: 2021-05-22
+Lien: https://www.liberation.fr/checknews/covid-19-quel-est-limpact-de-la-vaccination-sur-les-risques-dhospitalisation-en-france-20210522_DOUOL6VHCVBZ3FGVBZ2AV6T26A/
+--------------------------------------------------------------------------------
+ID: LIB_2022_092
+Titre: Alain Fischer recommande-t-il désormais les vaccins anti-Covid uniquement aux personnes âgées?
+Date: 2022-08-03
+Lien: https://www.liberation.fr/checknews/alain-fischer-recommande-t-il-desormais-les-vaccins-anti-covid-uniquement-aux-personnes-agees-20220803_AA5V6G6OH5HI7GHEOXZ4JHYUWU/
+--------------------------------------------------------------------------------
+ID: LIB_2022_093
+Titre: Transmission du Covid-19 : les autorités ont-elles menti sur l’efficacité du vaccin pour justifier les pass sanitaire et vaccinal ?
+Date: 2022-10-14
+Lien: https://www.liberation.fr/checknews/transmission-du-covid-19-les-autorites-ont-elles-menti-sur-lefficacite-du-vaccin-pour-justifier-les-pass-sanitaire-et-vaccinal-20221014_JEAR5KU73RFNTPRDWQCLHSNZQE/
+--------------------------------------------------------------------------------
+ID: LIB_2022_094
+Titre: Est-il désormais acté que les vaccins contre le Covid-19 perturbent les cycles menstruels ?
+Date: 2022-11-01
+Lien: https://www.liberation.fr/checknews/est-il-desormais-acte-que-les-vaccins-contre-le-covid-19-perturbent-les-cycles-menstruels-20221101_G5YY4G3KVRD57GWLFXAX7TVK34/
+--------------------------------------------------------------------------------
+ID: LIB_2021_096
+Titre: Covid-19 : les vaccins sont-ils inefficaces contre les variants sud-africain et brésilien ?
+Date: 2021-03-31
+Lien: https://www.liberation.fr/checknews/covid-19-les-vaccins-sont-ils-inefficaces-contre-les-variants-sud-africain-et-bresilien-20210331_UP4O2COKOFEFHMHKGYQFA2TZLQ/
+--------------------------------------------------------------------------------
+ID: LIB_2022_098
+Titre: Covid-19: une campagne vaccinale en haute lassitude
+Date: 2022-06-30
+Lien: https://www.liberation.fr/societe/sante/covid-19-lassitude-vaccinale-20220630_6VFYPZCD2VAW7JUJQDVIW2RMK4/
+--------------------------------------------------------------------------------
+ID: LIB_2021_101
+Titre: Covid-19 : la Haute Autorité de santé recommande uniquement la vaccination des 5-11 ans à risque
+Date: 2021-11-30
+Lien: https://www.liberation.fr/societe/sante/covid-19-la-haute-autorite-de-sante-recommande-uniquement-la-vaccination-des-5-11-ans-a-risque-20211130_MFB276EWSZERXCSKXT5ET6P76U/
+--------------------------------------------------------------------------------
+ID: LIB_2022_102
+Titre: Covid-19 : quels pays imposent la vaccination ?
+Date: 2022-01-06
+Lien: https://www.liberation.fr/societe/sante/covid-19-quels-pays-imposent-la-vaccination-20211119_3XWHJQPHZ5GBXLPLQMPJ2N2IFQ/
+--------------------------------------------------------------------------------
+ID: LIB_2022_103
+Titre: Non, un article scientifique ne démontre pas que les vaccins anti-Covid détraquent le système immunitaire
+Date: 2022-05-06
+Lien: https://www.liberation.fr/checknews/non-un-article-scientifique-ne-demontre-pas-que-les-vaccins-anti-covid-detraquent-le-systeme-immunitaire-20220506_3ZDMQXHUC5CO5LCQSXMKQYRTEY/
+--------------------------------------------------------------------------------
+ID: LIB_2022_104
+Titre: «Forbes» a-t-il donné tort à «CheckNews» au sujet de la perte d’efficacité du vaccin contre le Covid-19?
+Date: 2022-05-17
+Lien: https://www.liberation.fr/checknews/forbes-a-t-il-donne-tort-a-checknews-au-sujet-de-la-perte-defficacite-du-vaccin-contre-le-covid-19-20220517_Z4FCWUUWAZECDOZAQOZHY2EBGE/
+--------------------------------------------------------------------------------
+ID: LIB_2021_105
+Titre: Covid-19 : que sait-on de l’efficacité des vaccins contre les variants britannique et sud-africain ?
+Date: 2021-02-08
+Lien: https://www.liberation.fr/checknews/covid-19-que-sait-on-de-lefficacite-des-vaccins-contre-les-variants-britannique-et-sud-africain-20210208_U47TQ2XWSBBFDJB3VCAC57MLIU/
+--------------------------------------------------------------------------------
+ID: LIB_2022_107
+Titre: Covid-19 : le seuil des 130 000 décès a été franchi
+Date: 2022-01-27
+Lien: https://www.liberation.fr/societe/sante/en-direct-covid-19-retrouvez-les-dernieres-informations-liees-a-la-crise-sanitaire-20220127_5SJ66YWG7VDR5EM3VZLHSGMRMU/
+--------------------------------------------------------------------------------
+ID: LIB_2022_108
+Titre: Les vaccins anti-Covid, qualifiés de «médicaments» par Jean-François Delfraissy, sont-ils si «particuliers»?
+Date: 2022-01-28
+Lien: https://www.liberation.fr/checknews/les-vaccins-anti-covid-qualifies-de-medicaments-par-jean-francois-delfraissy-sont-ils-si-particuliers-20220128_4SCTYN4QXBCMFHDJLIYPBUWMMA/
+--------------------------------------------------------------------------------
+ID: LIB_2023_109
+Titre: Pfizer vient-il de reconnaître le risque de myocardite et de péricardite lié au vaccin anti-Covid ?
+Date: 2023-10-21
+Lien: https://www.liberation.fr/checknews/pfizer-vient-il-de-reconnaitre-le-risque-de-myocardite-et-de-pericardite-lie-au-vaccin-anti-covid-20231021_VA3NPLORR5GBRM5YAVQCRJJJEM/
+--------------------------------------------------------------------------------
+ID: LIB_2021_110
+Titre: Le Luxembourg attribue-t-il onze décès aux vaccins anti-Covid alors que la France n’en comptabilise aucun ?
+Date: 2021-12-01
+Lien: https://www.liberation.fr/checknews/le-luxembourg-attribue-t-il-onze-deces-aux-vaccins-anti-covid-alors-que-la-france-nen-comptabilise-aucun-20211201_TDRR7UREGRFMBLF2CAUQB62GTA/
+--------------------------------------------------------------------------------
+ID: LIB_2021_111
+Titre: Covid-19 : est-il vrai que les départements les «plus vaccinés» ne connaissent pas moins de cas que les autres ?
+Date: 2021-12-02
+Lien: https://www.liberation.fr/checknews/covid-19-est-il-vrai-que-les-departements-les-plus-vaccines-ne-connaissent-pas-moins-de-cas-que-les-autres-20211202_5OWWPVKKHRB4JD2U3EWDB2MTOY/
+--------------------------------------------------------------------------------
+ID: LIB_2022_112
+Titre: Est-il vrai que la vaccination obligatoire ne peut pas être imposée parce que le vaccin est encore «expérimental»?
+Date: 2022-01-07
+Lien: https://www.liberation.fr/checknews/est-il-vrai-que-la-vaccination-obligatoire-ne-peut-pas-etre-imposee-parce-que-le-vaccin-est-encore-experimental-20220107_L7C2BHX4ZFDNPPAMWYVM7YVUTA/
+--------------------------------------------------------------------------------
+ID: LIB_2022_113
+Titre: Quatrième dose de vaccin contre le Covid-19: «Un deuxième rappel ne servirait pas à grand-chose pour les plus jeunes»
+Date: 2022-04-07
+Lien: https://www.liberation.fr/societe/sante/quatrieme-dose-de-vaccin-contre-le-covid-19-un-deuxieme-rappel-ne-servirait-pas-a-grand-chose-pour-les-plus-jeunes-20220407_SXAIT7W5EFBF5INXUIEJICK63Q/
+--------------------------------------------------------------------------------
+ID: LIB_2021_114
+Titre: Les Etats-Unis lancent la vaccination des 5-11 ans contre le Covid-19
+Date: 2021-11-03
+Lien: https://www.liberation.fr/international/amerique/les-etats-unis-lancent-la-vaccination-des-5-11-ans-contre-le-covid-19-20211103_O4DXZ2WVVBEPFCA4ZDTLX2FQCA/
+--------------------------------------------------------------------------------
+ID: LIB_2021_115
+Titre: Covid-19 : face à la menace omicron la vaccination des enfants se précise pour janvier
+Date: 2021-12-05
+Lien: https://www.liberation.fr/societe/sante/covid-19-face-a-la-menace-omicron-la-vaccination-des-enfants-se-precise-pour-janvier-20211205_R5SZNIRFYFDQ5ENDICG3ONBQZM/
+--------------------------------------------------------------------------------
+ID: LIB_2021_116
+Titre: La mortalité des pilotes de ligne américains a-t-elle progressé de 1750% à cause des vaccins anti-Covid ?
+Date: 2021-12-24
+Lien: https://www.liberation.fr/checknews/la-mortalite-des-pilotes-de-ligne-americains-a-t-elle-progresse-de-1750-a-cause-des-vaccins-anti-covid-20211224_U5PRTL4SMJHW3BPVYRR5KMXE6A/
+--------------------------------------------------------------------------------
+ID: LIB_2023_117
+Titre: Vaccination : les socialistes doivent être les défenseurs de la gauche des Lumières
+Date: 2023-05-06
+Lien: https://www.liberation.fr/idees-et-debats/tribunes/vaccination-les-socialistes-doivent-etre-les-defenseurs-de-la-gauche-des-lumieres-20230506_YEBJQ7BQQFAGRPUVDKYCYXYKQA/
+--------------------------------------------------------------------------------
+ID: LIB_2024_118
+Titre: Mpox : une deuxième dose de vaccin recommandée en France, les personnes concernées restent inchangées
+Date: 2024-09-02
+Lien: https://www.liberation.fr/societe/sante/mpox-une-deuxieme-dose-de-vaccin-recommandee-en-france-les-personnes-concernees-restent-inchangees-20240902_JQRHYOEHZRDTHDGYCIZ4IVIS4I/
+--------------------------------------------------------------------------------
+ID: LIB_2021_119
+Titre: Vaccins contre le Covid et cycles menstruels : pas de lien établi à ce jour mais l’ANSM reste vigilante
+Date: 2021-10-01
+Lien: https://www.liberation.fr/societe/sante/vaccins-contre-le-covid-et-cycles-menstruels-pas-de-lien-etabli-a-ce-jour-mais-lansm-reste-vigilante-20211001_OONCSYB63RHP3JV3FF4UVZIWXY/
+--------------------------------------------------------------------------------
+ID: LIB_2021_120
+Titre: Covid-19 : au Royaume-Uni, la vaccination réduit le nombre de morts malgré la flambée
+Date: 2021-11-16
+Lien: https://www.liberation.fr/societe/sante/covid-19-au-royaume-uni-la-vaccination-reduit-le-nombre-de-morts-malgre-la-flambee-20211116_ANWN2EYD5RGUZMQYQJ2YVVHW44/
+--------------------------------------------------------------------------------
+ID: LIB_2021_122
+Titre: Covid-19 : la pilule de Pfizer examinée en urgence par l’Agence européenne des médicaments
+Date: 2021-11-19
+Lien: https://www.liberation.fr/societe/en-direct-covid-19-retrouvez-les-dernieres-informations-sur-lepidemie-20211119_QC6C44KUUVAJZBZ7JWLTP52O7I/
+--------------------------------------------------------------------------------
+ID: LIB_2021_123
+Titre: Rappel de vaccin anti-Covid : «On aurait pu employer d’autres méthodes pour persuader»
+Date: 2021-11-25
+Lien: https://www.liberation.fr/societe/sante/rappel-de-vaccin-anti-covid-on-aurait-pu-employer-dautres-methodes-pour-persuader-20211125_ESMU3VHUVFF5XHCAGN5ABDYDMU/
+--------------------------------------------------------------------------------
+ID: LIB_2021_124
+Titre: Covid-19 : la vaccination des enfants à risques a débuté
+Date: 2021-12-15
+Lien: https://www.liberation.fr/societe/sante/covid-19-la-vaccination-des-enfants-a-risques-a-debute-20211215_UGVUNXOY6BHL7KQKH3ZFAZB2OY/
+--------------------------------------------------------------------------------
+ID: LIB_2023_125
+Titre: Le Covid-19 reste «une menace», met en garde l’OMS
+Date: 2023-11-21
+Lien: https://www.liberation.fr/societe/sante/le-covid-19-reste-une-menace-met-en-garde-loms-20231121_PSBCN4MM4VDDFILYNSXURAMZUU/
+--------------------------------------------------------------------------------
+ID: LIB_2021_126
+Titre: Vaccins anti-Covid : allez tous vous faire inoculer
+Date: 2021-06-29
+Lien: https://www.liberation.fr/societe/sante/vaccins-anti-covid-allez-tous-vous-faire-inoculer-20210629_4RNIMBILPZFOTCMCJXLRH23ASE/
+--------------------------------------------------------------------------------
+ID: LIB_2021_127
+Titre: Vaccination sans rendez-vous ce week-end,  le variant delta pas plus grave chez les enfants, accord entre l’UE et AstraZeneca... Le point sur la pandémie de Covid-19
+Date: 2021-09-03
+Lien: https://www.liberation.fr/societe/sante/vaccination-sans-rendez-vous-ce-week-end-le-variant-delta-pas-plus-grave-chez-les-enfants-accord-entre-lue-et-astrazeneca-le-point-sur-la-pandemie-de-covid-19-20210903_CQLVP2XJ35DULH37RIOAUZKBBE/
+--------------------------------------------------------------------------------
+ID: LIB_2021_128
+Titre: Covid-19 : les Etats-Unis autorisent la vaccination à partir de 5 ans, et la France ?
+Date: 2021-11-03
+Lien: https://www.liberation.fr/societe/sante/covid-19-les-etats-unis-autorisent-la-vaccination-a-partir-de-5-ans-et-la-france-20211103_F6BH6VVZGJAU3OKHDEWTWU7L7U/
+--------------------------------------------------------------------------------
+ID: LIB_2021_129
+Titre: Covid-19 : «Israël ne serait pas sorti de la quatrième vague sans la troisième dose»
+Date: 2021-11-07
+Lien: https://www.liberation.fr/societe/sante/covid-19-israel-ne-serait-pas-sorti-de-la-quatrieme-vague-sans-la-troisieme-dose-20211107_OY7TSIRTUZCH5AGBDYMEMRKSNE/
+--------------------------------------------------------------------------------
+ID: LIB_2021_130
+Titre: Covid-19 : les chiffres de la Drees montrent-ils une forte baisse de l’efficacité des vaccins ?
+Date: 2021-11-17
+Lien: https://www.liberation.fr/checknews/covid-19-les-chiffres-de-la-drees-montrent-ils-une-forte-baisse-de-lefficacite-des-vaccins-20211117_TFJ5JAPDHFFRPJI3QBQZTZYZBY/
+--------------------------------------------------------------------------------
+ID: LIB_2021_131
+Titre: Une contamination récente au Covid-19 compte-t-elle comme une dose de rappel ?
+Date: 2021-11-25
+Lien: https://www.liberation.fr/checknews/une-contamination-recente-au-covid-19-compte-elle-comme-une-dose-de-rappel-20211125_EYMWPY7JIJFFLOUBVDEACS4AF4/
+--------------------------------------------------------------------------------
+ID: LIB_2021_132
+Titre: Covid-19 : injections sans rendez-vous pour les non-vaccinés à partir de ce mardi
+Date: 2021-12-07
+Lien: https://www.liberation.fr/societe/sante/covid-19-injections-sans-rendez-vous-pour-les-non-vaccines-a-partir-de-ce-mardi-20211207_NZ5J2XPMOFF45DWDLCTS7O5IOE/
+--------------------------------------------------------------------------------
+ID: LIB_2021_133
+Titre: Covid : les parents de jeunes enfants majoritairement opposés à leur vaccination
+Date: 2021-12-16
+Lien: https://www.liberation.fr/societe/sante/covid-les-parents-de-jeunes-enfants-majoritairement-opposes-a-leur-vaccination-20211216_BAMTLTHGMNAGFL4BPEQYMM5Q2M/
+--------------------------------------------------------------------------------
+ID: LIB_2021_134
+Titre: Covid-19 : plus d’un million de cas quotidiens dans le monde
+Date: 2021-12-30
+Lien: https://www.liberation.fr/societe/sante/en-direct-retrouvez-les-dernieres-actualites-liees-a-la-crise-du-coronavirus-20211230_XC4J3F3MJ5E77NIXIVY5KQGPVQ/
+--------------------------------------------------------------------------------
+ID: LIB_2022_136
+Titre: Covid-19: l’Agence européenne du médicament pas encore convaincue de la nécessité d’une deuxième dose de rappel
+Date: 2022-03-18
+Lien: https://www.liberation.fr/societe/sante/covid-19-lagence-europeenne-du-medicament-pas-encore-convaincue-de-la-necessite-dune-deuxieme-dose-de-rappel-20220318_MUNLVUQCPBFIREXFEQJ5NXXHRQ/
+--------------------------------------------------------------------------------
+ID: LIB_2023_137
+Titre: Nouvelle campagne de vaccination contre le Covid : «C’est un travail d’équipe pour convaincre les patients»
+Date: 2023-10-01
+Lien: https://www.liberation.fr/societe/sante/nouvelle-campagne-de-vaccination-contre-le-covid-les-patients-shabituent-un-peu-comme-pour-la-grippe-20231001_DMR4CSJXKRHDXP3KD3PZMWQ2KU/
+--------------------------------------------------------------------------------
+ID: LIB_2021_138
+Titre: Covid-19: moins de 3 500 patients en réanimation, la baisse se poursuit
+Date: 2021-05-24
+Lien: https://www.liberation.fr/societe/retrouvez-les-dernieres-informations-sur-lepidemie-de-covid-19-20210524_AODRK4I6ONC5DNBRSA6PNEMVJM/
+--------------------------------------------------------------------------------
+ID: LIB_2021_139
+Titre: Covid : Irène Frachon insiste sur le «bénéfice prouvé et massif» de la vaccination
+Date: 2021-07-06
+Lien: https://www.liberation.fr/societe/sante/covid-irene-frachon-insiste-sur-le-benefice-prouve-et-massif-de-la-vaccination-20210706_N73BXEPLBVHGBJGCKS34AIQRKY/
+--------------------------------------------------------------------------------
+ID: LIB_2021_140
+Titre: Covid-19 : ce que révèlent les chiffres de la quatrième vague au Royaume-Uni
+Date: 2021-08-31
+Lien: https://www.liberation.fr/societe/sante/covid-19-ce-que-revelent-les-chiffres-de-la-quatrieme-vague-au-royaume-uni-20210831_BF2XLOB5SREJTD5SFLDX4SLJME/
+--------------------------------------------------------------------------------
+ID: LIB_2021_141
+Titre: Covid-19 : les centres de vaccination devraient fermer dans les prochains mois
+Date: 2021-09-14
+Lien: https://www.liberation.fr/societe/sante/covid-19-les-centres-de-vaccination-devraient-fermer-dans-les-prochains-mois-20210914_DQYKBRNNDBEK5NLHVSFNFYNTQM/
+--------------------------------------------------------------------------------
+ID: LIB_2021_142
+Titre: Sanofi arrête le développement de son vaccin contre le Covid-19, effets secondaires de la 3ème dose «similaires» à la 2ème, Pfizer se prépare à vacciner les 5-11 ans... Le point sur la pandémie ce mardi
+Date: 2021-09-28
+Lien: https://www.liberation.fr/societe/sante/sanofi-arrete-le-developpement-de-son-vaccin-contre-le-covid-19-effets-secondaires-de-la-3eme-dose-similaires-a-la-2eme-pfizer-se-prepare-a-vacciner-les-5-11-ans-le-point-sur-la-pandemie-ce-mardi-20210928_KKR5HEMNFNC43JH3XB4GJSDCHQ/
+--------------------------------------------------------------------------------
+ID: LIB_2021_143
+Titre: En quoi les vaccins Covid destinés aux plus jeunes diffèreront-ils de ceux donnés aux adultes ?
+Date: 2021-11-26
+Lien: https://www.liberation.fr/checknews/en-quoi-les-vaccins-covid-destines-au-plus-jeunes-differeront-ils-de-ceux-donnes-aux-adultes-20211126_2DXW442MTFFARCL223FY6LHXPY/
+--------------------------------------------------------------------------------
+ID: LIB_2021_144
+Titre: Covid-19 : une épidémie «en forte progression» et 8 cas d’omicron en France
+Date: 2021-12-02
+Lien: https://www.liberation.fr/societe/sante/en-direct-covid-19-retrouvez-les-dernieres-informations-sur-lepidemie-de-coronavirus-20211202_FHZWHBJKHVBQPKKRCPJI3PEFN4/
+--------------------------------------------------------------------------------
+ID: LIB_2021_145
+Titre: Covid-19 : l’avis du comité d’éthique sur la vaccination des enfants devrait tomber jeudi
+Date: 2021-12-13
+Lien: https://www.liberation.fr/societe/sante/covid-19-retrouvez-les-dernieres-informations-sur-la-crise-sanitaire-liee-a-la-pandemie-20211213_Q7OIDSG7A5GOXH4ULCPKC6XJAQ/
+--------------------------------------------------------------------------------
+ID: LIB_2021_146
+Titre: Covid-19 : une quatrième dose de vaccin pour les immunodéprimés au Brésil
+Date: 2021-12-21
+Lien: https://www.liberation.fr/international/amerique/covid-19-une-quatrieme-dose-de-vaccin-pour-les-immunodeprimes-au-bresil-20211221_QLSVAC7KY5CXJKDYSLB7U2VEDQ/
+--------------------------------------------------------------------------------
+ID: LIB_2021_147
+Titre: Covid-19: quelle est la part des non-vaccinés dans les entrées en réanimation, selon les derniers chiffres?
+Date: 2021-12-22
+Lien: https://www.liberation.fr/checknews/covid-19-quelle-est-la-part-des-vaccines-dans-les-entrees-en-reanimation-selon-les-derniers-chiffres-20211222_Z6TWKSKPLBHOBA46QNCANHVBLY/
+--------------------------------------------------------------------------------
+ID: LIB_2022_148
+Titre: Covid-19 : où en sont les développements du traitement de Xenothera et du vaccin de Valneva ?
+Date: 2022-01-07
+Lien: https://www.liberation.fr/checknews/covid-19-ou-en-sont-les-developpements-du-traitement-de-xenothera-et-du-vaccin-de-valneva-20220107_XBPGGBKIINDWZBEEO7ULOH7QQI/
+--------------------------------------------------------------------------------
+ID: LIB_2022_149
+Titre: Covid-19: En France la situation se stabilise dans les services de réanimation
+Date: 2022-01-17
+Lien: https://www.liberation.fr/societe/sante/en-direct-covid-19-retrouvez-les-dernieres-actualites-liees-a-la-crise-sanitaire-20220117_G2SHSVE5A5DZBGB3LA3STI5WUI/
+--------------------------------------------------------------------------------
+ID: LIB_2024_150
+Titre: Trois questions sur le fluor dans l’eau du robinet, que Robert Kennedy Jr, le nouveau ministre de la Santé américain veut interdire
+Date: 2024-11-15
+Lien: https://www.liberation.fr/societe/sante/trois-questions-sur-le-fluor-dans-leau-du-robinet-que-robert-kennedy-jr-le-nouveau-ministre-de-la-sante-americain-veut-interdire-20241115_EHUZKDWX6VHJJPRQAQJXOEQJXM/
+--------------------------------------------------------------------------------
+ID: LIB_2021_152
+Titre: Covid-19 : nouvelles restrictions en Inde, en Colombie et au Mali
+Date: 2021-04-10
+Lien: https://www.liberation.fr/societe/sante/covid-19-retrouvez-les-dernieres-informations-liees-a-la-pandemie-20210410_6LYUERARTNBTLGJHGKGGLBTPYA/
+--------------------------------------------------------------------------------
+ID: LIB_2021_154
+Titre: En Russie, la vaccination contre le Covid-19 à la traîne
+Date: 2021-06-01
+Lien: https://www.liberation.fr/international/europe/en-russie-la-vaccination-contre-le-covid-19-a-la-traine-20210601_GKQEISXFIVFDLBZYAFHSYGLPOY/
+--------------------------------------------------------------------------------
+ID: LIB_2021_155
+Titre: Non, le malaise cardiaque de Christian Eriksen n’est pas lié au vaccin contre le Covid-19
+Date: 2021-06-14
+Lien: https://www.liberation.fr/checknews/non-le-malaise-cardiaque-de-christian-eriksen-nest-pas-lie-au-vaccin-contre-le-covid-19-20210614_APAX46QWONCQTP2GO2M32EGZCU/
+--------------------------------------------------------------------------------
+ID: LIB_2021_156
+Titre: Les vaccins contre le Covid-19 ont-ils la même efficacité selon l’âge ou le sexe ?
+Date: 2021-07-03
+Lien: https://www.liberation.fr/checknews/les-vaccins-contre-le-covid-19-ont-ils-la-meme-efficacite-selon-lage-ou-le-sexe-20210703_OOZIZUFEQRG63PZCP3VJ3G5WMM/
+--------------------------------------------------------------------------------
+ID: LIB_2021_157
+Titre: Covid-19 : plus de cinq millions de Français à risque ne sont pas encore vaccinés
+Date: 2021-07-23
+Lien: https://www.liberation.fr/societe/sante/covid-19-plus-de-cinq-millions-de-francais-a-risque-ne-sont-pas-encore-vaccines-20210723_GJR5ONH65VBUPE5IRIA2KUAH5I/
+--------------------------------------------------------------------------------
+ID: LIB_2021_158
+Titre: Covid-19 : est-il vrai que 80% des hospitalisés sont non vaccinés, comme le dit la campagne du gouvernement ?
+Date: 2021-09-03
+Lien: https://www.liberation.fr/checknews/covid-19-est-il-vrai-que-80-des-hospitalises-sont-non-vaccines-comme-le-dit-la-campagne-du-gouvernement-20210903_LDKZGRV4J5C7DHL67YQL3IPZWA/
+--------------------------------------------------------------------------------
+ID: LIB_2021_159
+Titre: Covid : un «nombre important» d’échecs du vaccin Janssen en France
+Date: 2021-09-14
+Lien: https://www.liberation.fr/societe/sante/covid-un-nombre-important-dechecs-du-vaccin-janssen-en-france-20210914_FKBG4U632NHMPNZHANKYLLP25A/
+--------------------------------------------------------------------------------
+ID: LIB_2021_160
+Titre: Covid-19 : en Allemagne, Merkel impose le pass sanitaire et la vaccination des soignants
+Date: 2021-11-18
+Lien: https://www.liberation.fr/international/europe/covid-19-en-allemagne-merkel-impose-le-pass-sanitaire-et-la-vaccination-des-soignants-20211118_GD73BCE23NELTPZPTBHNIYKPJQ/
+--------------------------------------------------------------------------------
+ID: LIB_2022_161
+Titre: Vaccins contre le Covid-19: pour rassurer les anti-ARN, la carte Novavax et Janssen
+Date: 2022-01-14
+Lien: https://www.liberation.fr/societe/sante/vaccins-contre-le-covid-19-pour-rassurer-les-anti-arn-la-carte-novavax-et-janssen-20220114_NGUJGULNEVBYJPZJQ6Y2BQC5Q4/
+--------------------------------------------------------------------------------
+ID: LIB_2022_162
+Titre: Covid-19: Israël est-il allé trop vite avec la quatrième dose?
+Date: 2022-01-18
+Lien: https://www.liberation.fr/checknews/covid-19-israel-est-il-alle-trop-vite-avec-la-quatrieme-dose-20220118_GHH24GQ5BFANHFFBQUWKQAJN4Q/
+--------------------------------------------------------------------------------
+ID: LIB_2023_163
+Titre: Covid-19 : le virus fera-t-il lui aussi sa rentrée ?
+Date: 2023-09-03
+Lien: https://www.liberation.fr/societe/sante/covid-19-le-virus-fera-t-il-lui-aussi-sa-rentree-20230903_UO4O5MINEZAUXPB72HQSQNRFUM/
+--------------------------------------------------------------------------------
+ID: LIB_2024_164
+Titre: Couvre-feu en Martinique, Kylian Mbappé, campagne de vaccination contre le Covid… L’actu de ce mardi matin
+Date: 2024-10-15
+Lien: https://www.liberation.fr/international/europe/couvre-feu-en-martinique-kylian-mbappe-campagne-de-vaccination-contre-le-covid-lactu-de-ce-mardi-matin-20241015_ZN6VYXAQUZEABF7HQRIB7KJZV4/
+--------------------------------------------------------------------------------
+ID: LIB_2021_165
+Titre: Vaccination contre le Covid-19 : Jean-François Delfraissy entrouvre la porte à une quatrième dose
+Date: 2021-12-08
+Lien: https://www.liberation.fr/societe/sante/vaccination-contre-le-covid-19-jean-francois-delfraissy-entrouvre-la-porte-dune-quatrieme-dose-20211208_U3NSDFLIZ5DPFGSHWAUXDXEI4U/
+--------------------------------------------------------------------------------
+ID: LIB_2021_166
+Titre: Covid-19 : Paris suspend «jusqu’à nouvel ordre» tous les vols entre le Brésil et la France
+Date: 2021-04-13
+Lien: https://www.liberation.fr/societe/sante/retrouvez-les-dernieres-informations-sur-lepidemie-de-covid-19-20210413_ALP34DFWARBONIMWLZBAECBEC4/
+--------------------------------------------------------------------------------
+ID: LIB_2021_168
+Titre: La vaccination de tous les adultes contre le Covid-19 avancée au 31 mai
+Date: 2021-05-20
+Lien: https://www.liberation.fr/societe/sante/la-vaccination-de-tous-les-adultes-contre-le-covid-19-avancee-de-deux-semaines-20210520_6SC7BJWBVRBZTMRSBWGYG5XPDA/
+--------------------------------------------------------------------------------
+ID: LIB_2021_169
+Titre: Covid-19: en Guyane, «on jette des doses de vaccin par les fenêtres»
+Date: 2021-05-20
+Lien: https://www.liberation.fr/societe/sante/covid-19-en-guyane-on-jette-des-doses-de-vaccin-par-les-fenetres-20210520_RCBRW3C2CRG2BGAIYTKYWJT6CE/
+--------------------------------------------------------------------------------
+ID: LIB_2021_170
+Titre: Covid-19 : la pression hospitalière poursuit sa décrue
+Date: 2021-06-01
+Lien: https://www.liberation.fr/societe/sante/retrouvez-les-dernieres-informations-sur-lepidemie-de-covid-19-20210601_JBPWXSWHCNEFXM4JHAMGHPGK3U/
+--------------------------------------------------------------------------------
+ID: LIB_2021_171
+Titre: Covid 19 : est-il vrai que la majorité des personnes hospitalisées en Israël sont vaccinées ?
+Date: 2021-08-09
+Lien: https://www.liberation.fr/checknews/covid-19-est-il-vrai-que-la-majorite-des-personnes-hospitalisees-en-israel-sont-vaccinees-20210809_DNY3EN73LBFFJB7CUTWTYCFTUI/
+--------------------------------------------------------------------------------
+ID: LIB_2021_172
+Titre: Covid-19 : le vaccin bénéfique pour les femmes enceintes et leur futur nourrisson
+Date: 2021-08-26
+Lien: https://www.liberation.fr/societe/sante/covid-19-le-vaccin-benefique-pour-les-femmes-enceintes-et-leur-futur-nourrisson-20210826_GGMYJM7PX5FZPOLFY5MJHM62X4/
+--------------------------------------------------------------------------------
+ID: LIB_2021_173
+Titre: Nouveau variant «mu», 3e dose, batailles judiciaires autour du pass sanitaire… Le point sur la pandémie de Covid-19
+Date: 2021-09-01
+Lien: https://www.liberation.fr/societe/sante/nouveau-variant-mu-3e-dose-batailles-judiciaires-autour-du-pass-sanitaire-le-point-sur-la-pandemie-de-covid-19-20210901_TIBYBXEHQRHYPPVILATRH7IOM4/
+--------------------------------------------------------------------------------
+ID: LIB_2021_174
+Titre: Le nombre de classes fermées en baisse, vaccination bientôt obligatoire pour les élèves en Californie, quatrième record consécutif de morts en Russie... Le point sur la pandémie de Covid-19
+Date: 2021-10-01
+Lien: https://www.liberation.fr/societe/sante/le-nombre-de-classes-fermees-en-baisse-vaccination-bientot-obligatoire-pour-les-eleves-en-californie-quatrieme-record-consecutif-de-morts-en-russie-le-point-sur-la-pandemie-de-covid-19-20211001_B3PGIAANFVB5JF2P3OM5VRIJLU/
+--------------------------------------------------------------------------------
+ID: LIB_2021_175
+Titre: Covid-19 : le nombre de contaminations et de morts par jour n’a jamais été aussi élevé en Russie
+Date: 2021-10-17
+Lien: https://www.liberation.fr/societe/sante/covid-19-le-nombre-de-contaminations-et-de-morts-par-jour-na-jamais-ete-aussi-eleve-en-russie-20211017_T3OY6MRF45AYXOMX3HBYB5Z24A/
+--------------------------------------------------------------------------------
+ID: LIB_2021_176
+Titre: Covid-19 : les Etats-Unis s’organisent pour commencer la vaccination des 5-11 ans au plus vite
+Date: 2021-10-20
+Lien: https://www.liberation.fr/international/covid-19-les-etats-unis-sorganisent-pour-commencer-la-vaccination-des-5-11-ans-au-plus-vite-20211020_VNJR3X7RAVDCNH2G3REQ3IERDQ/
+--------------------------------------------------------------------------------
+ID: LIB_2021_177
+Titre: Molnupivarir : «Pas un remède miracle contre le Covid-19, ni un substitut à la vaccination»
+Date: 2021-10-27
+Lien: https://www.liberation.fr/societe/sante/molnupivarir-pas-un-remede-miracle-contre-le-covid-19-ni-un-substitut-a-la-vaccination-20211027_6TDJ2HLL7JGUXGSOXFK5B3RXHA/
+--------------------------------------------------------------------------------
+ID: LIB_2021_178
+Titre: Covid-19 : le scepticisme du footballeur Joshua Kimmich à l’égard de la vaccination fait jaser en Allemagne
+Date: 2021-10-27
+Lien: https://www.liberation.fr/international/covid-19-le-scepticisme-du-footballeur-joshua-kimmich-a-legard-de-la-vaccination-fait-jaser-en-allemagne-20211027_RVY4AODXGRCCBGLTWI3OKTQ7BA/
+--------------------------------------------------------------------------------
+ID: LIB_2023_180
+Titre: Tests, vaccins et masques : face à la résurgence du Covid, comment prévenir l’infection ?
+Date: 2023-09-01
+Lien: https://www.liberation.fr/societe/sante/tests-vaccins-et-masques-face-a-la-resurgence-du-covid-comment-prevenir-linfection-20230901_MYBX6KUDFZG5NH4B2UVGSRI74I/
+--------------------------------------------------------------------------------
+ID: LIB_2021_183
+Titre: Le Sommet sur les économies africaines demande la levée des brevets sur les vaccins contre le Covid-19
+Date: 2021-05-18
+Lien: https://www.liberation.fr/societe/sante/retrouvez-les-dernieres-informations-sur-la-crise-sanitaire-liee-a-la-pandemie-de-covid-19-20210518_2DNQWETKINCUVKM3PJ6KB5FT6I/
+--------------------------------------------------------------------------------
+ID: LIB_2021_184
+Titre: Epidémie de Covid-19 : le virus circule plus vite que les vaccins, s’inquiète l’OMS
+Date: 2021-06-14
+Lien: https://www.liberation.fr/societe/sante/retrouvez-les-dernieres-informations-sur-lepidemie-de-covid-19-20210614_FNTDDIAVHBEZJHBCQ2S72ML5MU/
+--------------------------------------------------------------------------------
+ID: LIB_2021_185
+Titre: Covid-19 : peut-on exiger le certificat de vaccination d’un soignant à l’hôpital ou en Ehpad ?
+Date: 2021-07-07
+Lien: https://www.liberation.fr/checknews/covid-19-peut-on-exiger-le-certificat-de-vaccination-dun-soignant-a-lhopital-ou-en-ehpad-20210707_HYAD27BKLBANVOQXEKRCOCP37Q/
+--------------------------------------------------------------------------------
+ID: LIB_2021_186
+Titre: Covid-19 : Darmanin n’exclut pas la vaccination obligatoire pour les policiers
+Date: 2021-08-24
+Lien: https://www.liberation.fr/societe/sante/darmanin-nexclut-pas-la-vaccination-obligatoire-pour-les-policiers-20210824_SLIORUKD3VHC5FD55XFZVD3LFM/
+--------------------------------------------------------------------------------
+ID: LIB_2021_187
+Titre: Vers une extension du pass sanitaire, la Corée du Nord refuse les vaccins chinois, confinement prolongé en Polynésie... Le point sur la pandémie de Covid-19
+Date: 2021-09-02
+Lien: https://www.liberation.fr/societe/sante/vers-une-extension-du-pass-sanitaire-la-coree-du-nord-refuse-les-vaccins-chinois-confinement-prolonge-en-polynesie-le-point-sur-la-pandemie-de-covid-19-20210902_QVXFSK62XJCIVMJM5ERO4NDIEE/
+--------------------------------------------------------------------------------
+ID: LIB_2021_188
+Titre: Covax contraint d’abaisser son objectif de vaccination contre le Covid des pays pauvres
+Date: 2021-09-08
+Lien: https://www.liberation.fr/societe/sante/covax-contraint-dabaisser-son-objectif-de-vaccination-contre-le-covid-des-pays-pauvres-20210908_YGO7434RFFCUDLJYZ7XMG7IENU/
+--------------------------------------------------------------------------------
+ID: LIB_2021_189
+Titre: Covid-19 : Pfizer annonce une efficacité de 90% de son vaccin pour les enfants de 5 à 11 ans
+Date: 2021-10-22
+Lien: https://www.liberation.fr/societe/sante/covid-19-pfizer-annonce-une-efficacite-de-90-de-son-vaccin-pour-les-enfants-de-5-a-11-ans-20211022_RJ7BAOCU7NBRTLWNOEIJAOFEOY/
+--------------------------------------------------------------------------------
+ID: LIB_2021_190
+Titre: Covid-19 : face à omicron, Joe Biden mise sur les tests et les vaccins
+Date: 2021-12-21
+Lien: https://www.liberation.fr/international/amerique/covid-19-face-a-omicron-joe-biden-mise-sur-les-tests-et-les-vaccins-20211221_H26EUJS325CDRBNJRAP5N6MYYE/
+--------------------------------------------------------------------------------
+ID: LIB_2022_191
+Titre: Covid-19: le Vatican a-t-il édité une pièce de 20 euros pro-masque et pro-vaccin?
+Date: 2022-07-04
+Lien: https://www.liberation.fr/checknews/covid-19-le-vatican-a-t-il-edite-une-piece-de-20-euros-pro-masque-et-pro-vaccin-20220704_INJSHHD4JJEWPJO22L3AQVWXJA/
+--------------------------------------------------------------------------------
+ID: LIB_2023_192
+Titre: Brésil : perquisitions et saisies chez Bolsonaro dans une affaire de falsification de certificats de vaccins anti-Covid
+Date: 2023-05-04
+Lien: https://www.liberation.fr/international/amerique/bresil-perquisitions-et-saisies-chez-bolsonaro-dans-une-affaire-de-falsification-de-certificats-de-vaccins-anti-covid-20230504_H727HLUYDJBBDLRWNUE55XF5DY/
+--------------------------------------------------------------------------------
+ID: LIB_2023_193
+Titre: Hausse des cas, variants, vaccins… Ce qu’il faut savoir sur la reprise du Covid
+Date: 2023-09-21
+Lien: https://www.liberation.fr/societe/sante/hausse-des-cas-variants-vaccins-ce-quil-faut-savoir-sur-la-reprise-du-covid-20230921_WQTYIHJAYVED7IWXPXPZ4Y6K5Y/
+--------------------------------------------------------------------------------
+ID: LIB_2021_197
+Titre: Covid-19 : l’OMS dénonce la lenteur «inacceptable» de la vaccination en Europe
+Date: 2021-04-01
+Lien: https://www.liberation.fr/societe/sante/covid-19-loms-denonce-la-lenteur-inacceptable-de-la-vaccination-en-europe-20210401_IXIW22FO4FAEPPZUITVFWPYXXA/
+--------------------------------------------------------------------------------
+ID: LIB_2021_198
+Titre: Président Joe Biden, faites des vaccins contre le Covid-19 un bien commun
+Date: 2021-04-15
+Lien: https://www.liberation.fr/idees-et-debats/opinions/president-joe-biden-faites-des-vaccins-contre-le-covid-19-un-bien-commun-20210415_G2HGNR5PENCKVHQ3HCRALW2S6A/
+--------------------------------------------------------------------------------
+ID: LIB_2021_199
+Titre: Covid-19 : les bénéfices du vaccin AstraZeneca augmentent avec l’âge, selon l’EMA
+Date: 2021-04-23
+Lien: https://www.liberation.fr/societe/sante/covid-19-retrouvez-les-dernieres-informations-sur-lepidemie-en-france-et-dans-le-monde-20210423_7PBUTIWQ6ZDX7IMXXEOYGKB4XU/
+--------------------------------------------------------------------------------
+ID: LIB_2021_200
+Titre: Covid : Macron annonce la vaccination des ados et évoque la fin du port du masque en extérieur
+Date: 2021-06-02
+Lien: https://www.liberation.fr/societe/sante/covid-macron-annonce-la-vaccination-des-ados-et-evoque-la-fin-du-port-du-masque-en-exterieur-20210602_LPZXL25ZQZBO7JOPP4ZNPN736U/
+--------------------------------------------------------------------------------
+ID: LIB_2021_201
+Titre: Le site médical de référence Vidal a-t-il affirmé qu’il n’y avait pas de preuve que les vaccins protègent contre les formes graves de Covid 19 ?
+Date: 2021-07-05
+Lien: https://www.liberation.fr/checknews/le-site-medical-de-reference-vidal-a-t-il-affirme-quil-ny-avait-pas-de-preuve-que-les-vaccins-protegent-contre-les-formes-graves-de-covid-19-20210705_OUTW5YU5LVHPTE4YFL2P3Y6NBI/
+--------------------------------------------------------------------------------
+ID: LIB_2021_202
+Titre: Au Brésil et en Inde, une éclaircie face au Covid-19
+Date: 2021-07-23
+Lien: https://www.liberation.fr/international/amerique/au-bresil-et-en-inde-une-eclaircie-face-au-covid-19-20210723_AEIUM2NBMBHNLDN3KYNTSO6MRY/
+--------------------------------------------------------------------------------
+ID: LIB_2021_203
+Titre: Vaccins contre le Covid et troubles menstruels : pas de lien établi «à ce jour»
+Date: 2021-08-09
+Lien: https://www.liberation.fr/societe/sante/vaccins-contre-le-covid-et-troubles-menstruels-pas-de-lien-etabli-a-ce-jour-20210809_67QPSAOZCNCPZMA2QZHOZ3HDHU/
+--------------------------------------------------------------------------------
+ID: LIB_2021_204
+Titre: 36 000 faux pass, les vaccins chinois en partie reconnus, mortalité au plus haut en Russie... Le point sur la pandémie de Covid-19
+Date: 2021-09-23
+Lien: https://www.liberation.fr/societe/sante/36-000-faux-pass-les-vaccins-chinois-en-partie-reconnus-mortalite-au-plus-haut-en-russie-le-point-sur-la-pandemie-de-covid-19-20210923_W567GLCK4BFDRLH52C4XA2RZ4Q/
+--------------------------------------------------------------------------------
+ID: LIB_2021_205
+Titre: Vaccination contre le Covid-19 : la HAS recommande une dose supplémentaire pour les soignants
+Date: 2021-10-06
+Lien: https://www.liberation.fr/societe/sante/vaccination-contre-le-covid-19-la-has-recommande-une-dose-supplementaire-pour-les-soignants-20211006_PA3NISWRBZGQ7K7PLHIWHUVYEM/
+--------------------------------------------------------------------------------
+ID: LIB_2021_206
+Titre: Covid-19 : Moderna annonce des résultats positifs pour son vaccin chez les enfants de 6-11 ans
+Date: 2021-10-25
+Lien: https://www.liberation.fr/societe/sante/covid-19-moderna-annonce-des-resultats-positifs-pour-son-vaccin-chez-les-enfants-de-6-11-ans-20211025_67Z5IDLHL5EFXF3AC5AKM3ZJ3M/
+--------------------------------------------------------------------------------
+ID: LIB_2021_207
+Titre: Pourquoi l’OMS est-elle défavorable à la généralisation de la troisième dose de vaccin anti-Covid ?
+Date: 2021-11-28
+Lien: https://www.liberation.fr/checknews/pourquoi-loms-est-elle-defavorable-a-la-generalisation-de-la-troisieme-dose-de-vaccin-anti-covid-20211128_EM4RYPTM5RHA3LOVDXNIV5OTNM/
+--------------------------------------------------------------------------------
+ID: LIB_2021_208
+Titre: Martinique : deux leaders syndicaux anti-obligation vaccinale meurent du covid-19
+Date: 2021-12-22
+Lien: https://www.liberation.fr/societe/sante/martinique-deux-leaders-syndicaux-anti-obligation-vaccinale-meurent-du-covid-19-20211222_EVNIW4OOXVGPRKVNWJSKXKSM6M/
+--------------------------------------------------------------------------------
+ID: LIB_2021_210
+Titre: Des vaccins anti-Covid «sûrs et halal», tranchent les autorités religieuses musulmanes
+Date: 2021-01-14
+Lien: https://www.liberation.fr/planete/2021/01/14/des-vaccins-anti-covid-surs-et-halal-tranchent-les-autorites-religieuses-musulmanes_1815990/
+--------------------------------------------------------------------------------
+ID: LIB_2021_211
+Titre: Est-il vrai que les assureurs refuseraient de payer une assurance-vie en cas de décès lié au vaccin anti-Covid ?
+Date: 2021-03-18
+Lien: https://www.liberation.fr/checknews/est-il-vrai-que-les-assureurs-refuseraient-de-payer-une-assurance-vie-en-cas-de-deces-lie-au-vaccin-anti-covid-20210318_TOJ77ZS5SBA3VE65P2B4LU2VXI/
+--------------------------------------------------------------------------------
+ID: LIB_2021_212
+Titre: Covid-19 : la France va commencer à produire des vaccins
+Date: 2021-04-05
+Lien: https://www.liberation.fr/societe/sante/covid-19-des-autotests-en-pharmacie-des-le-12-avril-20210403_YTJ5DCA3QZBVZGKYZOSIYBFPJU/
+--------------------------------------------------------------------------------
+ID: LIB_2021_213
+Titre: Covid : pourquoi le Chili a-t-il été contraint de reconfiner malgré une campagne de vaccination très avancée ?
+Date: 2021-04-07
+Lien: https://www.liberation.fr/checknews/covid-pourquoi-le-chili-a-ete-contraint-de-reconfiner-malgre-une-campagne-de-vaccination-tres-avancee-20210407_UL5XEG5XUVA6NMAARPXMQSREXQ/
+--------------------------------------------------------------------------------
+ID: LIB_2021_214
+Titre: Covid-19 : près de 6 000 patients en réa et plus de 30 000 hospitalisés la veille de la réouverture des écoles
+Date: 2021-04-25
+Lien: https://www.liberation.fr/societe/sante/retrouvez-les-dernieres-informations-sur-lepidemie-de-covid-19-20210424_SCDXGTWGIBC7LGACL5JAOSZS7E/
+--------------------------------------------------------------------------------
+ID: LIB_2021_216
+Titre: Le délai entre deux injections de vaccin contre le Covid-19 raccourci à trois semaines
+Date: 2021-06-15
+Lien: https://www.liberation.fr/societe/sante/le-delai-entre-deux-injections-de-vaccin-contre-le-covid-19-raccourci-a-trois-semaines-20210615_FXZVQYJNWJBW7BZD4BE7MNOSAM/
+--------------------------------------------------------------------------------
+ID: LIB_2021_217
+Titre: Quelle est la part de vaccinés parmi les cas de Covid-19 au Royaume-Uni ?
+Date: 2021-06-29
+Lien: https://www.liberation.fr/checknews/quelle-est-la-part-de-vaccines-parmi-les-cas-de-covid-19-au-royaume-uni-20210629_2L5BDVJLJFEK5NZ3S6JDETPUBQ/
+--------------------------------------------------------------------------------
+ID: LIB_2021_218
+Titre: Le pape appelle les croyants à se faire vacciner, l’antidépresseur qui réduit d’un tiers les hospitalisations, troisième dose pour tous aux Etats-Unis… Le point sur la pandémie de Covid-19
+Date: 2021-08-18
+Lien: https://www.liberation.fr/societe/sante/le-pape-appelle-les-croyants-a-se-faire-vacciner-lantidepresseur-qui-reduit-dun-tiers-les-hospitalisations-troisieme-dose-pour-tous-aux-etats-unis-le-point-sur-la-pandemie-de-covid-19-20210818_X6KQPDJHLFDJJPC5LWNN5WZMJI/
+--------------------------------------------------------------------------------
+ID: LIB_2021_219
+Titre: Covid-19 : le pass sanitaire fait exploser les tests, la vaccination chute
+Date: 2021-08-21
+Lien: https://www.liberation.fr/societe/sante/covid-19-le-pass-sanitaire-fait-exploser-les-tests-la-vaccination-chute-20210821_ZSRZOK2BWFDDNMISUN3URLY47Q/
+--------------------------------------------------------------------------------
+ID: LIB_2021_220
+Titre: Vaccin contre le Covid : Londres résilie son contrat avec le laboratoire français Valneva
+Date: 2021-09-13
+Lien: https://www.liberation.fr/societe/sante/covid-londres-resilie-son-contrat-de-vaccins-avec-le-laboratoire-francais-valneva-20210913_65ZX2XIHWNHMLP6J2X3TN7AXZE/
+--------------------------------------------------------------------------------
+ID: LIB_2021_221
+Titre: Covid-19 : Porto Rico, son soleil, ses plages, ses vaccins
+Date: 2021-12-10
+Lien: https://www.liberation.fr/international/amerique/covid-19-porto-rico-son-soleil-ses-plages-ses-vaccins-20211210_DM6NW6N7DVGQRNFLC44MJ5K3F4/
+--------------------------------------------------------------------------------
+ID: LIB_2021_223
+Titre: La vaccination contre le Covid-19 exige-t-elle un consentement écrit et un délai de réflexion de quatre jours ?
+Date: 2021-01-05
+Lien: https://www.liberation.fr/checknews/2021/01/05/la-vaccination-contre-le-covid-19-exige-t-elle-un-consentement-ecrit-et-un-delai-de-reflexion-de-qua_1810292/
+--------------------------------------------------------------------------------
+ID: LIB_2021_227
+Titre: Covid-19 : où en est la vaccination dans votre région
+Date: 2021-05-05
+Lien: https://www.liberation.fr/societe/sante/covid-19-ou-en-est-la-vaccination-dans-votre-region-20210505_H6X4DHAOUZCH3OFMXGIJNMZVQY/
+--------------------------------------------------------------------------------
+ID: LIB_2021_228
+Titre: Covid-19 : nouvelles du front vaccinal
+Date: 2021-07-25
+Lien: https://www.liberation.fr/societe/sante/covid-19-nouvelles-du-front-vaccinal-20210725_D7SV3G65HNFUVCEDTEYWEKPV4A/
+--------------------------------------------------------------------------------
+ID: LIB_2021_229
+Titre: 10 000 hospitalisés en France, vaccination obligatoire pour la Nouvelle-Calédonie, record de décès en Iran… Le point sur la pandémie de Covid-19
+Date: 2021-08-16
+Lien: https://www.liberation.fr/societe/sante/10-000-hospitalises-en-france-vaccination-obligatoire-pour-la-nouvelle-caledonie-record-de-deces-en-iran-le-point-sur-la-pandemie-de-covid-19-20210816_3RWHP7FKPBDTPD6A5GCTCZZLO4/
+--------------------------------------------------------------------------------
+ID: LIB_2021_230
+Titre: Covid-19 : se vacciner est «un acte d’amour», selon le pape
+Date: 2021-08-18
+Lien: https://www.liberation.fr/societe/religions/covid-19-se-vacciner-est-un-acte-damour-selon-le-pape-20210818_PCDUIMANVBDVNGKY2SZ5FKFLMU/
+--------------------------------------------------------------------------------
+ID: LIB_2021_231
+Titre: Covid et rentrée des classes : la seule protection qui vaille s’appelle «vaccin»
+Date: 2021-08-23
+Lien: https://www.liberation.fr/idees-et-debats/editorial/covid-et-rentree-des-classes-la-seule-protection-qui-vaille-sappelle-vaccin-20210823_A4PAWFWW4VGRZFHK6FXTQIXIUM/
+--------------------------------------------------------------------------------
+ID: LIB_2022_234
+Titre: Vaccination contre le Covid : les seniors encore trop peu nombreux à avoir fait le rappel
+Date: 2022-12-27
+Lien: https://www.liberation.fr/societe/sante/vaccination-contre-le-covid-les-seniors-encore-trop-peu-nombreux-a-avoir-fait-le-rappel-20221227_BUVX44O73VCDHPGA3TC257YCEE/
+--------------------------------------------------------------------------------
+ID: LIB_2024_235
+Titre: Covid : la Cour européenne estime infondées les plaintes de soignants antivax contre leur administration
+Date: 2024-08-30
+Lien: https://www.liberation.fr/societe/sante/covid-la-cour-europeenne-estime-infondees-les-plaintes-de-soignants-antivax-contre-leur-administration-20240830_VTMOWNHE5NAYBK3DZYJIBVKVHE/
+--------------------------------------------------------------------------------
+ID: LIB_2021_236
+Titre: Covid-19 : à quand, grâce au vaccin, un retour à la vie normale ?
+Date: 2021-01-21
+Lien: https://www.liberation.fr/checknews/2021/01/21/covid-19-a-partir-de-quelle-pourcentage-de-la-population-vaccinee-pourra-t-on-retrouver-une-vie-norm_1815899/
+--------------------------------------------------------------------------------
+ID: LIB_2021_237
+Titre: Covid-19 : le vaccin empêche-t-il la transmission du virus ?
+Date: 2021-01-11
+Lien: https://www.liberation.fr/checknews/2021/01/11/covid-19-le-vaccin-empeche-t-il-la-transmission-du-virus_1810859/
+--------------------------------------------------------------------------------
+ID: LIB_2021_241
+Titre: Vaccins contre le Covid : Spoutnik V gravite à l’Est
+Date: 2021-03-03
+Lien: https://www.liberation.fr/international/europe/vaccins-contre-le-covid-spoutnik-v-gravite-a-lest-20210303_6EM6FAKFQFEHNJ6QMFQLUAX2JE/
+--------------------------------------------------------------------------------
+ID: LIB_2021_242
+Titre: Comment éviter une quatrième vague de Covid-19 ?
+Date: 2021-04-14
+Lien: https://www.liberation.fr/societe/sante/comment-eviter-une-quatrieme-vague-de-covid-19-20210414_7K32LQ5HSNCOFPCPSQGZSZJPUA/
+--------------------------------------------------------------------------------
+ID: LIB_2021_243
+Titre: Covid-19 : dans la Marne, 140 patients «vaccinés» au sérum physiologique
+Date: 2021-04-24
+Lien: https://www.liberation.fr/societe/sante/covid-19-dans-la-marne-140-patients-vaccines-au-serum-physiologique-20210424_T3S4XLRMRZA3BBV3RBQBSLZZHA/
+--------------------------------------------------------------------------------
+ID: LIB_2021_244
+Titre: Covid-19 : cartographie des 270 000 rendez-vous de vaccination non pourvus en France
+Date: 2021-04-28
+Lien: https://www.liberation.fr/societe/sante/covid-19-cartographie-des-270-000-rendez-vous-de-vaccination-non-pourvus-en-france-20210428_QNATU56CHFC6XOGTVR6N7XSC4Q/
+--------------------------------------------------------------------------------
+ID: LIB_2021_245
+Titre: Conditionner le pass sanitaire à une troisième dose contre le Covid-19 : l’Académie de médecine s’y oppose
+Date: 2021-10-29
+Lien: https://www.liberation.fr/societe/sante/conditionner-le-pass-sanitaire-a-une-troisieme-dose-contre-le-covid-19-lacademie-de-medecine-sy-oppose-20211029_ZIQI7GWIVVCFRGF7UPMUBDLS6I/
+--------------------------------------------------------------------------------
+ID: LIB_2023_246
+Titre: Grippe : la campagne de vaccination prolongée jusqu’au 28 février
+Date: 2023-01-20
+Lien: https://www.liberation.fr/societe/sante/vaccination-contre-la-grippe-la-campagne-de-vaccination-prolongee-jusquau-28-fevrier-20230120_COU4XC225BALNLMFI5SDCPAJ2M/
+--------------------------------------------------------------------------------
+ID: LIB_2023_247
+Titre: Covid-19 : qu’est-ce que le code «Z28.1», que les antivax dénoncent comme un «fichage»?
+Date: 2023-02-01
+Lien: https://www.liberation.fr/checknews/covid-19-quest-ce-que-le-code-z281-que-les-antivax-denoncent-comme-un-fichage-20230201_DDH4N5HXJNEVJONHV7J2Q27KNM/
+--------------------------------------------------------------------------------
+ID: LIB_2023_248
+Titre: Le Parlement européen a-t-il invité un médecin affirmant que le Covid-19 est une arme «de terrorisme intérieur» ?
+Date: 2023-06-03
+Lien: https://www.liberation.fr/checknews/le-parlement-europeen-a-t-il-invite-un-medecin-affirmant-que-le-covid-19-est-une-arme-de-terrorisme-interieur-20230603_SJHKL25WIFEIJHPJYA3CCBIOII/
+--------------------------------------------------------------------------------
+ID: LIB_2021_249
+Titre: Vaccin Covid-19 : que valent les annonces israéliennes sur la baisse du risque d’infection?
+Date: 2021-02-02
+Lien: https://www.liberation.fr/checknews/2021/02/02/vaccin-covid-19-que-valent-les-annonces-israeliennes-sur-la-baisse-du-risque-d-infection_1818779/
+--------------------------------------------------------------------------------
+ID: LIB_2021_251
+Titre: Covid-19 : pourquoi l’épidémie repart-elle aux Seychelles, malgré un très fort taux de vaccination ?
+Date: 2021-05-07
+Lien: https://www.liberation.fr/checknews/covid-19-pourquoi-lepidemie-repart-elle-aux-seychelles-malgre-un-tres-fort-taux-de-vaccination-20210507_HOR52EVOTJDYZKSOUBZJIRGJRA/
+--------------------------------------------------------------------------------
+ID: LIB_2021_252
+Titre: Covid-19 : les contaminations en forte hausse en Ile-de-France faute de vaccination suffisante
+Date: 2021-07-07
+Lien: https://www.liberation.fr/societe/sante/covid-19-les-contaminations-en-forte-hausse-en-ile-de-france-faute-de-vaccination-suffisante-20210707_NGZRGSJNJ5GVJF3BC5TZWVLJR4/
+--------------------------------------------------------------------------------
+ID: LIB_2021_253
+Titre: Campagne de rappel anti-Covid-19, Macron à Marseille, parade militaire des talibans… L’actu de ce mercredi
+Date: 2021-09-01
+Lien: https://www.liberation.fr/international/campagne-de-rappel-anti-covid-19-macron-a-marseille-parade-militaire-des-talibans-lactu-de-ce-mercredi-20210901_ILGMBAZRIVFIXCRAUW5HDVJSIY/
+--------------------------------------------------------------------------------
+ID: LIB_2021_254
+Titre: Covid-19 : 16 morts en vingt-quatre heures, la Nouvelle-Calédonie sous le choc
+Date: 2021-09-22
+Lien: https://www.liberation.fr/societe/sante/covid-19-16-morts-en-vingt-quatre-heures-la-nouvelle-caledonie-sous-le-choc-20210922_JYYMMJLQVRAZFOKDWNWZSBV4O4/
+--------------------------------------------------------------------------------
+ID: LIB_2022_255
+Titre: Kathrin Jansen, ex-responsable de la recherche chez Pfizer, a-t-elle admis que le vaccin anti-Covid a été produit trop vite ?
+Date: 2022-11-14
+Lien: https://www.liberation.fr/checknews/kathrin-jansen-ex-responsable-de-la-recherche-chez-pfizer-a-t-elle-admis-que-le-vaccin-anti-covid-a-ete-produit-trop-vite-20221114_NCTEZERQA5CT7N4AGT2GREIQCI/
+--------------------------------------------------------------------------------
+ID: LIB_2022_256
+Titre: Vaccination anti-Covid : le rappel est bien ouvert à tous, François Braun appelle à un sursaut
+Date: 2022-12-09
+Lien: https://www.liberation.fr/societe/sante/vaccination-anti-covid-le-rappel-est-bien-ouvert-a-tous-assure-francois-braun-20221209_TTBPGNAFUBGFLFGTHDYVENNRH4/
+--------------------------------------------------------------------------------
+ID: LIB_2023_257
+Titre: Covid-19 : après l’avis favorable de la HAS, le gouvernement va lever l’obligation vaccinale des soignants
+Date: 2023-03-30
+Lien: https://www.liberation.fr/societe/sante/covid-19-la-haute-autorite-de-sante-recommande-de-lever-lobligation-vaccinale-des-soignants-20230330_NIVXOTNUQ5C3VGIAFQEHWZZCWM/
+--------------------------------------------------------------------------------
+ID: LIB_2023_258
+Titre: En tuant prématurément, le Covid-19 a coûté 337 millions d’années de vie
+Date: 2023-05-19
+Lien: https://www.liberation.fr/societe/sante/en-tuant-prematurement-le-covid-19-a-coute-337-millions-dannees-de-vie-20230519_ZE6K35QCZVAPZCM755GLB7SJCI/
+--------------------------------------------------------------------------------
+ID: LIB_2021_259
+Titre: Le Royaume-Uni se déconfine, arrivée des autotests du Covid-19 en France, la bande de la BAC Nord devant la justice… L’actualité ce lundi
+Date: 2021-04-12
+Lien: https://www.liberation.fr/international/le-royaume-uni-se-deconfine-arrivee-des-autotests-du-covid-19-en-france-la-bande-de-la-bac-nord-devant-la-justice-lactualite-ce-lundi-20210412_XU7YUPAONBB53CZXEQCV4B3BGA/
+--------------------------------------------------------------------------------
+ID: LIB_2021_260
+Titre: Covid-19 : la dynamique de vaccination se poursuit, un essoufflement chez les plus âgés
+Date: 2021-06-11
+Lien: https://www.liberation.fr/societe/sante/covid-19-la-dynamique-de-vaccination-se-poursuit-un-essoufflement-chez-les-plus-ages-20210611_XNZRL45DHJABFDENW3FQ52FIMQ/
+--------------------------------------------------------------------------------
+ID: LIB_2021_261
+Titre: Mélanger deux vaccins contre le Covid-19, une stratégie prometteuse
+Date: 2021-06-12
+Lien: https://www.liberation.fr/societe/sante/melanger-deux-vaccins-contre-le-covid-19-une-strategie-prometteuse-20210612_PPVUV5IMVNF5LCLSIBDIOCP5BE/
+--------------------------------------------------------------------------------
+ID: LIB_2021_262
+Titre: Vaccin, Covid-19 et pass sanitaire : le bon, la brute et le truand
+Date: 2021-07-27
+Lien: https://www.liberation.fr/societe/sante/vaccin-covid-19-et-pass-sanitaire-le-bon-la-brute-et-le-truand-20210727_SIGRAIDAO5CB7LT2CMJFBJPHQM/
+--------------------------------------------------------------------------------
+ID: LIB_2021_263
+Titre: Covid-19 : l’école élémentaire, principal relais de l’épidémie en France
+Date: 2021-12-06
+Lien: https://www.liberation.fr/societe/covid-19-lecole-elementaire-principal-relais-de-lepidemie-en-france-20211206_GTSG5B55SNGUXERO64C7SOBN2Y/
+--------------------------------------------------------------------------------
+ID: LIB_2021_264
+Titre: Covid-19 : Martin Hirsch appelle les Français à soutenir l’hôpital en se retenant de faire «la bamba partout»
+Date: 2021-12-13
+Lien: https://www.liberation.fr/societe/sante/covid-19-martin-hirsch-appelle-les-francais-a-soutenir-lhopital-en-se-retenant-de-faire-la-bamba-partout-20211213_64Q5MAER75DQHIHZEIBV4G42UA/
+--------------------------------------------------------------------------------
+ID: LIB_2022_265
+Titre: Que sait-on de la mort de Santino, 4 ans, ex-figure de proue d’une campagne nationale de vaccination en Argentine ?
+Date: 2022-11-15
+Lien: https://www.liberation.fr/checknews/que-sait-on-de-la-mort-de-santino-quatre-ans-ex-figure-de-proue-dune-campagne-nationale-de-vaccination-en-argentine-20221115_633LBM24SBAPNIDEIX3DHFERGQ/
+--------------------------------------------------------------------------------
+ID: LIB_2023_266
+Titre: Vaccins Covid : les Etats européens veulent renégocier les contrats d’approvisionnement avec Bruxelles
+Date: 2023-02-23
+Lien: https://www.liberation.fr/checknews/vaccins-covid-les-etats-europeens-veulent-renegocier-les-contrats-dapprovisionnement-avec-bruxelles-20230223_Z2PNS7TOAZA6NOXV4AGO5AADDI/
+--------------------------------------------------------------------------------
+ID: LIB_2023_267
+Titre: Covid-19 : l’OMS lève l’alerte maximale, après trois ans de pandémie et «au moins 20 millions» de morts
+Date: 2023-05-05
+Lien: https://www.liberation.fr/societe/sante/covid-19-loms-leve-lalerte-maximale-apres-trois-ans-de-pandemie-et-au-moins-20-millions-de-morts-20230505_SNSG66CBOVDXVJMIX5TN3YZGJE/
+--------------------------------------------------------------------------------
+ID: LIB_2022_268
+Titre: Vaccins des femmes enceintes: pas «de risque plus élevé» de prématurés ou de fausse couche
+Date: 2022-08-18
+Lien: https://www.liberation.fr/societe/sante/vaccins-des-femmes-enceintes-pas-de-risque-plus-eleve-de-prematures-ou-de-fausse-couche-20220818_RS5WCD6BQJD5NJB3FQ7WOTIMVA/
+--------------------------------------------------------------------------------
+ID: LIB_2022_269
+Titre: Sur quoi se fondait l’ARS Paca pour affirmer, mi-2021, que les vaccins à ARNm «réduisent de 80% à 90% le risque de transmission du virus» ?
+Date: 2022-10-19
+Lien: https://www.liberation.fr/checknews/sur-quoi-se-fondait-lars-paca-pour-affirmer-mi-2021-que-les-vaccins-a-arnm-reduisent-de-80-a-90-le-risque-de-transmission-du-virus-20221019_5M33ZYFHOZCMNEGI3DEDBMG5GU/
+--------------------------------------------------------------------------------
+ID: LIB_2022_270
+Titre: Covid : la Chine veut accélérer la vaccination des personnes âgées
+Date: 2022-11-29
+Lien: https://www.liberation.fr/international/asie-pacifique/covid-la-chine-veut-accelerer-la-vaccination-des-personnes-agees-20221129_BB3EJ3RALZCZRB2DGJOWQHH3WU/
+--------------------------------------------------------------------------------
+ID: LIB_2022_271
+Titre: Covid-19 : Olivier Véran et François Braun s’emmêlent les pinceaux sur le taux de couverture vaccinale
+Date: 2022-12-15
+Lien: https://www.liberation.fr/checknews/covid-19-olivier-veran-et-francois-braun-semmelent-les-pinceaux-sur-le-taux-de-couverture-vaccinale-20221215_4PLHICF6VFDSFAPGSWVCCD34II/
+--------------------------------------------------------------------------------
+ID: LIB_2023_272
+Titre: Covid-19 : les eurodéputés haussent le ton pour obtenir la transparence sur les contrats entre Pfizer et la Commission européenne
+Date: 2023-01-14
+Lien: https://www.liberation.fr/checknews/covid-19-les-eurodeputes-haussent-le-ton-pour-obtenir-la-transparence-sur-les-contrats-entre-pfizer-et-la-commission-europeenne-20230114_J34PJ2EJRBHMHKX2XWJGQF7CDQ/
+--------------------------------------------------------------------------------
+ID: LIB_2021_274
+Titre: Covid-19 : le Royaume-Uni pourrait placer la France en «zone rouge»
+Date: 2021-03-25
+Lien: https://www.liberation.fr/international/europe/covid-19-le-royaume-uni-pourrait-placer-la-france-en-zone-rouge-20210325_JDZ72NK6GZETNCGH4WCCNT65E4/
+--------------------------------------------------------------------------------
+ID: LIB_2022_275
+Titre: Jean-François Delfraissy a-t-il changé d’avis sur la balance bénéfice-risque de la vaccination contre le Covid?
+Date: 2022-06-13
+Lien: https://www.liberation.fr/checknews/jean-francois-delfraissy-a-t-il-change-davis-sur-la-balance-benefice-risque-de-la-vaccination-contre-le-covid-20220613_JM6YBHPSVFDAXF4CH2BKTDME2M/
+--------------------------------------------------------------------------------
+ID: LIB_2022_276
+Titre: Vaccination anti-Covid : le critère n’est plus le nombre de doses mais le délai depuis la dernière injection
+Date: 2022-12-07
+Lien: https://www.liberation.fr/checknews/vaccination-contre-le-covid-19-desormais-le-critere-nest-plus-le-nombre-de-doses-mais-le-delai-depuis-la-derniere-injection-20221207_JMIUBW33B5C2JEWDL2YUIFMNYE/
+--------------------------------------------------------------------------------
+ID: LIB_2021_277
+Titre: Covid-19 : les semaines à venir seront décisives, comme d’habitude
+Date: 2021-07-14
+Lien: https://www.liberation.fr/societe/sante/covid-19-les-semaines-a-venir-seront-decisives-comme-dhabitude-20210714_CVKFOVYZJZE6JOVOD23OELEMRU/
+--------------------------------------------------------------------------------
+ID: LIB_2022_278
+Titre: En France, la vaccination se heurte toujours à ses rétifs
+Date: 2022-04-26
+Lien: https://www.liberation.fr/societe/sante/en-france-la-vaccination-se-heurte-toujours-a-ses-retifs-20220426_QTVLVM7TLVFAJNNKBMR4IBCPUY/
+--------------------------------------------------------------------------------
+ID: LIB_2022_279
+Titre: Covid-19 : l’échec cuisant d’une non-campagne vaccinale
+Date: 2022-11-18
+Lien: https://www.liberation.fr/societe/sante/covid-19-un-echec-vaccinal-cuisant-20221118_M6QLSMJLAJCGLAWE7EYQTUWETE/
+--------------------------------------------------------------------------------
+ID: LIB_2024_280
+Titre: Covid : le pragmatisme, ce n’est pas s’habituer au pire
+Date: 2024-07-13
+Lien: https://www.liberation.fr/societe/sante/covid-le-pragmatisme-ce-nest-pas-shabituer-au-pire-20240713_PZ7QIEXQ3VBR5OFWGEKN365L2Q/
+--------------------------------------------------------------------------------
+ID: LIB_2021_281
+Titre: Nouveau variant du Covid-19, vaccination, militaires français tués au Mali, marche en hommage à Cédric Chouviat... l'actualité de ce week-end
+Date: 2021-01-03
+Lien: https://www.liberation.fr/planete/2021/01/03/nouveau-variant-du-covid-19-vaccination-militaires-francais-tues-au-mali-marche-en-hommage-a-cedric-_1810196/
+--------------------------------------------------------------------------------
+ID: LIB_2020_283
+Titre: Covid-19 : où en sont les vaccins développés par la Russie et la Chine ?
+Date: 2020-12-18
+Lien: https://www.liberation.fr/checknews/2020/12/18/covid-19-ou-en-sont-les-vaccins-developpes-par-la-russie-et-la-chine_1808929/
+--------------------------------------------------------------------------------
+ID: LIB_2022_284
+Titre: Vaccins contre omicron: ce qu’il faut savoir sur la campagne de rappel anti-Covid qui débute ce lundi
+Date: 2022-10-03
+Lien: https://www.liberation.fr/societe/sante/vaccins-contre-omicron-ce-quil-faut-savoir-sur-la-campagne-de-rappel-anti-covid-qui-debute-ce-lundi-20221003_WVFKRRGSB5CZ5IEERCA6NKSTD4/
+--------------------------------------------------------------------------------
+ID: LIB_2022_285
+Titre: Le ministre de la Santé, François Braun, a-t-il reconnu ne pas avoir été vacciné contre le Covid-19 ?
+Date: 2022-12-06
+Lien: https://www.liberation.fr/checknews/le-ministre-de-la-sante-francois-braun-a-t-il-reconnu-ne-pas-avoir-ete-vaccine-contre-le-covid-19-20221206_4NOACSM5TBBONKV3XBBF4GEXN4/
+--------------------------------------------------------------------------------
+ID: LIB_2022_287
+Titre: Covid-19 : une fin d’année dans l’ombre chinoise
+Date: 2022-12-29
+Lien: https://www.liberation.fr/societe/sante/covid-19-une-fin-dannee-dans-lombre-chinoise-20221229_7ENKCHZ7VNF37EONX4Z7WAAF7M/
+--------------------------------------------------------------------------------
+ID: LIB_2024_288
+Titre: Vacciné 217 fois contre le Covid sans effets secondaires : le cas d’un Allemand étudié par des scientifiques
+Date: 2024-03-06
+Lien: https://www.liberation.fr/international/europe/vaccine-217-fois-contre-le-covid-sans-effets-secondaires-le-cas-dun-allemand-etudie-par-des-scientifiques-20240306_OHEYD5OGKVHEZIC2NPWVEVWYXY/
+--------------------------------------------------------------------------------
+ID: LIB_2020_289
+Titre: Covid-19 : «La vision d’un vaccin efficace dans quelques mois est illusoire»
+Date: 2020-10-13
+Lien: https://www.liberation.fr/france/2020/10/13/la-vision-d-un-vaccin-efficace-dans-quelques-mois-est-illusoire_1802251/
+--------------------------------------------------------------------------------
+ID: LIB_2021_290
+Titre: Covid-19 : le pic de l’épidémie attendu dans «sept à dix jours»
+Date: 2021-04-01
+Lien: https://www.liberation.fr/societe/sante/covid-19-le-pic-de-lepidemie-attendu-dans-sept-a-dix-jours-20210401_SJGSOFG27FAFLKXKR3C33ICQOA/
+--------------------------------------------------------------------------------
+ID: LIB_2022_291
+Titre: Le Royaume-Uni a-t-il admis que les vaccins endommagent le système immunitaire naturel?
+Date: 2022-01-30
+Lien: https://www.liberation.fr/checknews/le-royaume-uni-a-t-il-admis-que-les-vaccins-endommagent-le-systeme-immunitaire-naturel-20220130_RDJWIG4QJJGPNOPX65GJDUVNIY/
+--------------------------------------------------------------------------------
+ID: LIB_2022_292
+Titre: Covid-19: un nouveau rappel recommandé cet automne pour les personnes les plus fragiles
+Date: 2022-05-25
+Lien: https://www.liberation.fr/societe/sante/covid-19-un-nouveau-rappel-recommande-cet-automne-pour-les-plus-fragiles-par-les-autorites-sanitaires-20220525_GFW5EH6CZZFDXIZXMVT47CQSQE/
+--------------------------------------------------------------------------------
+ID: LIB_2022_293
+Titre: Effets secondaires des vaccins anti-Covid: l’audition de figures «antivax» par des parlementaires fait polémique
+Date: 2022-05-27
+Lien: https://www.liberation.fr/checknews/effets-secondaires-des-vaccins-anti-covid-laudition-de-figures-antivax-par-des-parlementaires-fait-polemique-20220527_UUAYKEQRGJG25PHT6DHBV7HA6Q/
+--------------------------------------------------------------------------------
+ID: LIB_2022_294
+Titre: Cette vidéo de Fox News sur les effets secondaires des vaccins anti-Covid est-elle sérieuse?
+Date: 2022-08-03
+Lien: https://www.liberation.fr/checknews/cette-video-de-fox-news-sur-les-effets-secondaires-des-vaccins-anti-covid-est-elle-serieuse-20220803_ELMDS44IXBDTTOPDZ3AC576GLA/
+--------------------------------------------------------------------------------
+ID: LIB_2021_296
+Titre: Covid-19 : le vaccin est arrivé, mais sans se presser
+Date: 2021-01-06
+Lien: https://www.liberation.fr/france/2021/01/05/le-vaccin-est-arrive-mais-sans-se-presser_1810431/
+--------------------------------------------------------------------------------
+ID: LIB_2022_297
+Titre: Pourquoi des victimes d’effets secondaires du vaccin H1N1 n’ont-elles toujours pas été indemnisées par l’Oniam, treize ans après?
+Date: 2022-02-01
+Lien: https://www.liberation.fr/checknews/pourquoi-des-victimes-deffets-secondaires-du-vaccin-h1n1-nont-toujours-pas-ete-indemnisees-par-loniam-treize-ans-apres-20220201_MYRDNOPDNRDORI5FUPZ3VKZGPE/
+--------------------------------------------------------------------------------
+ID: LIB_2022_298
+Titre: Covid: le difficile accès au vaccin pour les personnes atteintes de troubles psychiatriques
+Date: 2022-02-22
+Lien: https://www.liberation.fr/societe/sante/covid-19-pour-les-personnes-atteintes-de-troubles-psychiatriques-le-difficile-acces-au-vaccin-20220222_FWZOEIKAPJD4PCPXCYLN7L2AZA/
+--------------------------------------------------------------------------------
+ID: LIB_2022_299
+Titre: Covid-19: «C’est dès maintenant qu’il faut anticiper la campagne vaccinale de rappel»
+Date: 2022-05-29
+Lien: https://www.liberation.fr/societe/sante/covid-19-cest-des-maintenant-quil-faut-anticiper-la-campagne-vaccinale-de-rappel-20220529_EO4YDVREAFAPBNDUV77I5RCWLM/
+--------------------------------------------------------------------------------
