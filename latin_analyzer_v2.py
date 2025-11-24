@@ -26,6 +26,7 @@ from collections import Counter
 sys.path.insert(0, '/tmp/collatinus-python')
 
 from pycollatinus import Lemmatiseur
+from page_xml_parser import PageXMLParser
 
 
 class LatinAnalyzer:
@@ -198,9 +199,38 @@ class LatinAnalyzer:
 
         return False
 
+    def analyze_page_xml(self, input_path, column_mode='single'):
+        """
+        Analyse un fichier ou dossier XML Pages.
+
+        Args:
+            input_path (str): Chemin vers fichier XML ou dossier
+            column_mode (str): 'single' ou 'dual'
+
+        Returns:
+            dict: Statistiques et résultats de l'analyse
+        """
+        print(f"📄 Extraction du texte depuis XML Pages...")
+
+        parser = PageXMLParser(column_mode=column_mode)
+
+        # Déterminer si c'est un fichier ou dossier
+        if os.path.isfile(input_path):
+            lines, metadata = parser.parse_file(input_path)
+            print(f"  ✅ 1 fichier traité, {len(lines)} lignes extraites")
+        elif os.path.isdir(input_path):
+            text, metadata_list = parser.parse_folder(input_path)
+            lines = text.split('\n')
+            print(f"  ✅ {len(metadata_list)} fichiers traités, {len(lines)} lignes extraites")
+        else:
+            raise ValueError(f"Chemin invalide : {input_path}")
+
+        # Analyser le texte extrait
+        return self._analyze_lines(lines, source=input_path)
+
     def analyze_text_file(self, input_file):
         """
-        Analyse un fichier texte complet.
+        Analyse un fichier texte brut complet.
 
         Args:
             input_file (str): Chemin vers le fichier texte
@@ -208,10 +238,26 @@ class LatinAnalyzer:
         Returns:
             dict: Statistiques et résultats de l'analyse
         """
-        print(f"📄 Analyse du fichier : {input_file}")
+        print(f"📄 Analyse du fichier texte : {input_file}")
 
         with open(input_file, 'r', encoding='utf-8') as f:
             lines = f.readlines()
+
+        return self._analyze_lines(lines, source=input_file)
+
+    def _analyze_lines(self, lines, source):
+        """
+        Analyse une liste de lignes de texte.
+
+        Args:
+            lines (list): Liste des lignes à analyser
+            source (str): Source du texte (pour logs)
+
+        Returns:
+            dict: Statistiques et résultats de l'analyse
+        """
+        print(f"🔍 Analyse en cours...")
+        print(f"   Source : {source}")
 
         results = []
         word_counter = Counter()
@@ -265,20 +311,27 @@ class LatinAnalyzer:
             }
         }
 
-    def generate_docx(self, input_file, output_docx, analysis_results):
+    def generate_docx(self, input_source, output_docx, analysis_results):
         """
         Génère un document Word avec colorisation à 3 niveaux.
 
         Args:
-            input_file (str): Fichier texte source
+            input_source (str or list): Fichier texte source OU liste de lignes
             output_docx (str): Fichier DOCX de sortie
             analysis_results (dict): Résultats de l'analyse
         """
         print(f"\n📝 Génération du document Word...")
 
-        # Lire le fichier original
-        with open(input_file, 'r', encoding='utf-8') as f:
-            original_lines = f.readlines()
+        # Lire le fichier ou utiliser les lignes fournies
+        if isinstance(input_source, str):
+            with open(input_source, 'r', encoding='utf-8') as f:
+                original_lines = f.readlines()
+        elif isinstance(input_source, list):
+            # S'assurer que chaque ligne se termine par \n
+            original_lines = [line if line.endswith('\n') else line + '\n'
+                             for line in input_source]
+        else:
+            raise ValueError("input_source doit être un chemin de fichier ou une liste de lignes")
 
         # Créer un index des analyses par ligne et mot
         analysis_index = {}
@@ -355,8 +408,57 @@ class LatinAnalyzer:
         print(f"✅ Document créé : {output_docx}")
 
 
+def main_xml_pages():
+    """
+    Exemple d'utilisation avec des fichiers XML Pages.
+
+    À adapter selon vos fichiers !
+    """
+    print("=" * 70)
+    print("  ANALYSEUR DE TEXTES LATINS - MODE XML PAGES")
+    print("  PyCollatinus + Du Cange + Extraction MainZone")
+    print("=" * 70)
+    print()
+
+    # ⚙️  ADAPTER CES CHEMINS À VOTRE STRUCTURE ⚙️
+    xml_input = "/path/to/xml_pages_folder"  # Dossier de fichiers XML Pages
+    output_docx = "/path/to/output.docx"
+    column_mode = 'single'  # ou 'dual' si vos pages ont 2 colonnes
+    ducange_dict = "/home/user/Data_Base/ducange_data/dictionnaire_ducange.txt"
+
+    # Vérifier que le chemin existe
+    if not os.path.exists(xml_input):
+        print(f"❌ Chemin XML non trouvé : {xml_input}")
+        print("⚙️  Modifiez les chemins dans le script main_xml_pages()")
+        return 1
+
+    # Initialiser l'analyseur
+    analyzer = LatinAnalyzer(ducange_dict_file=ducange_dict)
+
+    # Analyser depuis XML Pages (avec extraction MainZone automatique)
+    analysis_results = analyzer.analyze_page_xml(xml_input, column_mode=column_mode)
+
+    # Récupérer les lignes extraites pour le DOCX
+    parser = PageXMLParser(column_mode=column_mode)
+    if os.path.isfile(xml_input):
+        lines, _ = parser.parse_file(xml_input)
+    else:
+        text, _ = parser.parse_folder(xml_input)
+        lines = text.split('\n')
+
+    # Générer le document Word
+    analyzer.generate_docx(lines, output_docx, analysis_results)
+
+    print("\n" + "=" * 70)
+    print("✅ TRAITEMENT TERMINÉ !")
+    print(f"📁 Fichier généré : {output_docx}")
+    print("=" * 70)
+
+    return 0
+
+
 def main():
-    """Fonction principale."""
+    """Fonction principale pour fichier texte brut."""
     print("=" * 70)
     print("  ANALYSEUR DE TEXTES LATINS MÉDIÉVAUX - VERSION 2")
     print("  PyCollatinus + Du Cange + Scoring Multi-critères")
@@ -371,7 +473,8 @@ def main():
     # Vérifier que les fichiers existent
     if not os.path.exists(default_input):
         print(f"❌ Fichier d'entrée non trouvé : {default_input}")
-        print("⚙️  Modifiez les chemins dans le script (ligne ~350)")
+        print("⚙️  Modifiez les chemins dans le script (ligne ~420)")
+        print("\n💡 Pour analyser des XML Pages, utilisez main_xml_pages() à la place")
         return 1
 
     # Initialiser l'analyseur
