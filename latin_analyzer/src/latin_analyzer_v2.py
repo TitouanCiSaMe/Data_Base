@@ -26,7 +26,12 @@ from collections import Counter
 sys.path.insert(0, '/tmp/collatinus-python')
 
 from pycollatinus import Lemmatiseur
-from page_xml_parser import PageXMLParser
+
+# Import local si exécuté comme script, sinon import relatif
+try:
+    from page_xml_parser import PageXMLParser
+except ImportError:
+    from .page_xml_parser import PageXMLParser
 
 
 class LatinAnalyzer:
@@ -421,10 +426,13 @@ def main_xml_pages():
     print()
 
     # ⚙️  ADAPTER CES CHEMINS À VOTRE STRUCTURE ⚙️
+    # Chemins relatifs depuis le répertoire du projet
+    project_dir = Path(__file__).parent.parent  # Remonter à latin_analyzer/
+
     xml_input = "/path/to/xml_pages_folder"  # Dossier de fichiers XML Pages
     output_docx = "/path/to/output.docx"
     column_mode = 'single'  # ou 'dual' si vos pages ont 2 colonnes
-    ducange_dict = "/home/user/Data_Base/ducange_data/dictionnaire_ducange.txt"
+    ducange_dict = str(project_dir / "data" / "ducange_data" / "dictionnaire_ducange.txt")
 
     # Vérifier que le chemin existe
     if not os.path.exists(xml_input):
@@ -466,9 +474,12 @@ def main():
     print()
 
     # Chemins par défaut (à adapter)
+    # Chemins relatifs depuis le répertoire du projet
+    project_dir = Path(__file__).parent.parent  # Remonter à latin_analyzer/
+
     default_input = "/home/titouan/Téléchargements/Arras/resultats/synthese_arborescence.txt"
     default_output = "/home/titouan/Téléchargements/Arras_v2.docx"
-    default_ducange = "/home/user/Data_Base/ducange_data/dictionnaire_ducange.txt"
+    default_ducange = str(project_dir / "data" / "ducange_data" / "dictionnaire_ducange.txt")
 
     # Vérifier que les fichiers existent
     if not os.path.exists(default_input):

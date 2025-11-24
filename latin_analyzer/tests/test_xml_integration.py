@@ -10,6 +10,12 @@ Ce test vérifie :
 
 import sys
 import os
+from pathlib import Path
+
+# Ajouter le dossier src au path
+src_dir = Path(__file__).parent.parent / "src"
+sys.path.insert(0, str(src_dir))
+sys.path.insert(0, '/tmp/collatinus-python')
 
 print("=" * 60)
 print("  TEST D'INTÉGRATION XML PAGES")
@@ -25,7 +31,6 @@ except ImportError as e:
     sys.exit(1)
 
 try:
-    sys.path.insert(0, '/tmp/collatinus-python')
     from latin_analyzer_v2 import LatinAnalyzer
     print("✅ latin_analyzer_v2 importé")
 except ImportError as e:

@@ -53,13 +53,13 @@ echo ""
 echo "4️⃣  Téléchargement du dictionnaire Du Cange..."
 cd "$(dirname "$0")"
 
-if [ -f "ducange_data/dictionnaire_ducange.txt" ]; then
+if [ -f "data/ducange_data/dictionnaire_ducange.txt" ]; then
     echo "   ⏭️  Dictionnaire déjà présent"
-    DICT_SIZE=$(wc -l < ducange_data/dictionnaire_ducange.txt)
+    DICT_SIZE=$(wc -l < data/ducange_data/dictionnaire_ducange.txt)
     echo "   📊 ${DICT_SIZE} entrées"
 else
     echo "   ⬇️  Téléchargement en cours (cela peut prendre 2-3 minutes)..."
-    python3 download_ducange.py > /tmp/ducange_install.log 2>&1
+    python3 scripts/download_ducange.py > /tmp/ducange_install.log 2>&1
     echo "   ✅ Dictionnaire téléchargé (99 917 mots)"
 fi
 
@@ -71,6 +71,7 @@ echo "   🧪 Test des imports..."
 python3 -c "import docx; import lxml; import unidecode; print('   ✅ Imports OK')" || exit 1
 
 echo "   🧪 Test PyCollatinus..."
+cd tests
 python3 test_pycollatinus.py > /tmp/test_pycollatinus.log 2>&1
 if [ $? -eq 0 ]; then
     echo "   ✅ PyCollatinus OK"
@@ -88,6 +89,8 @@ else
     exit 1
 fi
 
+cd ..
+
 # Résumé
 echo ""
 echo "================================================================"
@@ -102,12 +105,12 @@ echo "   • PyCollatinus (GitHub)"
 echo "   • Dictionnaire Du Cange (99 917 mots)"
 echo ""
 echo "🚀 Pour tester :"
-echo "   python3 page_xml_parser.py fichier.xml single"
-echo "   python3 latin_analyzer_v2.py"
+echo "   cd src && python3 page_xml_parser.py fichier.xml single"
+echo "   cd src && python3 latin_analyzer_v2.py"
 echo ""
 echo "📖 Documentation :"
-echo "   README_AMELIORATIONS.md  - Vue d'ensemble"
-echo "   GUIDE_XML_PAGES.md       - Utilisation XML Pages"
-echo "   INSTALL.md               - Guide détaillé"
+echo "   docs/README_AMELIORATIONS.md  - Vue d'ensemble"
+echo "   docs/GUIDE_XML_PAGES.md       - Utilisation XML Pages"
+echo "   docs/INSTALL.md               - Guide détaillé"
 echo ""
 echo "================================================================"
