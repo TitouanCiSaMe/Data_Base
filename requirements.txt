@@ -1,0 +1,14 @@
+# Dépendances pour l'analyseur de textes latins médiévaux
+# Installation : pip install -r requirements.txt
+
+# Génération de documents Word
+python-docx==1.2.0
+
+# Support XML parsing (dépendance de python-docx)
+lxml==6.0.2
+
+# Translittération et nettoyage de texte (pour PyCollatinus)
+unidecode==1.4.0
+
+# Note : PyCollatinus n'est PAS installé via pip car le package est cassé
+# Il faut le cloner depuis GitHub (voir INSTALL.md)
