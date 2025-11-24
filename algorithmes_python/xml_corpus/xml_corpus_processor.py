@@ -38,6 +38,7 @@ class PageMetadata:
     page_number: int
     running_title: str
     is_empty: bool = False
+    column: Optional[str] = None  # Nouvelle: identifiant de colonne (ex: "col1", "col2")
 
 
 @dataclass
@@ -51,6 +52,7 @@ class ProcessingConfig:
     page_numbering_source: str = 'filename'
     starting_page_number: int = 1
     include_empty_folios: bool = True
+    column_mode: str = 'single'  # Nouveau: 'single' ou 'dual' pour gérer les colonnes multiples
 
 
 class XMLCorpusProcessor:
@@ -58,21 +60,37 @@ class XMLCorpusProcessor:
     Processeur de corpus XML pour extraction et lemmatisation.
 
     Cette classe permet de :
-    - Extraire le texte de fichiers XML structurés
+    - Extraire le texte de fichiers XML structurés (single ou dual column)
     - Gérer les mots coupés avec trait d'union
     - Lemmatiser le texte avec TreeTagger
     - Générer un corpus vertical annoté
+
+    Modes de colonnes:
+        - 'single': Un fichier = une page (MainZone unique)
+        - 'dual': Un fichier = deux pages (MainZone:column#1 et column#2)
 
     Attributes:
         config (ProcessingConfig): Configuration du processeur
         logger (logging.Logger): Logger pour le suivi des opérations
         tagger (treetaggerwrapper.TreeTagger): Instance de TreeTagger
 
-    Example:
+    Example (mode single):
         >>> config = ProcessingConfig(
         ...     input_folder="/path/to/xml",
         ...     output_file="/path/to/output.txt",
-        ...     language='la'
+        ...     language='la',
+        ...     column_mode='single'
+        ... )
+        >>> processor = XMLCorpusProcessor(config)
+        >>> processor.process_corpus()
+
+    Example (mode dual):
+        >>> config = ProcessingConfig(
+        ...     input_folder="/path/to/xml",
+        ...     output_file="/path/to/output.txt",
+        ...     language='la',
+        ...     column_mode='dual',
+        ...     starting_page_number=3
         ... )
         >>> processor = XMLCorpusProcessor(config)
         >>> processor.process_corpus()
@@ -144,6 +162,13 @@ class XMLCorpusProcessor:
             raise ValueError(
                 f"Source de numérotation invalide: {self.config.page_numbering_source}. "
                 f"Valeurs acceptées: {', '.join(valid_sources)}"
+            )
+
+        valid_column_modes = ['single', 'dual']
+        if self.config.column_mode not in valid_column_modes:
+            raise ValueError(
+                f"Mode de colonnes invalide: {self.config.column_mode}. "
+                f"Valeurs acceptées: {', '.join(valid_column_modes)}"
             )
 
         if (not isinstance(self.config.starting_page_number, int) or
@@ -306,15 +331,83 @@ class XMLCorpusProcessor:
             if '}' in elem.tag:
                 elem.tag = elem.tag.split('}', 1)[1]
 
-    def _process_xml_page(self, file_path: str) -> Tuple[Optional[int], str, List[str]]:
+    def _extract_columns(self, root: ET.Element) -> List[Tuple[Optional[str], List[str]]]:
         """
-        Traite un fichier XML individuel.
+        Extrait les colonnes de texte d'un fichier XML selon le mode configuré.
+
+        Args:
+            root: Élément racine de l'arbre XML
+
+        Returns:
+            Liste de tuples (identifiant_colonne, lignes_de_texte)
+            - En mode 'single': [(None, lignes)]
+            - En mode 'dual': [("col1", lignes1), ("col2", lignes2)]
+
+        Example:
+            >>> columns = processor._extract_columns(root)
+            >>> # Mode single: [(None, ["line1", "line2"])]
+            >>> # Mode dual: [("col1", ["line1"]), ("col2", ["line2"])]
+        """
+        columns = []
+
+        if self.config.column_mode == 'single':
+            # Mode classique : une seule MainZone
+            lines = []
+            first_main_zone = root.find(
+                ".//TextRegion[@custom='structure {type:MainZone;}']"
+            )
+
+            if first_main_zone is not None:
+                for text_line in first_main_zone.findall(".//TextLine"):
+                    text_equiv = text_line.find(".//TextEquiv/Unicode")
+                    if text_equiv is not None and text_equiv.text:
+                        lines.append(text_equiv.text.strip())
+
+            columns.append((None, lines))
+
+        elif self.config.column_mode == 'dual':
+            # Mode dual : deux colonnes séparées
+            # Colonne 1
+            col1_lines = []
+            first_column = root.find(
+                ".//TextRegion[@custom='structure {type:MainZone:column#1;}']"
+            )
+            if first_column is not None:
+                for text_line in first_column.findall(".//TextLine"):
+                    text_equiv = text_line.find(".//TextEquiv/Unicode")
+                    if text_equiv is not None and text_equiv.text:
+                        col1_lines.append(text_equiv.text.strip())
+
+            columns.append(("col1", col1_lines))
+
+            # Colonne 2
+            col2_lines = []
+            second_column = root.find(
+                ".//TextRegion[@custom='structure {type:MainZone:column#2;}']"
+            )
+            if second_column is not None:
+                for text_line in second_column.findall(".//TextLine"):
+                    text_equiv = text_line.find(".//TextEquiv/Unicode")
+                    if text_equiv is not None and text_equiv.text:
+                        col2_lines.append(text_equiv.text.strip())
+
+            columns.append(("col2", col2_lines))
+
+        return columns
+
+    def _process_xml_page(
+        self,
+        file_path: str
+    ) -> Tuple[Optional[int], str, List[Tuple[Optional[str], List[str]]]]:
+        """
+        Traite un fichier XML individuel et extrait les colonnes selon le mode configuré.
 
         Args:
             file_path: Chemin complet vers le fichier XML
 
         Returns:
-            Tuple contenant (numéro de page, titre courant, lignes de texte)
+            Tuple contenant (numéro de page, titre courant, liste de colonnes)
+            où chaque colonne est un tuple (identifiant, lignes)
 
         Raises:
             ET.ParseError: Si le fichier XML est mal formé
@@ -342,23 +435,17 @@ class XMLCorpusProcessor:
             if self.config.page_numbering_source == 'numbering_zone':
                 page_number = self._extract_page_number_from_numbering_zone(root)
 
-            # Extraction des lignes - UNIQUEMENT de la première MainZone
-            lines = []
-            first_main_zone = root.find(
-                ".//TextRegion[@custom='structure {type:MainZone;}']"
-            )
+            # Extraction des colonnes selon le mode configuré
+            columns = self._extract_columns(root)
 
-            if first_main_zone is not None:
-                for text_line in first_main_zone.findall(".//TextLine"):
-                    text_equiv = text_line.find(".//TextEquiv/Unicode")
-                    if text_equiv is not None and text_equiv.text:
-                        lines.append(text_equiv.text.strip())
+            # Nettoyage et fusion des mots coupés pour chaque colonne
+            processed_columns = []
+            for col_id, lines in columns:
+                cleaned = self._clean_lines(lines)
+                merged = self._merge_hyphenated_words(cleaned)
+                processed_columns.append((col_id, merged))
 
-            # Nettoyage et fusion des mots coupés
-            lines = self._clean_lines(lines)
-            lines = self._merge_hyphenated_words(lines)
-
-            return page_number, running_title, lines
+            return page_number, running_title, processed_columns
 
         except ET.ParseError as e:
             self.logger.error(f"Erreur de parsing XML pour {file_path}: {e}")
@@ -501,9 +588,14 @@ class XMLCorpusProcessor:
             f'{k}="{v}"' for k, v in self.config.metadata.items()
         ])
 
+        # Construction de l'identifiant folio (avec colonne si mode dual)
+        folio_id = metadata.filename
+        if metadata.column:
+            folio_id = f"{metadata.filename}-{metadata.column}"
+
         # En-tête du document
         doc_header = (
-            f'<doc folio="{metadata.filename}" '
+            f'<doc folio="{folio_id}" '
             f'page_number="{metadata.page_number}" '
             f'running_title="{metadata.running_title}" '
             f'{metadata_attrs}'
@@ -537,7 +629,10 @@ class XMLCorpusProcessor:
         xml_files: List[str]
     ) -> List[Tuple[int, str]]:
         """
-        Traite tous les fichiers XML.
+        Traite tous les fichiers XML selon le mode de colonnes configuré.
+
+        En mode 'single': un fichier = une page
+        En mode 'dual': un fichier = deux pages (une par colonne)
 
         Args:
             xml_files: Liste des fichiers XML à traiter
@@ -548,52 +643,69 @@ class XMLCorpusProcessor:
         documents = []
         empty_folios = []
         relative_index = 0
+        page_counter = self.config.starting_page_number
 
         for filename in xml_files:
             file_path = os.path.join(self.config.input_folder, filename)
             relative_index += 1
 
             try:
-                # Traitement du fichier
-                numbering_zone_page, running_title, lines = self._process_xml_page(file_path)
+                # Traitement du fichier - retourne une liste de colonnes
+                numbering_zone_page, running_title, columns = self._process_xml_page(file_path)
 
-                # Calcul du numéro de page
-                page_number = self._calculate_page_number(
-                    filename,
-                    relative_index,
-                    numbering_zone_page
-                )
-
-                # Création des métadonnées
-                is_empty = not lines
-                metadata = PageMetadata(
-                    filename=filename,
-                    page_number=page_number,
-                    running_title=running_title,
-                    is_empty=is_empty
-                )
-
-                # Gestion des folios vides
-                if is_empty:
-                    empty_folios.append((filename, page_number))
-                    if not self.config.include_empty_folios:
-                        self.logger.info(
-                            f"Folio vide ignoré : {filename} (Page {page_number})"
+                # Traiter chaque colonne séparément
+                for col_id, lines in columns:
+                    # Calcul du numéro de page (auto-incrémenté en mode dual)
+                    if self.config.column_mode == 'single':
+                        page_number = self._calculate_page_number(
+                            filename,
+                            relative_index,
+                            numbering_zone_page
                         )
-                        continue
-                    else:
-                        self.logger.info(
-                            f"Folio vide inclus : {filename} (Page {page_number})"
-                        )
+                    else:  # mode 'dual'
+                        page_number = page_counter
 
-                # Formatage et stockage
-                document_content = self._format_document(metadata, lines)
-                documents.append((page_number, document_content))
-
-                if not is_empty:
-                    self.logger.info(
-                        f"Traitement réussi : {filename} (Page {page_number})"
+                    # Création des métadonnées
+                    is_empty = not lines
+                    metadata = PageMetadata(
+                        filename=filename,
+                        page_number=page_number,
+                        running_title=running_title,
+                        is_empty=is_empty,
+                        column=col_id
                     )
+
+                    # Construction de l'identifiant pour les logs
+                    folio_display = filename
+                    if col_id:
+                        folio_display = f"{filename}-{col_id}"
+
+                    # Gestion des folios vides
+                    if is_empty:
+                        empty_folios.append((folio_display, page_number))
+                        if not self.config.include_empty_folios:
+                            self.logger.info(
+                                f"Folio vide ignoré : {folio_display} (Page {page_number})"
+                            )
+                            page_counter += 1
+                            continue
+                        else:
+                            self.logger.info(
+                                f"Folio vide inclus : {folio_display} (Page {page_number})"
+                            )
+
+                    # Formatage et stockage
+                    document_content = self._format_document(metadata, lines)
+                    documents.append((page_number, document_content))
+
+                    if not is_empty:
+                        self.logger.info(
+                            f"Traitement réussi : {folio_display} (Page {page_number})"
+                        )
+
+                    # Incrémenter le compteur de page en mode dual
+                    if self.config.column_mode == 'dual':
+                        page_counter += 1
 
             except ET.ParseError as e:
                 self.logger.error(f"Fichier XML invalide {filename}: {e}")

@@ -42,6 +42,7 @@ class TestProcessingConfig(unittest.TestCase):
         self.assertEqual(config.page_numbering_source, 'filename')
         self.assertEqual(config.starting_page_number, 1)
         self.assertTrue(config.include_empty_folios)
+        self.assertEqual(config.column_mode, 'single')  # Nouveau: mode par défaut
 
     def test_config_with_custom_values(self):
         """Test création de config avec valeurs personnalisées."""
@@ -443,20 +444,202 @@ class TestIntegration(unittest.TestCase):
             shutil.rmtree(self.temp_dir)
 
     def test_process_xml_page(self):
-        """Test traitement d'une page XML."""
+        """Test traitement d'une page XML en mode single."""
         config = ProcessingConfig(
             input_folder=self.temp_dir,
-            output_file=self.output_file
+            output_file=self.output_file,
+            column_mode='single'
         )
         processor = XMLCorpusProcessor(config)
 
         file_path = os.path.join(self.temp_dir, "test_0001.xml")
-        page_num, title, lines = processor._process_xml_page(file_path)
+        page_num, title, columns = processor._process_xml_page(file_path)
 
         self.assertIsNone(page_num)  # Pas de NumberingZone
         self.assertEqual(title, "No running title")  # Pas de RunningTitleZone
+
+        # Vérifier qu'on a une seule colonne
+        self.assertEqual(len(columns), 1)
+        col_id, lines = columns[0]
+        self.assertIsNone(col_id)  # En mode single, pas d'identifiant de colonne
         self.assertEqual(len(lines), 1)
         self.assertEqual(lines[0], "Test line")
+
+
+class TestDualColumnMode(unittest.TestCase):
+    """Tests pour le mode dual-column."""
+
+    def setUp(self):
+        """Prépare l'environnement de test."""
+        self.temp_dir = tempfile.mkdtemp()
+        self.output_file = os.path.join(self.temp_dir, "output.txt")
+
+        # Créer un fichier XML avec deux colonnes
+        xml_dual_content = """<?xml version="1.0" encoding="UTF-8"?>
+<PcGts>
+    <Page>
+        <TextRegion custom='structure {type:RunningTitleZone;}'>
+            <TextEquiv>
+                <Unicode>Dual Column Test</Unicode>
+            </TextEquiv>
+        </TextRegion>
+        <TextRegion custom='structure {type:MainZone:column#1;}'>
+            <TextLine>
+                <TextEquiv>
+                    <Unicode>Column 1 line 1</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine>
+                <TextEquiv>
+                    <Unicode>Column 1 line 2</Unicode>
+                </TextEquiv>
+            </TextLine>
+        </TextRegion>
+        <TextRegion custom='structure {type:MainZone:column#2;}'>
+            <TextLine>
+                <TextEquiv>
+                    <Unicode>Column 2 line 1</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine>
+                <TextEquiv>
+                    <Unicode>Column 2 line 2</Unicode>
+                </TextEquiv>
+            </TextLine>
+        </TextRegion>
+    </Page>
+</PcGts>"""
+        with open(os.path.join(self.temp_dir, "dual_0001.xml"), "w", encoding="utf-8") as f:
+            f.write(xml_dual_content)
+
+        # Créer un fichier avec une seule colonne remplie
+        xml_partial_content = """<?xml version="1.0" encoding="UTF-8"?>
+<PcGts>
+    <Page>
+        <TextRegion custom='structure {type:MainZone:column#1;}'>
+            <TextLine>
+                <TextEquiv>
+                    <Unicode>Only column 1</Unicode>
+                </TextEquiv>
+            </TextLine>
+        </TextRegion>
+    </Page>
+</PcGts>"""
+        with open(os.path.join(self.temp_dir, "dual_0002.xml"), "w", encoding="utf-8") as f:
+            f.write(xml_partial_content)
+
+    def tearDown(self):
+        """Nettoie après les tests."""
+        import shutil
+        if os.path.exists(self.temp_dir):
+            shutil.rmtree(self.temp_dir)
+
+    def test_dual_column_config(self):
+        """Test configuration en mode dual."""
+        config = ProcessingConfig(
+            input_folder=self.temp_dir,
+            output_file=self.output_file,
+            column_mode='dual'
+        )
+
+        self.assertEqual(config.column_mode, 'dual')
+
+    def test_dual_column_validation(self):
+        """Test validation du mode de colonnes."""
+        config = ProcessingConfig(
+            input_folder=self.temp_dir,
+            output_file=self.output_file,
+            column_mode='invalid_mode'
+        )
+
+        with self.assertRaises(ValueError):
+            XMLCorpusProcessor(config)
+
+    def test_extract_dual_columns(self):
+        """Test extraction de deux colonnes."""
+        config = ProcessingConfig(
+            input_folder=self.temp_dir,
+            output_file=self.output_file,
+            column_mode='dual'
+        )
+        processor = XMLCorpusProcessor(config)
+
+        file_path = os.path.join(self.temp_dir, "dual_0001.xml")
+        page_num, title, columns = processor._process_xml_page(file_path)
+
+        # Vérifier qu'on a deux colonnes
+        self.assertEqual(len(columns), 2)
+
+        # Vérifier colonne 1
+        col1_id, col1_lines = columns[0]
+        self.assertEqual(col1_id, "col1")
+        self.assertEqual(len(col1_lines), 2)
+        self.assertEqual(col1_lines[0], "Column 1 line 1")
+
+        # Vérifier colonne 2
+        col2_id, col2_lines = columns[1]
+        self.assertEqual(col2_id, "col2")
+        self.assertEqual(len(col2_lines), 2)
+        self.assertEqual(col2_lines[0], "Column 2 line 1")
+
+    def test_extract_partial_dual_columns(self):
+        """Test extraction avec une seule colonne remplie."""
+        config = ProcessingConfig(
+            input_folder=self.temp_dir,
+            output_file=self.output_file,
+            column_mode='dual'
+        )
+        processor = XMLCorpusProcessor(config)
+
+        file_path = os.path.join(self.temp_dir, "dual_0002.xml")
+        page_num, title, columns = processor._process_xml_page(file_path)
+
+        # Vérifier qu'on a deux colonnes (dont une vide)
+        self.assertEqual(len(columns), 2)
+
+        # Colonne 1 remplie
+        col1_id, col1_lines = columns[0]
+        self.assertEqual(col1_id, "col1")
+        self.assertEqual(len(col1_lines), 1)
+
+        # Colonne 2 vide
+        col2_id, col2_lines = columns[1]
+        self.assertEqual(col2_id, "col2")
+        self.assertEqual(len(col2_lines), 0)
+
+    def test_page_metadata_with_column(self):
+        """Test métadonnées avec identifiant de colonne."""
+        metadata = PageMetadata(
+            filename="test.xml",
+            page_number=1,
+            running_title="Title",
+            column="col1"
+        )
+
+        self.assertEqual(metadata.column, "col1")
+
+    def test_format_document_with_column(self):
+        """Test formatage avec identifiant de colonne."""
+        config = ProcessingConfig(
+            input_folder=self.temp_dir,
+            output_file=self.output_file,
+            column_mode='dual'
+        )
+        processor = XMLCorpusProcessor(config)
+
+        metadata = PageMetadata(
+            filename="test.xml",
+            page_number=1,
+            running_title="Title",
+            column="col1",
+            is_empty=True
+        )
+
+        result = processor._format_document(metadata, [])
+
+        # Vérifier que le folio contient l'identifiant de colonne
+        self.assertIn('folio="test.xml-col1"', result)
+        self.assertIn('page_number="1"', result)
 
 
 def run_tests():
@@ -471,6 +654,7 @@ def run_tests():
     suite.addTests(loader.loadTestsFromTestCase(TestPatterns))
     suite.addTests(loader.loadTestsFromTestCase(TestXMLCorpusProcessor))
     suite.addTests(loader.loadTestsFromTestCase(TestIntegration))
+    suite.addTests(loader.loadTestsFromTestCase(TestDualColumnMode))
 
     # Exécuter les tests
     runner = unittest.TextTestRunner(verbosity=2)
