@@ -69,8 +69,13 @@ class LatinAnalyzer:
 
         # Charger le dictionnaire médiéval
         self.medieval_dict = set()
-        self.ducange_matches_count = 0  # Compteur pour debug
-        self.ducange_examples = []  # Exemples de mots trouvés
+
+        # Compteurs de debug
+        self.ducange_matches_count = 0
+        self.ducange_examples = []
+        self.collatinus_matches_count = 0
+        self.collatinus_examples = []
+        self.both_matches_count = 0
 
         if ducange_dict_file and os.path.exists(ducange_dict_file):
             print(f"  📚 Chargement du dictionnaire Du Cange...")
@@ -267,13 +272,20 @@ class LatinAnalyzer:
         try:
             # Tester le mot original ET la version normalisée
             for test_word in [clean_word, normalized_word]:
-                analyses = self.lemmatizer.lemmatise(test_word)
+                # CORRECTION : Convertir generator en liste
+                analyses = list(self.lemmatizer.lemmatise(test_word))
                 if analyses and len(analyses) > 0:
                     result['recognized_classical'] = True
                     result['confidence_score'] += 30
                     result['reasons'].append(f"latin classique valide ({len(analyses)} analyse(s))")
+
+                    # Debug : compter
+                    self.collatinus_matches_count += 1
+                    if len(self.collatinus_examples) < 20:
+                        self.collatinus_examples.append(clean_word)
                     break
-        except Exception:
+        except Exception as e:
+            # Debug : afficher les erreurs PyCollatinus pour diagnostic
             pass
 
         # Critère 2 : Présent dans le dictionnaire Du Cange (avec normalisation)
@@ -286,6 +298,10 @@ class LatinAnalyzer:
             self.ducange_matches_count += 1
             if len(self.ducange_examples) < 20:
                 self.ducange_examples.append(clean_word)
+
+            # Compter si reconnu par les deux
+            if result['recognized_classical']:
+                self.both_matches_count += 1
 
         # Critère 3 : Suffixe médiéval typique
         for suffix in self.medieval_suffixes:
@@ -494,13 +510,32 @@ class LatinAnalyzer:
         print(f"  ⚠️  Orange (douteux)      : {score_distribution['orange']} ({score_distribution['orange']*100//total_words}%)")
         print(f"  ❌ Rouge (erreurs prob.) : {score_distribution['red']} ({score_distribution['red']*100//total_words}%)")
 
-        # Statistiques Du Cange
-        if self.ducange_matches_count > 0:
-            print(f"\n📚 Statistiques Du Cange :")
-            print(f"  ✅ Mots trouvés dans Du Cange : {self.ducange_matches_count}")
-            print(f"  🔍 Exemples : {', '.join(self.ducange_examples[:10])}")
+        # Statistiques détaillées par source
+        print(f"\n📚 Statistiques de reconnaissance par source :")
+
+        if self.collatinus_matches_count > 0:
+            print(f"  🏛️  PyCollatinus (latin classique) : {self.collatinus_matches_count} mots")
+            print(f"      Exemples : {', '.join(self.collatinus_examples[:10])}")
         else:
-            print(f"\n⚠️  Aucun mot trouvé dans Du Cange (vérifier le dictionnaire)")
+            print(f"  ⚠️  PyCollatinus : 0 mots reconnus (vérifier l'installation)")
+
+        if self.ducange_matches_count > 0:
+            print(f"  📖 Du Cange (latin médiéval) : {self.ducange_matches_count} mots")
+            print(f"      Exemples : {', '.join(self.ducange_examples[:10])}")
+        else:
+            print(f"  ⚠️  Du Cange : 0 mots reconnus (vérifier le dictionnaire)")
+
+        if self.both_matches_count > 0:
+            print(f"  🔗 Reconnus par les deux : {self.both_matches_count} mots")
+
+        # Calculer les mots reconnus uniquement par l'une des sources
+        only_collatinus = self.collatinus_matches_count - self.both_matches_count
+        only_ducange = self.ducange_matches_count - self.both_matches_count
+
+        print(f"\n  📊 Répartition :")
+        print(f"      Uniquement PyCollatinus : {only_collatinus}")
+        print(f"      Uniquement Du Cange : {only_ducange}")
+        print(f"      Les deux : {self.both_matches_count}")
 
         return {
             'results': results,
