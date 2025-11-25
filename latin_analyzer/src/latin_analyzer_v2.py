@@ -167,6 +167,7 @@ class LatinAnalyzer:
             ["sanctitatis"]
         """
         processed_lines = []
+        fusion_count = 0
         i = 0
 
         while i < len(lines):
@@ -176,7 +177,7 @@ class LatinAnalyzer:
             match = PATTERNS['hyphenated_word'].search(current_line)
 
             if match and i + 1 < len(lines):
-                prefix_text = match.group(1)  # Texte avant le mot coupé
+                prefix_text = match.group(1) if match.group(1) else ''  # Texte avant le mot coupé
                 prefix_word = match.group(2)  # Première partie du mot coupé
 
                 # Récupération de la ligne suivante
@@ -195,6 +196,11 @@ class LatinAnalyzer:
                     if len(next_line_parts) > 1:
                         new_line += ' ' + next_line_parts[1]
 
+                    # Debug : afficher les 5 premières fusions
+                    fusion_count += 1
+                    if fusion_count <= 5:
+                        print(f"  🔗 Fusion #{fusion_count}: '{prefix_word}-' + '{suffix_word}' → '{fused_word}'")
+
                     processed_lines.append(new_line)
                     i += 2  # Sauter la ligne suivante
                     continue
@@ -202,6 +208,11 @@ class LatinAnalyzer:
             # Pas de fusion nécessaire
             processed_lines.append(current_line)
             i += 1
+
+        if fusion_count > 0:
+            print(f"  ✅ {fusion_count} mots fusionnés au total")
+        else:
+            print(f"  ⚠️  Aucun mot avec tiret détecté pour fusion")
 
         return processed_lines
 
