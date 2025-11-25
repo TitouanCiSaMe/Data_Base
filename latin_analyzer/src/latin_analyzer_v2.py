@@ -42,8 +42,11 @@ except ImportError:
 
 # Patterns regex compilés
 PATTERNS = {
-    'hyphenated_word': re.compile(r'(.*)(\w+)-\s*$'),
-    'roman_numeral': re.compile(r'^[ivxlcdm]+\.$'),
+    # Pattern pour capturer le dernier mot avec tiret en fin de ligne
+    # Non-greedy pour éviter de capturer tout le texte avant
+    'hyphenated_word': re.compile(r'^(.*\s)?(\w+)-\s*$'),
+    # Pattern pour chiffres romains avec point optionnel (? = 0 ou 1)
+    'roman_numeral': re.compile(r'^[ivxlcdm]+\.?$'),
 }
 
 
@@ -66,8 +69,12 @@ class LatinAnalyzer:
 
         # Charger le dictionnaire médiéval
         self.medieval_dict = set()
+        self.ducange_matches_count = 0  # Compteur pour debug
+        self.ducange_examples = []  # Exemples de mots trouvés
+
         if ducange_dict_file and os.path.exists(ducange_dict_file):
             print(f"  📚 Chargement du dictionnaire Du Cange...")
+            print(f"  📁 Fichier : {ducange_dict_file}")
             with open(ducange_dict_file, 'r', encoding='utf-8') as f:
                 for line in f:
                     word = line.strip().lower()
@@ -76,8 +83,11 @@ class LatinAnalyzer:
                         self.medieval_dict.add(word)
                         self.medieval_dict.add(self.normalize_word(word))
             print(f"  ✅ {len(self.medieval_dict)} mots médiévaux chargés")
+            print(f"  🔍 Exemples de mots Du Cange : {list(self.medieval_dict)[:10]}")
         else:
             print("  ⚠️  Dictionnaire Du Cange non trouvé")
+            if ducange_dict_file:
+                print(f"  ⚠️  Chemin testé : {ducange_dict_file}")
 
         # Suffixes typiques du latin médiéval
         self.medieval_suffixes = [
@@ -260,6 +270,11 @@ class LatinAnalyzer:
             result['recognized_medieval'] = True
             result['confidence_score'] += 40
             result['reasons'].append("présent dans le dictionnaire Du Cange")
+
+            # Debug : compter et enregistrer des exemples
+            self.ducange_matches_count += 1
+            if len(self.ducange_examples) < 20:
+                self.ducange_examples.append(clean_word)
 
         # Critère 3 : Suffixe médiéval typique
         for suffix in self.medieval_suffixes:
@@ -467,6 +482,14 @@ class LatinAnalyzer:
         print(f"  ✅ Noir (bons mots)      : {score_distribution['black']} ({score_distribution['black']*100//total_words}%)")
         print(f"  ⚠️  Orange (douteux)      : {score_distribution['orange']} ({score_distribution['orange']*100//total_words}%)")
         print(f"  ❌ Rouge (erreurs prob.) : {score_distribution['red']} ({score_distribution['red']*100//total_words}%)")
+
+        # Statistiques Du Cange
+        if self.ducange_matches_count > 0:
+            print(f"\n📚 Statistiques Du Cange :")
+            print(f"  ✅ Mots trouvés dans Du Cange : {self.ducange_matches_count}")
+            print(f"  🔍 Exemples : {', '.join(self.ducange_examples[:10])}")
+        else:
+            print(f"\n⚠️  Aucun mot trouvé dans Du Cange (vérifier le dictionnaire)")
 
         return {
             'results': results,
