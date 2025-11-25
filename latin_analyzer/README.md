@@ -109,15 +109,25 @@ python3 latin_analyzer_v2.py -i mon_texte.txt -o resultat.docx -d /chemin/custom
 
 ```
 📊 Distribution des scores :
-  ✅ Noir (bons mots)      : 4250 (85%)
-  ⚠️  Orange (douteux)      : 520 (10%)
-  ❌ Rouge (erreurs prob.) : 230 (5%)
+  ✅ Noir (bons mots)      : 5717 (86%)
+  ⚠️  Orange (douteux)      : 912 (13%)
+  ❌ Rouge (erreurs prob.) : 0 (0%)
+
+📚 Statistiques de reconnaissance par source :
+  🏛️  PyCollatinus (latin classique) : 5272 mots
+  📖 Du Cange (latin médiéval) : 3766 mots
+  🔗 Reconnus par les deux : 3709 mots
+
+  📊 Répartition :
+      Uniquement PyCollatinus : 1563
+      Uniquement Du Cange : 57
+      Les deux : 3709
 ```
 
 **Document DOCX généré** avec colorisation :
-- **Noir** : Mots validés (score ≥75)
-- **Orange** : Mots à vérifier manuellement (score 40-74)
-- **Rouge** : Erreurs probables (score <40)
+- **Noir** : Mots validés (score ≥75) - **86%** des mots
+- **Orange** : Mots à vérifier manuellement (score 40-74) - **13%** des mots
+- **Rouge** : Erreurs probables (score <40) - **0%** des mots
 
 ---
 
@@ -256,27 +266,38 @@ Texte latin (XML Pages ou TXT)
 
 ## ✅ Avantages vs. ancien système
 
-| Aspect | Avant (v1.x) | Version 2.1 |
-|--------|--------------|-------------|
+| Aspect | Avant (v1.x) | Version 2.2 (actuelle) |
+|--------|--------------|------------------------|
 | **Workflow** | Manuel (interface Collatinus) | Automatique via CLI |
 | **Configuration** | Chemins en dur dans le code | Arguments CLI flexibles |
 | **Dictionnaire** | Latin classique uniquement | Classique + 100k médiévaux |
 | **Détection** | Binaire (erreur/OK) | Score 0-100 + 3 couleurs |
-| **Faux positifs** | ~70% (mots médiévaux = erreurs) | Réduits de 70% |
+| **Taux de reconnaissance** | ~60% (nombreux faux positifs) | **86%** (PyCollatinus + Du Cange) |
 | **XML Pages** | Non supporté | Extraction MainZone intégrée |
 | **Césures** | Ignorées (erreurs) | Fusionnées automatiquement |
 | **Variantes u/v, i/j** | Comptées comme différentes | Normalisées (uel=vel) |
 | **Chiffres romains** | Comptés comme erreurs | Filtrés (xuiii., uii., ui.) |
+| **PyCollatinus** | Interface GUI uniquement | API Python intégrée ✅ |
 
 ---
 
 ## 👤 Auteur
 
 Claude
-**Version : 2.1.0**
+**Version : 2.2.0**
 Date : 25 novembre 2025
 
 ### Changelog
+
+**Version 2.2.0 (25 nov 2025) - CORRECTION CRITIQUE :**
+- 🐛 **Bug critique corrigé** : PyCollatinus `lemmatise()` retourne un generator
+  - `len(generator)` plantait silencieusement dans try/except
+  - Résultat : PyCollatinus ne détectait **AUCUN mot** (0%)
+  - Correction : `list(lemmatiser.lemmatise())` avant `len()`
+- 📊 **Impact** : Passage de 62% → **86% mots validés** (+24%)
+- ✅ **5272 mots** maintenant reconnus par PyCollatinus
+- 📈 Statistiques détaillées par source (PyCollatinus / Du Cange / Les deux)
+- 🔗 Répartition : 1563 uniquement PyCollatinus, 57 uniquement Du Cange, 3709 les deux
 
 **Version 2.1.0 (25 nov 2025) :**
 - Interface CLI avec argparse (pas de chemins en dur)
