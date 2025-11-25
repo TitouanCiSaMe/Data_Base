@@ -80,6 +80,7 @@ python3 latin_analyzer_v2.py -i <input> -o <output> [-d <ducange>] [-m <mode>]
   - `txt` : Fichier texte brut
   - `xml-single` : XML Pages 1 colonne
   - `xml-dual` : XML Pages 2 colonnes
+- `--report` : Générer un rapport détaillé des mots orange dans le fichier spécifié (optionnel)
 
 ### Exemples
 
@@ -102,6 +103,20 @@ python3 latin_analyzer_v2.py -i /path/to/dual_xml/ -o resultat.docx -m xml-dual
 ```bash
 python3 latin_analyzer_v2.py -i mon_texte.txt -o resultat.docx -d /chemin/custom/ducange.txt
 ```
+
+**Générer un rapport d'analyse des mots orange (non reconnus) :**
+```bash
+python3 latin_analyzer_v2.py -i mon_texte.txt -o resultat.docx --report analyse_orange.txt
+```
+
+Le rapport contient :
+- Statistiques détaillées (total, uniques, longueur moyenne)
+- Distribution par longueur avec histogrammes
+- Patterns détectés (géminées, ae/oe, ph, terminaisons latines)
+- TOP 50 mots les plus fréquents
+- Catégorisation (abréviations, erreurs OCR, variantes médiévales)
+- Recommandations personnalisées
+- Estimation d'amélioration potentielle (ex: +13% → 99%)
 
 ---
 
@@ -284,10 +299,19 @@ Texte latin (XML Pages ou TXT)
 ## 👤 Auteur
 
 Claude
-**Version : 2.2.0**
+**Version : 2.3.0**
 Date : 25 novembre 2025
 
 ### Changelog
+
+**Version 2.3.0 (25 nov 2025) :**
+- 📊 **Rapport d'analyse des mots orange** : Argument `--report` optionnel
+  - Analyse automatique des patterns (géminées 14.8%, ae/oe 0.2%, etc.)
+  - Catégorisation (abréviations, erreurs OCR, variantes médiévales)
+  - TOP 50 mots les plus fréquents non reconnus
+  - Recommandations personnalisées basées sur les données
+  - Estimation d'amélioration potentielle (ex: +13% → 99%)
+  - Intégré directement dans le script principal
 
 **Version 2.2.0 (25 nov 2025) - CORRECTION CRITIQUE :**
 - 🐛 **Bug critique corrigé** : PyCollatinus `lemmatise()` retourne un generator
