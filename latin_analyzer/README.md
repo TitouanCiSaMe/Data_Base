@@ -1,4 +1,4 @@
-# Analyseur de Textes Latins Médiévaux - Version 2.0
+# Analyseur de Textes Latins Médiévaux - Version 2.1
 
 Système automatisé d'analyse et de validation de textes latins médiévaux avec détection intelligente des erreurs.
 
@@ -6,11 +6,15 @@ Système automatisé d'analyse et de validation de textes latins médiévaux ave
 
 ## ✨ Fonctionnalités
 
+- **Interface en ligne de commande** : Arguments CLI avec argparse (pas de chemins en dur)
 - **PyCollatinus** : Lemmatisation et analyse morphologique du latin classique (~500k formes)
 - **Dictionnaire Du Cange** : 99 917 mots de latin médiéval (ecclésiastique, féodal, administratif)
 - **Scoring multi-critères** : Attribution d'un score de confiance 0-100 pour chaque mot
 - **Colorisation à 3 niveaux** : Noir (OK), Orange (à vérifier), Rouge (erreur probable)
-- **Support XML Pages** : Extraction automatique depuis fichiers HTR/OCR (MainZone)
+- **Support XML Pages intégré** : Extraction automatique depuis fichiers HTR/OCR (MainZone)
+- **Fusion des mots coupés** : Gestion des césures de ligne (sancti- + tatis → sanctitatis)
+- **Normalisation orthographique** : u/v et i/j traités comme équivalents (uel=vel, uidetur=videtur)
+- **Filtrage chiffres romains** : xuiii., uii., ui. non comptés comme erreurs
 
 ---
 
@@ -61,27 +65,42 @@ latin_analyzer/
 
 ## 💡 Utilisation
 
-### Option 1 : Analyser des fichiers XML Pages
+### Syntaxe générale
 
 ```bash
-cd src
-
-# Extraction seule
-python3 page_xml_parser.py /path/to/xml/ single
-
-# Analyse complète
-python3 latin_analyzer_v2.py
-# (adapter les chemins dans main_xml_pages())
+cd latin_analyzer/src
+python3 latin_analyzer_v2.py -i <input> -o <output> [-d <ducange>] [-m <mode>]
 ```
 
-### Option 2 : Analyser un fichier texte brut
+**Arguments :**
+- `-i, --input` : Fichier texte TXT ou dossier XML Pages (obligatoire)
+- `-o, --output` : Fichier DOCX de sortie (obligatoire)
+- `-d, --ducange` : Chemin vers dictionnaire Du Cange (optionnel, chemin relatif par défaut)
+- `-m, --mode` : Mode d'extraction (optionnel, par défaut : `txt`)
+  - `txt` : Fichier texte brut
+  - `xml-single` : XML Pages 1 colonne
+  - `xml-dual` : XML Pages 2 colonnes
 
-```python
-from src.latin_analyzer_v2 import LatinAnalyzer
+### Exemples
 
-analyzer = LatinAnalyzer(ducange_dict_file='data/ducange_data/dictionnaire_ducange.txt')
-results = analyzer.analyze_text_file('mon_texte.txt')
-analyzer.generate_docx('mon_texte.txt', 'resultat.docx', results)
+**Analyser un fichier texte brut :**
+```bash
+python3 latin_analyzer_v2.py -i mon_texte.txt -o resultat.docx
+```
+
+**Analyser des fichiers XML Pages (1 colonne) :**
+```bash
+python3 latin_analyzer_v2.py -i /path/to/xml_folder/ -o resultat.docx -m xml-single
+```
+
+**Analyser des fichiers XML Pages (2 colonnes) :**
+```bash
+python3 latin_analyzer_v2.py -i /path/to/dual_xml/ -o resultat.docx -m xml-dual
+```
+
+**Spécifier un dictionnaire Du Cange personnalisé :**
+```bash
+python3 latin_analyzer_v2.py -i mon_texte.txt -o resultat.docx -d /chemin/custom/ducange.txt
 ```
 
 ---
@@ -106,13 +125,20 @@ analyzer.generate_docx('mon_texte.txt', 'resultat.docx', results)
 
 | Critère | Points | Description |
 |---------|--------|-------------|
-| Latin classique (Collatinus) | +30 | Reconnu par l'analyseur classique |
-| Latin médiéval (Du Cange) | +40 | Présent dans le dictionnaire médiéval |
+| Latin classique (Collatinus) | +30 | Reconnu par l'analyseur classique (avec normalisation u/v, i/j) |
+| Latin médiéval (Du Cange) | +40 | Présent dans le dictionnaire médiéval (avec normalisation) |
 | Suffixe productif | +10 | -arius, -atio, -torium, etc. |
 | Contexte ecclésiastique | +5 | Mots religieux environnants |
 | Variante orthographique | +10 | ae↔e, ti↔ci détectées |
 
 **Total = min(score, 100)**
+
+### Normalisation appliquée
+
+- **u/v** : Traités comme identiques (uel = vel, uidetur = videtur)
+- **i/j** : Traités comme identiques (iam = jam, iudicium = judicium)
+- **Chiffres romains** : xuiii., uii., ui. filtrés (normalisés avec u→v avant test)
+- **Césures** : Mots coupés fusionnés automatiquement (sancti- + tatis → sanctitatis)
 
 ---
 
@@ -162,16 +188,31 @@ pip install -r requirements.txt
 
 ### Chemins par défaut
 
-Les chemins utilisent des chemins relatifs depuis le répertoire du projet :
+Le dictionnaire Du Cange utilise un chemin relatif automatique depuis le répertoire du projet :
 
 ```python
 project_dir = Path(__file__).parent.parent  # Remonter à latin_analyzer/
 ducange_dict = str(project_dir / "data" / "ducange_data" / "dictionnaire_ducange.txt")
 ```
 
-**À adapter dans `src/latin_analyzer_v2.py` :**
-- `main()` : ligne ~480 (fichiers texte)
-- `main_xml_pages()` : ligne ~432 (fichiers XML)
+**Aucune modification de code nécessaire** : Utilisez les arguments CLI pour spécifier vos fichiers d'entrée et sortie.
+
+### Options avancées
+
+Pour utiliser comme module Python dans votre propre code :
+
+```python
+from latin_analyzer_v2 import LatinAnalyzer
+
+# Initialiser avec dictionnaire personnalisé
+analyzer = LatinAnalyzer(ducange_dict_file='/chemin/custom/ducange.txt')
+
+# Analyser un fichier
+results = analyzer.analyze_text_file('mon_texte.txt')
+
+# Générer le DOCX
+analyzer.generate_docx('mon_texte.txt', 'resultat.docx', results)
+```
 
 ---
 
@@ -196,7 +237,11 @@ Voir les logs :
 ```
 Texte latin (XML Pages ou TXT)
          ↓
-  Extraction MainZone (si XML)
+  Extraction MainZone (si XML) + Fusion césures
+         ↓
+  Normalisation u/v, i/j
+         ↓
+  Filtrage chiffres romains (xuiii., uii., etc.)
          ↓
   Analyse PyCollatinus (classique)
          ↓
@@ -211,21 +256,41 @@ Texte latin (XML Pages ou TXT)
 
 ## ✅ Avantages vs. ancien système
 
-| Aspect | Avant | Après |
-|--------|-------|-------|
-| **Workflow** | Manuel (interface Collatinus) | Automatique |
+| Aspect | Avant (v1.x) | Version 2.1 |
+|--------|--------------|-------------|
+| **Workflow** | Manuel (interface Collatinus) | Automatique via CLI |
+| **Configuration** | Chemins en dur dans le code | Arguments CLI flexibles |
 | **Dictionnaire** | Latin classique uniquement | Classique + 100k médiévaux |
 | **Détection** | Binaire (erreur/OK) | Score 0-100 + 3 couleurs |
 | **Faux positifs** | ~70% (mots médiévaux = erreurs) | Réduits de 70% |
-| **XML Pages** | Non supporté | Extraction MainZone native |
+| **XML Pages** | Non supporté | Extraction MainZone intégrée |
+| **Césures** | Ignorées (erreurs) | Fusionnées automatiquement |
+| **Variantes u/v, i/j** | Comptées comme différentes | Normalisées (uel=vel) |
+| **Chiffres romains** | Comptés comme erreurs | Filtrés (xuiii., uii., ui.) |
 
 ---
 
 ## 👤 Auteur
 
 Claude
-Version : 2.0.0
-Date : 24 novembre 2025
+**Version : 2.1.0**
+Date : 25 novembre 2025
+
+### Changelog
+
+**Version 2.1.0 (25 nov 2025) :**
+- Interface CLI avec argparse (pas de chemins en dur)
+- Extraction XML intégrée directement dans l'analyseur
+- Fusion automatique des mots coupés (césures de ligne)
+- Normalisation u/v et i/j (uel=vel, uidetur=videtur)
+- Filtrage des chiffres romains avec point (xuiii., uii., ui.)
+- Simplification du workflow (1 commande au lieu de 2)
+
+**Version 2.0.0 (24 nov 2025) :**
+- Intégration PyCollatinus + Du Cange
+- Scoring multi-critères 0-100
+- Support XML Pages
+- Structure projet organisée
 
 ---
 

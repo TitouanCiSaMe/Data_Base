@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Analyseur de textes latins médiévaux - Version 2
+Analyseur de textes latins médiévaux - Version 2.1
 ================================================
 
 Système intégré utilisant :
@@ -8,11 +8,16 @@ Système intégré utilisant :
 - Dictionnaire Du Cange (99k+ entrées de latin médiéval)
 - Système de scoring multi-critères
 - Colorisation à 3 niveaux (rouge/orange/noir)
+- Support XML Pages avec extraction MainZone automatique
+- Normalisation u/v et i/j
+- Fusion des mots avec tirets
+- Filtrage des chiffres romains
 
 Auteur: Claude
-Date: 2025-11-24
+Date: 2025-11-25
 """
 
+import argparse
 import os
 import re
 import sys
@@ -21,6 +26,7 @@ from docx.shared import RGBColor, Cm, Pt
 from docx.enum.text import WD_LINE_SPACING
 from pathlib import Path
 from collections import Counter
+from typing import List, Tuple, Optional
 
 # Ajouter PyCollatinus au path
 sys.path.insert(0, '/tmp/collatinus-python')
@@ -32,6 +38,13 @@ try:
     from page_xml_parser import PageXMLParser
 except ImportError:
     from .page_xml_parser import PageXMLParser
+
+
+# Patterns regex compilés
+PATTERNS = {
+    'hyphenated_word': re.compile(r'(.*)(\w+)-\s*$'),
+    'roman_numeral': re.compile(r'^[ivxlcdm]+\.$'),
+}
 
 
 class LatinAnalyzer:
@@ -59,19 +72,21 @@ class LatinAnalyzer:
                 for line in f:
                     word = line.strip().lower()
                     if word:
+                        # Ajouter aussi les variantes normalisées
                         self.medieval_dict.add(word)
+                        self.medieval_dict.add(self.normalize_word(word))
             print(f"  ✅ {len(self.medieval_dict)} mots médiévaux chargés")
         else:
             print("  ⚠️  Dictionnaire Du Cange non trouvé")
 
         # Suffixes typiques du latin médiéval
         self.medieval_suffixes = [
-            'arius', 'aria', 'arium',  # Noms d'agent
-            'atio', 'ationis',  # Noms d'action
-            'tor', 'toris',  # Agent
-            'torium', 'torii',  # Lieu
-            'mentum', 'menti',  # Instrument
-            'itia', 'itiae',  # Qualité
+            'arius', 'aria', 'arium',
+            'atio', 'ationis',
+            'tor', 'toris',
+            'torium', 'torii',
+            'mentum', 'menti',
+            'itia', 'itiae',
         ]
 
         # Contexte ecclésiastique
@@ -83,6 +98,102 @@ class LatinAnalyzer:
         }
 
         print("✅ Analyseur prêt\n")
+
+    @staticmethod
+    def normalize_word(word: str) -> str:
+        """
+        Normalise un mot latin en convertissant u→v et i→j.
+
+        Les variantes médiévales u/v et i/j sont considérées comme identiques :
+        - uel → vel
+        - uidetur → videtur
+        - iustus → iustus (j→i déjà fait en médiéval)
+
+        Args:
+            word (str): Mot à normaliser
+
+        Returns:
+            str: Mot normalisé
+        """
+        word = word.replace('u', 'v').replace('U', 'V')
+        word = word.replace('j', 'i').replace('J', 'I')
+        return word
+
+    @staticmethod
+    def is_roman_numeral_with_dot(word: str) -> bool:
+        """
+        Détecte si un mot est un chiffre romain avec point final.
+
+        Gère les variantes médiévales avec u au lieu de v :
+        - xuiii. (14)
+        - uii. (7)
+        - ui. (6)
+
+        Args:
+            word (str): Mot à vérifier
+
+        Returns:
+            bool: True si c'est un chiffre romain avec point
+        """
+        # Normaliser u→v pour détecter les chiffres romains médiévaux
+        normalized = word.lower().replace('u', 'v')
+        return bool(PATTERNS['roman_numeral'].match(normalized))
+
+    def merge_hyphenated_words(self, lines: List[str]) -> List[str]:
+        """
+        Fusionne les mots coupés avec trait d'union entre deux lignes.
+
+        Inspiré de xml_corpus_processor._merge_hyphenated_words()
+
+        Args:
+            lines: Liste des lignes à traiter
+
+        Returns:
+            Liste des lignes avec mots fusionnés
+
+        Example:
+            >>> lines = ["sancti-", "tatis"]
+            >>> analyzer.merge_hyphenated_words(lines)
+            ["sanctitatis"]
+        """
+        processed_lines = []
+        i = 0
+
+        while i < len(lines):
+            current_line = lines[i].strip() if isinstance(lines[i], str) else ''
+
+            # Détection des mots coupés avec trait d'union
+            match = PATTERNS['hyphenated_word'].search(current_line)
+
+            if match and i + 1 < len(lines):
+                prefix_text = match.group(1)  # Texte avant le mot coupé
+                prefix_word = match.group(2)  # Première partie du mot coupé
+
+                # Récupération de la ligne suivante
+                next_line = lines[i + 1].strip() if isinstance(lines[i + 1], str) else ''
+                next_line_parts = next_line.split(' ', 1)
+
+                if next_line_parts:
+                    # Fusion du mot
+                    suffix_word = next_line_parts[0]
+                    fused_word = prefix_word + suffix_word
+
+                    # Construction de la nouvelle ligne
+                    new_line = prefix_text + fused_word
+
+                    # Ajout du reste de la ligne suivante si présent
+                    if len(next_line_parts) > 1:
+                        new_line += ' ' + next_line_parts[1]
+
+                    processed_lines.append(new_line)
+                    i += 2  # Sauter la ligne suivante
+                    continue
+
+            # Pas de fusion nécessaire
+            processed_lines.append(current_line)
+            i += 1
+
+        return processed_lines
 
     def analyze_word(self, word, context_words=None):
         """
@@ -121,32 +232,45 @@ class LatinAnalyzer:
             result['reasons'].append("mot trop court pour être analysé")
             return result
 
+        # Ignorer les chiffres romains avec point (xuiii., uii., ui., etc.)
+        if self.is_roman_numeral_with_dot(clean_word):
+            result['confidence_score'] = 100
+            result['color_code'] = 'black'
+            result['reasons'].append("chiffre romain")
+            return result
+
+        # Normaliser pour la comparaison (u→v, i→j)
+        normalized_word = self.normalize_word(clean_word)
+
         # Critère 1 : Reconnu par Collatinus (latin classique)
         try:
-            analyses = self.lemmatizer.lemmatise(clean_word)
-            if analyses and len(analyses) > 0:
-                result['recognized_classical'] = True
-                result['confidence_score'] += 30
-                result['reasons'].append(f"latin classique valide ({len(analyses)} analyse(s))")
+            # Tester le mot original ET la version normalisée
+            for test_word in [clean_word, normalized_word]:
+                analyses = self.lemmatizer.lemmatise(test_word)
+                if analyses and len(analyses) > 0:
+                    result['recognized_classical'] = True
+                    result['confidence_score'] += 30
+                    result['reasons'].append(f"latin classique valide ({len(analyses)} analyse(s))")
+                    break
         except Exception:
             pass
 
-        # Critère 2 : Présent dans le dictionnaire Du Cange
-        if clean_word in self.medieval_dict:
+        # Critère 2 : Présent dans le dictionnaire Du Cange (avec normalisation)
+        if clean_word in self.medieval_dict or normalized_word in self.medieval_dict:
             result['recognized_medieval'] = True
             result['confidence_score'] += 40
             result['reasons'].append("présent dans le dictionnaire Du Cange")
 
         # Critère 3 : Suffixe médiéval typique
         for suffix in self.medieval_suffixes:
-            if clean_word.endswith(suffix):
+            if normalized_word.endswith(suffix):
                 result['confidence_score'] += 10
                 result['reasons'].append(f"suffixe médiéval productif (-{suffix})")
                 break
 
         # Critère 4 : Contexte ecclésiastique
         context_ecclesiastical = any(
-            w.lower() in self.ecclesiastical_words
+            self.normalize_word(w.lower()) in self.ecclesiastical_words
             for w in context_words
         )
         if context_ecclesiastical:
@@ -154,7 +278,7 @@ class LatinAnalyzer:
             result['reasons'].append("contexte ecclésiastique")
 
         # Critère 5 : Variante orthographique médiévale (ae→e, ti→ci, etc.)
-        if self._is_medieval_variant(clean_word):
+        if self._is_medieval_variant(normalized_word):
             result['confidence_score'] += 10
             result['reasons'].append("variante orthographique médiévale détectée")
 
@@ -175,7 +299,7 @@ class LatinAnalyzer:
         Détecte si un mot pourrait être une variante orthographique médiévale.
 
         Args:
-            word (str): Le mot à analyser
+            word (str): Le mot à analyser (déjà normalisé)
 
         Returns:
             bool: True si variante détectée
@@ -204,6 +328,39 @@ class LatinAnalyzer:
 
         return False
 
+    def extract_and_process_xml(self, xml_path, column_mode='single'):
+        """
+        Extrait le texte depuis XML Pages et traite les tirets.
+
+        Args:
+            xml_path (str): Chemin vers fichier XML ou dossier
+            column_mode (str): 'single' ou 'dual'
+
+        Returns:
+            List[str]: Lignes de texte traitées
+        """
+        print(f"📄 Extraction du texte depuis XML Pages...")
+
+        parser = PageXMLParser(column_mode=column_mode)
+
+        # Extraire le texte
+        if os.path.isfile(xml_path):
+            lines, metadata = parser.parse_file(xml_path)
+            print(f"  ✅ 1 fichier traité, {len(lines)} lignes extraites")
+        elif os.path.isdir(xml_path):
+            text, metadata_list = parser.parse_folder(xml_path)
+            lines = text.split('\n')
+            print(f"  ✅ {len(metadata_list)} fichiers traités, {len(lines)} lignes extraites")
+        else:
+            raise ValueError(f"Chemin invalide : {xml_path}")
+
+        # Fusionner les mots avec tirets
+        print(f"🔗 Fusion des mots avec tirets...")
+        lines = self.merge_hyphenated_words(lines)
+        print(f"  ✅ Fusion terminée")
+
+        return lines
+
     def analyze_page_xml(self, input_path, column_mode='single'):
         """
         Analyse un fichier ou dossier XML Pages.
@@ -215,22 +372,10 @@ class LatinAnalyzer:
         Returns:
             dict: Statistiques et résultats de l'analyse
         """
-        print(f"📄 Extraction du texte depuis XML Pages...")
+        # Extraire et traiter le texte XML
+        lines = self.extract_and_process_xml(input_path, column_mode)
 
-        parser = PageXMLParser(column_mode=column_mode)
-
-        # Déterminer si c'est un fichier ou dossier
-        if os.path.isfile(input_path):
-            lines, metadata = parser.parse_file(input_path)
-            print(f"  ✅ 1 fichier traité, {len(lines)} lignes extraites")
-        elif os.path.isdir(input_path):
-            text, metadata_list = parser.parse_folder(input_path)
-            lines = text.split('\n')
-            print(f"  ✅ {len(metadata_list)} fichiers traités, {len(lines)} lignes extraites")
-        else:
-            raise ValueError(f"Chemin invalide : {input_path}")
-
-        # Analyser le texte extrait
+        # Analyser les lignes
         return self._analyze_lines(lines, source=input_path)
 
     def analyze_text_file(self, input_file):
@@ -247,6 +392,10 @@ class LatinAnalyzer:
 
         with open(input_file, 'r', encoding='utf-8') as f:
             lines = f.readlines()
+
+        # Fusionner les mots avec tirets
+        print(f"🔗 Fusion des mots avec tirets...")
+        lines = self.merge_hyphenated_words(lines)
 
         return self._analyze_lines(lines, source=input_file)
 
@@ -301,6 +450,18 @@ class LatinAnalyzer:
                 if total_words % 1000 == 0:
                     print(f"  ⏳ {total_words} mots analysés...")
 
+        if total_words == 0:
+            print("⚠️  Aucun mot trouvé à analyser")
+            return {
+                'results': [],
+                'statistics': {
+                    'total_words': 0,
+                    'distribution': score_distribution,
+                    'word_frequency': word_counter
+                },
+                'source_lines': lines
+            }
+
         print(f"✅ Analyse terminée : {total_words} mots traités")
         print(f"\n📊 Distribution des scores :")
         print(f"  ✅ Noir (bons mots)      : {score_distribution['black']} ({score_distribution['black']*100//total_words}%)")
@@ -313,30 +474,26 @@ class LatinAnalyzer:
                 'total_words': total_words,
                 'distribution': score_distribution,
                 'word_frequency': word_counter
-            }
+            },
+            'source_lines': lines  # Garder les lignes sources pour le DOCX
         }
 
-    def generate_docx(self, input_source, output_docx, analysis_results):
+    def generate_docx(self, output_docx, analysis_results):
         """
         Génère un document Word avec colorisation à 3 niveaux.
 
         Args:
-            input_source (str or list): Fichier texte source OU liste de lignes
             output_docx (str): Fichier DOCX de sortie
             analysis_results (dict): Résultats de l'analyse
         """
         print(f"\n📝 Génération du document Word...")
 
-        # Lire le fichier ou utiliser les lignes fournies
-        if isinstance(input_source, str):
-            with open(input_source, 'r', encoding='utf-8') as f:
-                original_lines = f.readlines()
-        elif isinstance(input_source, list):
-            # S'assurer que chaque ligne se termine par \n
-            original_lines = [line if line.endswith('\n') else line + '\n'
-                             for line in input_source]
-        else:
-            raise ValueError("input_source doit être un chemin de fichier ou une liste de lignes")
+        # Récupérer les lignes sources
+        original_lines = analysis_results.get('source_lines', [])
+
+        if not original_lines:
+            print("❌ Erreur : Pas de lignes sources disponibles")
+            return
 
         # Créer un index des analyses par ligne et mot
         analysis_index = {}
@@ -413,93 +570,93 @@ class LatinAnalyzer:
         print(f"✅ Document créé : {output_docx}")
 
 
-def main_xml_pages():
-    """
-    Exemple d'utilisation avec des fichiers XML Pages.
-
-    À adapter selon vos fichiers !
-    """
-    print("=" * 70)
-    print("  ANALYSEUR DE TEXTES LATINS - MODE XML PAGES")
-    print("  PyCollatinus + Du Cange + Extraction MainZone")
-    print("=" * 70)
-    print()
-
-    # ⚙️  ADAPTER CES CHEMINS À VOTRE STRUCTURE ⚙️
-    # Chemins relatifs depuis le répertoire du projet
-    project_dir = Path(__file__).parent.parent  # Remonter à latin_analyzer/
-
-    xml_input = "/path/to/xml_pages_folder"  # Dossier de fichiers XML Pages
-    output_docx = "/path/to/output.docx"
-    column_mode = 'single'  # ou 'dual' si vos pages ont 2 colonnes
-    ducange_dict = str(project_dir / "data" / "ducange_data" / "dictionnaire_ducange.txt")
-
-    # Vérifier que le chemin existe
-    if not os.path.exists(xml_input):
-        print(f"❌ Chemin XML non trouvé : {xml_input}")
-        print("⚙️  Modifiez les chemins dans le script main_xml_pages()")
-        return 1
-
-    # Initialiser l'analyseur
-    analyzer = LatinAnalyzer(ducange_dict_file=ducange_dict)
-
-    # Analyser depuis XML Pages (avec extraction MainZone automatique)
-    analysis_results = analyzer.analyze_page_xml(xml_input, column_mode=column_mode)
-
-    # Récupérer les lignes extraites pour le DOCX
-    parser = PageXMLParser(column_mode=column_mode)
-    if os.path.isfile(xml_input):
-        lines, _ = parser.parse_file(xml_input)
-    else:
-        text, _ = parser.parse_folder(xml_input)
-        lines = text.split('\n')
-
-    # Générer le document Word
-    analyzer.generate_docx(lines, output_docx, analysis_results)
-
-    print("\n" + "=" * 70)
-    print("✅ TRAITEMENT TERMINÉ !")
-    print(f"📁 Fichier généré : {output_docx}")
-    print("=" * 70)
-
-    return 0
-
-
 def main():
-    """Fonction principale pour fichier texte brut."""
+    """Fonction principale avec arguments CLI."""
+    parser = argparse.ArgumentParser(
+        description='Analyseur de textes latins médiévaux avec détection intelligente des erreurs',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Exemples d'utilisation :
+
+  # Analyser un fichier texte
+  python3 latin_analyzer_v2.py -i texte.txt -o resultat.docx -d data/ducange_data/dictionnaire_ducange.txt
+
+  # Analyser des XML Pages (mode single)
+  python3 latin_analyzer_v2.py -i corpus_xml/ -o resultat.docx -m xml-single
+
+  # Analyser des XML Pages (mode dual - 2 colonnes)
+  python3 latin_analyzer_v2.py -i corpus_xml/ -o resultat.docx -m xml-dual
+
+  # Sans dictionnaire Du Cange
+  python3 latin_analyzer_v2.py -i texte.txt -o resultat.docx
+        """
+    )
+
+    parser.add_argument(
+        '-i', '--input',
+        required=True,
+        help='Fichier texte ou dossier XML Pages à analyser'
+    )
+
+    parser.add_argument(
+        '-o', '--output',
+        required=True,
+        help='Fichier DOCX de sortie'
+    )
+
+    parser.add_argument(
+        '-d', '--ducange',
+        default=None,
+        help='Chemin vers le dictionnaire Du Cange (optionnel)'
+    )
+
+    parser.add_argument(
+        '-m', '--mode',
+        choices=['txt', 'xml-single', 'xml-dual'],
+        default='txt',
+        help='Mode d\'analyse : txt (fichier texte), xml-single (XML 1 colonne), xml-dual (XML 2 colonnes)'
+    )
+
+    args = parser.parse_args()
+
+    # Vérifier que le fichier d'entrée existe
+    if not os.path.exists(args.input):
+        print(f"❌ Erreur : Le fichier/dossier d'entrée n'existe pas : {args.input}")
+        sys.exit(1)
+
+    # Déterminer le chemin du dictionnaire par défaut si non fourni
+    if args.ducange is None:
+        script_dir = Path(__file__).parent.parent
+        default_ducange = script_dir / "data" / "ducange_data" / "dictionnaire_ducange.txt"
+        if default_ducange.exists():
+            args.ducange = str(default_ducange)
+            print(f"💡 Utilisation du dictionnaire par défaut : {args.ducange}\n")
+        else:
+            print("⚠️  Pas de dictionnaire Du Cange spécifié (analyse latin classique uniquement)\n")
+
     print("=" * 70)
-    print("  ANALYSEUR DE TEXTES LATINS MÉDIÉVAUX - VERSION 2")
+    print("  ANALYSEUR DE TEXTES LATINS MÉDIÉVAUX - VERSION 2.1")
     print("  PyCollatinus + Du Cange + Scoring Multi-critères")
     print("=" * 70)
     print()
 
-    # Chemins par défaut (à adapter)
-    # Chemins relatifs depuis le répertoire du projet
-    project_dir = Path(__file__).parent.parent  # Remonter à latin_analyzer/
-
-    default_input = "/home/titouan/Téléchargements/Arras/resultats/synthese_arborescence.txt"
-    default_output = "/home/titouan/Téléchargements/Arras_v2.docx"
-    default_ducange = str(project_dir / "data" / "ducange_data" / "dictionnaire_ducange.txt")
-
-    # Vérifier que les fichiers existent
-    if not os.path.exists(default_input):
-        print(f"❌ Fichier d'entrée non trouvé : {default_input}")
-        print("⚙️  Modifiez les chemins dans le script (ligne ~420)")
-        print("\n💡 Pour analyser des XML Pages, utilisez main_xml_pages() à la place")
-        return 1
-
     # Initialiser l'analyseur
-    analyzer = LatinAnalyzer(ducange_dict_file=default_ducange)
+    analyzer = LatinAnalyzer(ducange_dict_file=args.ducange)
 
-    # Analyser le texte
-    analysis_results = analyzer.analyze_text_file(default_input)
+    # Analyser selon le mode
+    if args.mode == 'txt':
+        analysis_results = analyzer.analyze_text_file(args.input)
+    elif args.mode == 'xml-single':
+        analysis_results = analyzer.analyze_page_xml(args.input, column_mode='single')
+    elif args.mode == 'xml-dual':
+        analysis_results = analyzer.analyze_page_xml(args.input, column_mode='dual')
 
     # Générer le document Word
-    analyzer.generate_docx(default_input, default_output, analysis_results)
+    analyzer.generate_docx(args.output, analysis_results)
 
     print("\n" + "=" * 70)
     print("✅ TRAITEMENT TERMINÉ !")
-    print(f"📁 Fichier généré : {default_output}")
+    print(f"📁 Fichier généré : {args.output}")
     print("=" * 70)
 
     return 0
