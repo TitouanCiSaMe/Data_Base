@@ -30,12 +30,12 @@ brew install python3
 ### 2. Naviguer vers le dossier du projet
 
 ```bash
-cd /chemin/vers/Data_Base/algorithmes_python
+cd /chemin/vers/Data_Base/projects/algorithmes_python
 ```
 
 **Exemple** :
 ```bash
-cd ~/Documents/Data_Base/algorithmes_python
+cd ~/Documents/Data_Base/projects/algorithmes_python
 ```
 
 ### 3. Créer un environnement virtuel (recommandé)
@@ -290,8 +290,8 @@ RATE_LIMIT_DELAY = 1.0
 | **Utilisation** | Script autonome | Nécessite le framework |
 
 **Recommandation** :
-- 📘 **Pour débuter** : `download_manuscript.py` (plus simple)
-- 🚀 **Pour la vitesse** : `download_images.py` (50-100x plus rapide)
+- 📘 **Pour débuter** : `tools/manuscript/download_manuscript.py` (plus simple)
+- 🚀 **Pour la vitesse** : `projects/algorithmes_python/scripts/download_images.py` (50-100x plus rapide)
 
 ---
 
@@ -308,7 +308,7 @@ deactivate
 ## 📝 Structure du projet
 
 ```
-algorithmes_python/
+projects/algorithmes_python/
 ├── scripts/
 │   └── download_images.py         ← Le script à lancer
 ├── utils/
