@@ -35,7 +35,7 @@ pip install -r requirements.txt
 
 ### Configuration de base
 
-1. **Éditez le script** `download_manuscript.py` et modifiez la section CONFIGURATION :
+1. **Éditez le script** `tools/manuscript/download_manuscript.py` et modifiez la section CONFIGURATION :
 
 ```python
 MANIFEST_PATH = "/chemin/vers/votre/manifest.json"
@@ -48,7 +48,7 @@ MAX_RETRIES = 3      # Nombre de tentatives en cas d'échec
 2. **Lancez le script** :
 
 ```bash
-python download_manuscript.py
+python tools/manuscript/download_manuscript.py
 ```
 
 ### Exemple complet
@@ -132,7 +132,7 @@ Taux de succès       : 99.6%
 ### 1. Téléchargement initial complet
 
 ```bash
-python download_manuscript.py
+python tools/manuscript/download_manuscript.py
 ```
 
 Télécharge toutes les pages du manuscrit.
@@ -142,7 +142,7 @@ Télécharge toutes les pages du manuscrit.
 Si le téléchargement est interrompu (Ctrl+C, panne réseau, etc.), relancez simplement :
 
 ```bash
-python download_manuscript.py
+python tools/manuscript/download_manuscript.py
 ```
 
 Le script **détecte automatiquement** les pages déjà téléchargées et ne télécharge que les manquantes.
@@ -154,7 +154,7 @@ Vous avez téléchargé un manuscrit mais il vous manque des pages ?
 **Aucune action spéciale nécessaire !** Relancez simplement le script :
 
 ```bash
-python download_manuscript.py
+python tools/manuscript/download_manuscript.py
 ```
 
 Le script :
