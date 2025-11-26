@@ -639,6 +639,195 @@ class LatinAnalyzer:
         print(f"✅ Document créé : {output_docx}")
 
 
+def analyze_orange_patterns(words_list):
+    """
+    Analyse les patterns des mots orange (non reconnus).
+
+    Args:
+        words_list (list): Liste de mots
+
+    Returns:
+        dict: Statistiques et patterns détectés
+    """
+    if not words_list:
+        return None
+
+    stats = {
+        'total': len(words_list),
+        'unique': len(set(words_list)),
+        'avg_length': sum(len(w) for w in words_list) / len(words_list),
+        'length_distribution': Counter(len(w) for w in words_list),
+        'frequency': Counter(words_list),
+        'patterns': {
+            'contains_ae': sum(1 for w in words_list if 'ae' in w),
+            'contains_oe': sum(1 for w in words_list if 'oe' in w),
+            'contains_ph': sum(1 for w in words_list if 'ph' in w),
+            'double_consonants': sum(1 for w in words_list if re.search(r'([bcdfghjklmnpqrstvwxz])\1', w)),
+            'ends_with_us': sum(1 for w in words_list if w.endswith('us')),
+            'ends_with_is': sum(1 for w in words_list if w.endswith('is')),
+            'ends_with_um': sum(1 for w in words_list if w.endswith('um')),
+            'ends_with_a': sum(1 for w in words_list if w.endswith('a')),
+            'starts_with_vowel': sum(1 for w in words_list if w[0] in 'aeiou'),
+            'very_short': sum(1 for w in words_list if len(w) <= 3),
+            'very_long': sum(1 for w in words_list if len(w) >= 12),
+        }
+    }
+
+    return stats
+
+
+def categorize_orange_words(words_list):
+    """
+    Catégorise les mots orange par type potentiel.
+
+    Args:
+        words_list (list): Liste de mots
+
+    Returns:
+        dict: Mots catégorisés
+    """
+    categories = {
+        'possible_abbreviations': [],
+        'possible_ocr_errors': [],
+        'medieval_spelling': [],
+    }
+
+    for word in set(words_list):
+        # Abréviations potentielles
+        if len(word) <= 3:
+            categories['possible_abbreviations'].append(word)
+
+        # Erreurs OCR potentielles
+        if re.search(r'[0-9]|rn|cl(?!a)|li(?![a-z])', word):
+            categories['possible_ocr_errors'].append(word)
+
+        # Variantes orthographiques médiévales
+        if 'ae' in word or 'oe' in word or 'ph' in word or re.search(r'([bcdfghjklmnpqrstvwxz])\1', word):
+            categories['medieval_spelling'].append(word)
+
+    return categories
+
+
+def generate_orange_report(analysis_results, report_file):
+    """
+    Génère un rapport détaillé des mots orange dans un fichier.
+
+    Args:
+        analysis_results (dict): Résultats de l'analyse
+        report_file (str): Chemin du fichier de rapport
+    """
+    # Extraire les mots orange
+    orange_words = []
+    for item in analysis_results['results']:
+        if item['analysis']['color_code'] == 'orange':
+            orange_words.append(item['word'].lower())
+
+    if not orange_words:
+        print("  ✅ Aucun mot orange - pas de rapport généré")
+        return
+
+    print(f"\n📝 Génération du rapport d'analyse des mots orange...")
+
+    # Analyser les patterns
+    stats = analyze_orange_patterns(orange_words)
+    categories = categorize_orange_words(orange_words)
+
+    # Écrire le rapport
+    with open(report_file, 'w', encoding='utf-8') as f:
+        f.write("=" * 80 + "\n")
+        f.write("RAPPORT D'ANALYSE DES MOTS ORANGE (NON RECONNUS)\n")
+        f.write("=" * 80 + "\n\n")
+
+        # Statistiques générales
+        f.write(" 📊 STATISTIQUES GÉNÉRALES ".center(80, '-') + "\n")
+        f.write(f"  Total de mots orange : {stats['total']}\n")
+        f.write(f"  Mots uniques : {stats['unique']}\n")
+        f.write(f"  Longueur moyenne : {stats['avg_length']:.1f} caractères\n\n")
+
+        # Distribution par longueur
+        f.write(" 📏 DISTRIBUTION PAR LONGUEUR ".center(80, '-') + "\n")
+        for length in sorted(stats['length_distribution'].keys())[:15]:
+            count = stats['length_distribution'][length]
+            percent = count * 100 / stats['total']
+            bar = '█' * int(percent / 2)
+            f.write(f"  {length:2d} caractères : {count:4d} ({percent:5.1f}%) {bar}\n")
+        f.write("\n")
+
+        # Patterns détectés
+        f.write(" 🔍 PATTERNS DÉTECTÉS ".center(80, '-') + "\n")
+        for pattern, count in stats['patterns'].items():
+            if count > 0:
+                percent = count * 100 / stats['total']
+                f.write(f"  {pattern:25s} : {count:4d} ({percent:5.1f}%)\n")
+        f.write("\n")
+
+        # TOP 50 mots les plus fréquents
+        f.write(" 🏆 TOP 50 MOTS LES PLUS FRÉQUENTS ".center(80, '-') + "\n")
+        f.write(f"  {'Rang':<6} {'Fréquence':<12} {'Mot'}\n")
+        f.write(f"  {'-'*6} {'-'*12} {'-'*50}\n")
+        for rank, (word, count) in enumerate(stats['frequency'].most_common(50), 1):
+            f.write(f"  {rank:<6d} {count:<12d} {word}\n")
+        f.write("\n")
+
+        # Catégories
+        f.write(" 📂 CATÉGORISATION DES MOTS ".center(80, '-') + "\n\n")
+        for category, words in categories.items():
+            if words:
+                f.write(f"  {category.replace('_', ' ').title()} ({len(words)} mots) :\n")
+                for word in sorted(words)[:15]:
+                    freq = stats['frequency'][word.lower()]
+                    f.write(f"    - {word} (x{freq})\n")
+                if len(words) > 15:
+                    f.write(f"    ... et {len(words) - 15} autres\n")
+                f.write("\n")
+
+        # Recommandations
+        f.write(" 💡 RECOMMANDATIONS ".center(80, '-') + "\n\n")
+
+        if stats['patterns']['contains_ae'] > 10:
+            f.write("  ✓ Ajouter la normalisation ae ↔ e (variantes médiévales)\n")
+
+        if stats['patterns']['contains_ph'] > 5:
+            f.write("  ✓ Ajouter la normalisation ph ↔ f\n")
+
+        if stats['patterns']['double_consonants'] > 20:
+            f.write("  ✓ Tester les variantes avec géminées simplifiées (mm→m, nn→n)\n")
+
+        if len(categories['possible_abbreviations']) > 20:
+            f.write("  ✓ Créer un dictionnaire d'abréviations médiévales courantes\n")
+
+        if len(categories['possible_ocr_errors']) > 30:
+            f.write("  ✓ Implémenter la correction d'erreurs OCR (rn→m, cl→d, etc.)\n")
+
+        f.write("\n")
+
+        # Estimations d'impact
+        f.write(" 📈 ESTIMATION D'IMPACT DES AMÉLIORATIONS ".center(80, '-') + "\n\n")
+
+        # Variantes orthographiques
+        variants_impact = (stats['patterns']['contains_ae'] +
+                          stats['patterns']['contains_ph'] +
+                          stats['patterns']['double_consonants'])
+        variants_percent = variants_impact * 100 / stats['total']
+        f.write(f"  Variantes orthographiques : +{variants_percent:.1f}% potentiel\n")
+
+        # Abréviations
+        abbrev_percent = len(categories['possible_abbreviations']) * 100 / stats['total']
+        f.write(f"  Dictionnaire abréviations : +{abbrev_percent:.1f}% potentiel\n")
+
+        # Total estimé
+        total_stats = analysis_results['statistics']
+        current_percent = total_stats['distribution']['black'] * 100 / total_stats['total_words']
+        total_improvement = min(variants_percent + abbrev_percent,
+                               total_stats['distribution']['orange'] * 100 / total_stats['total_words'])
+        f.write(f"\n  🎯 AMÉLIORATION TOTALE ESTIMÉE : +{total_improvement:.1f}% ")
+        f.write(f"({current_percent:.0f}% → {current_percent + total_improvement:.0f}%)\n\n")
+
+        f.write("=" * 80 + "\n")
+
+    print(f"  ✅ Rapport généré : {report_file}")
+
+
 def main():
     """Fonction principale avec arguments CLI."""
     parser = argparse.ArgumentParser(
@@ -648,7 +837,7 @@ def main():
 Exemples d'utilisation :
 
   # Analyser un fichier texte
-  python3 latin_analyzer_v2.py -i texte.txt -o resultat.docx -d data/ducange_data/dictionnaire_ducange.txt
+  python3 latin_analyzer_v2.py -i texte.txt -o resultat.docx
 
   # Analyser des XML Pages (mode single)
   python3 latin_analyzer_v2.py -i corpus_xml/ -o resultat.docx -m xml-single
@@ -656,8 +845,8 @@ Exemples d'utilisation :
   # Analyser des XML Pages (mode dual - 2 colonnes)
   python3 latin_analyzer_v2.py -i corpus_xml/ -o resultat.docx -m xml-dual
 
-  # Sans dictionnaire Du Cange
-  python3 latin_analyzer_v2.py -i texte.txt -o resultat.docx
+  # Avec rapport détaillé des mots orange (non reconnus)
+  python3 latin_analyzer_v2.py -i texte.txt -o resultat.docx --report analyse_orange.txt
         """
     )
 
@@ -684,6 +873,12 @@ Exemples d'utilisation :
         choices=['txt', 'xml-single', 'xml-dual'],
         default='txt',
         help='Mode d\'analyse : txt (fichier texte), xml-single (XML 1 colonne), xml-dual (XML 2 colonnes)'
+    )
+
+    parser.add_argument(
+        '--report',
+        default=None,
+        help='Générer un rapport détaillé des mots orange (non reconnus) dans le fichier spécifié'
     )
 
     args = parser.parse_args()
@@ -723,9 +918,15 @@ Exemples d'utilisation :
     # Générer le document Word
     analyzer.generate_docx(args.output, analysis_results)
 
+    # Générer le rapport d'analyse des mots orange si demandé
+    if args.report:
+        generate_orange_report(analysis_results, args.report)
+
     print("\n" + "=" * 70)
     print("✅ TRAITEMENT TERMINÉ !")
     print(f"📁 Fichier généré : {args.output}")
+    if args.report:
+        print(f"📊 Rapport orange généré : {args.report}")
     print("=" * 70)
 
     return 0
