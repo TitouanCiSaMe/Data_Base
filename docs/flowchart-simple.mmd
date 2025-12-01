@@ -1,0 +1,61 @@
+flowchart LR
+    %% ========================================
+    %% DIAGRAMME SIMPLIFIÉ - VUE DE TRÈS HAUT NIVEAU
+    %% ========================================
+
+    START([📚 DÉBUT])
+
+    ACQUISITION{📥 Acquisition<br/>de données}
+    TRAITEMENT[⚙️ Traitement<br/>eScriptorium]
+    NETTOYAGE[🧹 Nettoyage<br/>Post-traitement]
+    ENRICHISSEMENT[✨ Enrichissement<br/>Décret de Gratien]
+
+    OUTPUT([📤 DONNÉES FINALES])
+
+    %% Flux principal
+    START --> ACQUISITION
+    ACQUISITION -->|Manuscrits| TRAITEMENT
+    ACQUISITION -->|Éditions| TRAITEMENT
+    TRAITEMENT -->|XML Pages| NETTOYAGE
+    NETTOYAGE -->|Version finale| ENRICHISSEMENT
+    ENRICHISSEMENT --> OUTPUT
+
+    %% Détails de l'acquisition
+    ACQUISITION -.->|MODULE 1: Achat & Scraping| ACQ1[Manuscrits numérisés]
+    ACQUISITION -.->|MODULE 2: Téléchargements| ACQ2[Images haute qualité]
+    ACQUISITION -.->|MODULE 3: Éditions| ACQ3[Éditions numérisées]
+
+    ACQ1 -.-> TRAITEMENT
+    ACQ2 -.-> TRAITEMENT
+    ACQ3 -.-> TRAITEMENT
+
+    %% Détails du traitement
+    TRAITEMENT -.->|Segmentation| TRAIT1[Modèles HPC]
+    TRAITEMENT -.->|Transcription| TRAIT2[HTR/OCR]
+
+    TRAIT1 -.-> NETTOYAGE
+    TRAIT2 -.-> NETTOYAGE
+
+    %% Métriques clés
+    note1[Éditions: 0.1-2% CER<br/>Manuscrits: 4-8% CER]
+
+    TRAITEMENT -.-> note1
+
+    %% ========================================
+    %% STYLES
+    %% ========================================
+    classDef startEnd fill:#4caf50,stroke:#2e7d32,stroke-width:3px,color:#fff
+    classDef acquisition fill:#2196f3,stroke:#1565c0,stroke-width:2px,color:#fff
+    classDef traitement fill:#ff9800,stroke:#e65100,stroke-width:2px,color:#fff
+    classDef nettoyage fill:#9c27b0,stroke:#6a1b9a,stroke-width:2px,color:#fff
+    classDef enrichissement fill:#e91e63,stroke:#c2185b,stroke-width:2px,color:#fff
+    classDef detail fill:#e0e0e0,stroke:#757575,stroke-width:1px
+    classDef note fill:#fff9c4,stroke:#f57f17,stroke-width:1px
+
+    class START,OUTPUT startEnd
+    class ACQUISITION acquisition
+    class TRAITEMENT traitement
+    class NETTOYAGE nettoyage
+    class ENRICHISSEMENT enrichissement
+    class ACQ1,ACQ2,ACQ3,TRAIT1,TRAIT2 detail
+    class note1 note

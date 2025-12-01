@@ -1,0 +1,192 @@
+flowchart TD
+    %% ========================================
+    %% MODULE 5 - NETTOYAGE POST-ESCRIPTORIUM
+    %% ========================================
+
+    START([🧹 MODULE 5<br/>Nettoyage Post-eScriptorium])
+
+    %% ========================================
+    %% IMPORT ET STOCKAGE
+    %% ========================================
+    IMPORT[📥 Import XML Pages<br/>depuis eScriptorium]
+    STOCKAGE[☁️ Stockage sur Seafile<br/>avec ID dans le titre<br/>Format: ID_NomManuscrit.xml]
+    EXPORT[📤 Export pour<br/>traitement local]
+
+    START --> IMPORT
+    IMPORT --> STOCKAGE
+    STOCKAGE --> EXPORT
+
+    %% ========================================
+    %% DÉCISION LAYOUT
+    %% ========================================
+    DECISION{Quel type<br/>de layout ?}
+
+    EXPORT --> DECISION
+
+    %% ========================================
+    %% BRANCHE SIMPLE PAGE
+    %% ========================================
+    subgraph SIMPLE_FLOW [📄 Simple Page - 1 région Main]
+        SIMPLE_TITLE[📄 Une seule région Main<br/>par page]
+        SIMPLE_COMMUNES[🔧 Regex communes<br/>Corrections standard]
+        SIMPLE_SPECIFIQUES[🔧 Regex spécifiques<br/>à l'édition/manuscrit]
+        SIMPLE_APPLY[▶️ Application<br/>sur région Main]
+
+        SIMPLE_TITLE --> SIMPLE_COMMUNES
+        SIMPLE_TITLE --> SIMPLE_SPECIFIQUES
+        SIMPLE_COMMUNES --> SIMPLE_APPLY
+        SIMPLE_SPECIFIQUES --> SIMPLE_APPLY
+    end
+
+    %% ========================================
+    %% BRANCHE DEUX PAGES
+    %% ========================================
+    subgraph DEUX_FLOW [📄📄 Deux Pages - 2 régions Main]
+        DEUX_TITLE[📄📄 Deux régions Main<br/>par page<br/>Recto-Verso ou colonnes]
+        DEUX_COMMUNES[🔧 Regex communes<br/>Corrections standard]
+        DEUX_SPECIFIQUES[🔧 Regex spécifiques<br/>à l'édition/manuscrit]
+        DEUX_APPLY[▶️ Application<br/>sur les 2 régions Main]
+
+        DEUX_TITLE --> DEUX_COMMUNES
+        DEUX_TITLE --> DEUX_SPECIFIQUES
+        DEUX_COMMUNES --> DEUX_APPLY
+        DEUX_SPECIFIQUES --> DEUX_APPLY
+    end
+
+    %% ========================================
+    %% BRANCHE QUATRE PAGES
+    %% ========================================
+    subgraph QUATRE_FLOW [📄📄<br/>📄📄 Quatre Pages - 4 régions Main]
+        QUATRE_TITLE[📄📄📄📄 Quatre régions Main<br/>par page<br/>Layout complexe]
+        QUATRE_COMMUNES[🔧 Regex communes<br/>Corrections standard]
+        QUATRE_SPECIFIQUES[🔧 Regex spécifiques<br/>à l'édition/manuscrit]
+        QUATRE_APPLY[▶️ Application<br/>sur les 4 régions Main]
+
+        QUATRE_TITLE --> QUATRE_COMMUNES
+        QUATRE_TITLE --> QUATRE_SPECIFIQUES
+        QUATRE_COMMUNES --> QUATRE_APPLY
+        QUATRE_SPECIFIQUES --> QUATRE_APPLY
+    end
+
+    %% ========================================
+    %% CONNEXIONS PRINCIPALES
+    %% ========================================
+    DECISION -->|1 région| SIMPLE_TITLE
+    DECISION -->|2 régions| DEUX_TITLE
+    DECISION -->|4 régions| QUATRE_TITLE
+
+    %% ========================================
+    %% VÉRIFICATION ET FINALISATION
+    %% ========================================
+    VERIFICATION[✅ Vérification<br/>Correspondance des pages<br/>Détection de bugs]
+    CORRECTIONS{Erreurs<br/>détectées ?}
+    CORRECTION_MANUELLE[✍️ Corrections<br/>manuelles]
+    VERSION_FINALE[✨ Version finale<br/>des transcriptions<br/>au format XML Page]
+
+    SIMPLE_APPLY --> VERIFICATION
+    DEUX_APPLY --> VERIFICATION
+    QUATRE_APPLY --> VERIFICATION
+
+    VERIFICATION --> CORRECTIONS
+    CORRECTIONS -->|Oui| CORRECTION_MANUELLE
+    CORRECTIONS -->|Non| VERSION_FINALE
+    CORRECTION_MANUELLE --> VERIFICATION
+
+    OUTPUT([📤 SORTIE MODULE 5<br/>Transcriptions finalisées])
+
+    VERSION_FINALE --> OUTPUT
+
+    %% ========================================
+    %% DÉTAIL DES REGEX
+    %% ========================================
+    subgraph REGEX_DETAIL [🔧 Types de Regex Appliquées]
+        REGEX_TITLE[📋 Catégories de corrections]
+
+        subgraph REGEX_COMMUNES [Regex Communes]
+            R1[Normalisation espaces<br/>Doubles espaces → Simple]
+            R2[Correction ponctuation<br/>Espaces avant/après]
+            R3[Normalisation sauts de ligne<br/>Cohérence des retours]
+            R4[Suppression caractères parasites<br/>Artefacts OCR/HTR]
+        end
+
+        subgraph REGEX_SPECIFIQUES [Regex Spécifiques]
+            R5[Abbréviations latines<br/>Expansion selon contexte]
+            R6[Numérotation canons<br/>Normalisation format]
+            R7[Titres et rubriques<br/>Balisage spécifique]
+            R8[Annotations marginales<br/>Traitement séparé]
+        end
+    end
+
+    %% ========================================
+    %% ANNOTATIONS
+    %% ========================================
+    note1[💡 Simple page:<br/>La plus courante<br/>1 texte continu<br/>Traitement rapide]
+    note2[💡 Deux pages:<br/>Recto-verso scanné ensemble<br/>ou texte en 2 colonnes<br/>Attention à l'ordre]
+    note3[💡 Quatre pages:<br/>Layout complexe<br/>Plusieurs colonnes + notes<br/>Traitement minutieux]
+    note4[💡 Vérification:<br/>Contrôle pagination<br/>Détection erreurs OCR<br/>Cohérence globale]
+    note5[💡 Regex:<br/>Automatise 90% nettoyage<br/>Scripts Python personnalisés<br/>Réutilisables]
+
+    SIMPLE_TITLE -.-> note1
+    DEUX_TITLE -.-> note2
+    QUATRE_TITLE -.-> note3
+    VERIFICATION -.-> note4
+    SIMPLE_COMMUNES -.-> note5
+
+    %% ========================================
+    %% STATISTIQUES
+    %% ========================================
+    subgraph STATS [📊 Statistiques Indicatives]
+        S1[Simple page: ~70% des documents]
+        S2[Deux pages: ~25% des documents]
+        S3[Quatre pages: ~5% des documents]
+        S4[Taux erreurs détectées: ~5-10%]
+        S5[Temps nettoyage: 1-4h par document]
+    end
+
+    %% ========================================
+    %% OUTILS
+    %% ========================================
+    subgraph TOOLS [🛠️ Outils Utilisés]
+        T1[Python: Scripts regex]
+        T2[lxml: Manipulation XML]
+        T3[Scripts personnalisés]
+        T4[Validation XSD]
+    end
+
+    %% ========================================
+    %% STYLES
+    %% ========================================
+    classDef startEnd fill:#4caf50,stroke:#2e7d32,stroke-width:3px,color:#fff
+    classDef decision fill:#ffeb3b,stroke:#f57f17,stroke-width:2px
+    classDef import fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+    classDef stockage fill:#bbdefb,stroke:#1976d2,stroke-width:2px
+    classDef simple fill:#c8e6c9,stroke:#388e3c,stroke-width:2px
+    classDef deux fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    classDef quatre fill:#ffccbc,stroke:#d84315,stroke-width:2px
+    classDef regex fill:#e1bee7,stroke:#8e24aa,stroke-width:2px
+    classDef verification fill:#b2dfdb,stroke:#00796b,stroke-width:2px
+    classDef finale fill:#a5d6a7,stroke:#2e7d32,stroke-width:3px
+    classDef note fill:#fff9c4,stroke:#f57f17,stroke-width:1px,stroke-dasharray: 5 5
+    classDef title fill:#e0e0e0,stroke:#757575,stroke-width:2px
+
+    class START,OUTPUT startEnd
+    class DECISION,CORRECTIONS decision
+    class IMPORT,EXPORT import
+    class STOCKAGE stockage
+    class SIMPLE_TITLE,SIMPLE_COMMUNES,SIMPLE_SPECIFIQUES,SIMPLE_APPLY simple
+    class DEUX_TITLE,DEUX_COMMUNES,DEUX_SPECIFIQUES,DEUX_APPLY deux
+    class QUATRE_TITLE,QUATRE_COMMUNES,QUATRE_SPECIFIQUES,QUATRE_APPLY quatre
+    class R1,R2,R3,R4,R5,R6,R7,R8 regex
+    class VERIFICATION,CORRECTION_MANUELLE verification
+    class VERSION_FINALE finale
+    class note1,note2,note3,note4,note5 note
+    class REGEX_TITLE title
+
+    style SIMPLE_FLOW fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    style DEUX_FLOW fill:#fff8e1,stroke:#f57f17,stroke-width:2px
+    style QUATRE_FLOW fill:#fbe9e7,stroke:#d84315,stroke-width:2px
+    style REGEX_DETAIL fill:#f3e5f5,stroke:#6a1b9a,stroke-width:2px,stroke-dasharray: 5 5
+    style REGEX_COMMUNES fill:#e1bee7,stroke:#8e24aa,stroke-width:1px
+    style REGEX_SPECIFIQUES fill:#e1bee7,stroke:#8e24aa,stroke-width:1px
+    style STATS fill:#f5f5f5,stroke:#616161,stroke-width:2px,stroke-dasharray: 3 3
+    style TOOLS fill:#e0f2f1,stroke:#00796b,stroke-width:2px,stroke-dasharray: 3 3

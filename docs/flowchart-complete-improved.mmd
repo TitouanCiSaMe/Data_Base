@@ -1,0 +1,253 @@
+flowchart TD
+    %% ========================================
+    %% PIPELINE COMPLET - VERSION AMÉLIORÉE
+    %% ========================================
+
+    START([🚀 DÉBUT DU PIPELINE])
+
+    %% ========================================
+    %% MODULE 1 & 3 - ACQUISITION (PARALLÈLE)
+    %% ========================================
+    subgraph ACQUISITION [📥 ACQUISITION DE DONNÉES]
+        ACQ_MS{Manuscrits}
+        ACQ_ED{Éditions}
+
+        %% Manuscrits
+        ACQ_MS_ACHAT[💰 Achat]
+        ACQ_MS_SCRAPING[🌐 Scraping]
+        ACQ_MS -->|Déjà numérisé| ACQ_MS_ACHAT
+        ACQ_MS -->|En ligne| ACQ_MS_SCRAPING
+
+        %% Éditions
+        ACQ_ED_LIBRE[🌐 Libre accès]
+        ACQ_ED_BNU[🏛️ BNU]
+        ACQ_ED -->|Gratuit| ACQ_ED_LIBRE
+        ACQ_ED -->|Prêt/Achat| ACQ_ED_BNU
+    end
+
+    START --> ACQ_MS
+    START --> ACQ_ED
+
+    %% ========================================
+    %% MODULE 2 - TÉLÉCHARGEMENT
+    %% ========================================
+    subgraph TELECHARGEMENT [📥 TÉLÉCHARGEMENT]
+        DL_DECISION{Méthode ?}
+        DL_IIIF[🖼️ IIIF<br/>⭐⭐⭐]
+        DL_PDF[📄 PDF<br/>⭐⭐]
+        DL_HEXA[🔢 Hexadécimal<br/>⭐⭐⭐⭐]
+        DL_TUILES[🧩 Tuiles<br/>⭐⭐⭐⭐⭐]
+
+        DL_DECISION -->|Standard| DL_IIIF
+        DL_DECISION -->|Simple| DL_PDF
+        DL_DECISION -->|British Lib| DL_HEXA
+        DL_DECISION -->|Haute qualité| DL_TUILES
+    end
+
+    ACQ_MS_SCRAPING --> DL_DECISION
+    ACQ_MS_ACHAT -.->|Déjà téléchargé| SEAFILE
+    ACQ_ED_LIBRE --> DL_DECISION
+    ACQ_ED_BNU -.->|Numérisation BNU| SEAFILE
+
+    %% Point de convergence
+    SEAFILE[☁️ SEAFILE<br/>Stockage Cloud Universitaire]
+
+    DL_IIIF --> SEAFILE
+    DL_PDF --> SEAFILE
+    DL_HEXA --> SEAFILE
+    DL_TUILES --> SEAFILE
+
+    %% ========================================
+    %% MODULE 4 - TRAITEMENT ESCRIPTORIUM
+    %% ========================================
+    subgraph ESCRIPTORIUM [⚙️ TRAITEMENT ESCRIPTORIUM]
+        ESC_INPUT[📥 Import images]
+        ESC_TYPE{Type ?}
+
+        %% Workflow générique
+        ESC_SEG[🔲 Segmentation]
+        ESC_SEG_DECISION{Modèle<br/>existe ?}
+        ESC_SEG_MANUEL[✍️ Manuel<br/>50-100 pages]
+        ESC_SEG_HPC[🎓 HPC Training]
+        ESC_SEG_APPLY[▶️ Application]
+
+        ESC_TRANS[✍️ Transcription]
+        ESC_TRANS_DECISION{Modèle<br/>existe ?}
+        ESC_TRANS_MANUEL[✍️ Manuel<br/>100-200 lignes]
+        ESC_TRANS_HPC[🎓 HPC Training]
+        ESC_TRANS_APPLY[▶️ Application]
+
+        ESC_INPUT --> ESC_TYPE
+        ESC_TYPE -->|Éditions<br/>CER: 0.1-2%| ESC_SEG
+        ESC_TYPE -->|Manuscrits<br/>CER: 4-8%| ESC_SEG
+
+        ESC_SEG --> ESC_SEG_DECISION
+        ESC_SEG_DECISION -->|Non| ESC_SEG_MANUEL
+        ESC_SEG_DECISION -->|Oui| ESC_SEG_APPLY
+        ESC_SEG_MANUEL --> ESC_SEG_HPC
+        ESC_SEG_HPC --> ESC_SEG_APPLY
+
+        ESC_SEG_APPLY --> ESC_TRANS
+        ESC_TRANS --> ESC_TRANS_DECISION
+        ESC_TRANS_DECISION -->|Non| ESC_TRANS_MANUEL
+        ESC_TRANS_DECISION -->|Oui| ESC_TRANS_APPLY
+        ESC_TRANS_MANUEL --> ESC_TRANS_HPC
+        ESC_TRANS_HPC --> ESC_TRANS_APPLY
+    end
+
+    SEAFILE -->|Export images| ESC_INPUT
+
+    %% Détail HPC
+    subgraph HPC_DETAIL [🖥️ HPC - High Performance Computing]
+        HPC_1[📦 Upload: Images + XML + Script]
+        HPC_2[🎓 Fine-tuning GPU]
+        HPC_3[📥 Export meilleur modèle]
+        HPC_1 --> HPC_2 --> HPC_3
+    end
+
+    ESC_SEG_HPC -.-> HPC_DETAIL
+    ESC_TRANS_HPC -.-> HPC_DETAIL
+
+    %% Sortie eScriptorium
+    XML_PAGES[📄 XML Pages<br/>Format PageXML]
+    ESC_TRANS_APPLY --> XML_PAGES
+
+    %% ========================================
+    %% MODULE 5 - NETTOYAGE
+    %% ========================================
+    subgraph NETTOYAGE [🧹 NETTOYAGE POST-TRAITEMENT]
+        NET_IMPORT[📥 Import XML]
+        NET_STOCKAGE[☁️ Stockage Seafile]
+        NET_LAYOUT{Layout ?}
+        NET_1[📄 1 région]
+        NET_2[📄📄 2 régions]
+        NET_4[📄📄📄📄 4 régions]
+        NET_REGEX[🔧 Application Regex<br/>Communes + Spécifiques]
+        NET_VERIF[✅ Vérification]
+        NET_FINAL[✨ Version finale]
+
+        NET_IMPORT --> NET_STOCKAGE
+        NET_STOCKAGE --> NET_LAYOUT
+        NET_LAYOUT -->|Simple| NET_1
+        NET_LAYOUT -->|Double| NET_2
+        NET_LAYOUT -->|Complexe| NET_4
+        NET_1 --> NET_REGEX
+        NET_2 --> NET_REGEX
+        NET_4 --> NET_REGEX
+        NET_REGEX --> NET_VERIF
+        NET_VERIF --> NET_FINAL
+    end
+
+    XML_PAGES --> NET_IMPORT
+
+    %% ========================================
+    %% MODULE DÉCRET DE GRATIEN
+    %% ========================================
+    subgraph DECRET [⚖️ DÉCRET DE GRATIEN]
+        %% Branche Allégations
+        DG_OCHOA[📚 Ochoa & Diez<br/>Allégations]
+        DG_ALGO[⚙️ Extraction]
+        DG_ALLEG_CSV[📊 Allégations.csv]
+
+        %% Branche Friedberg
+        DG_FRIEDBERG[📖 Friedberg +<br/>Münchener]
+        DG_CANONS[📤 Extraction canons]
+        DG_STRUCTURE[🗂️ Structuration<br/>hiérarchique]
+
+        %% Enrichissement
+        DG_ENRICHISSEMENT[✨ Enrichissement<br/>avec ID]
+        DG_OUTPUT[⚖️ Décret enrichi]
+
+        DG_OCHOA --> DG_ALGO
+        DG_ALGO --> DG_ALLEG_CSV
+        DG_FRIEDBERG --> DG_CANONS
+        DG_CANONS --> DG_STRUCTURE
+        DG_ALLEG_CSV --> DG_ENRICHISSEMENT
+        DG_STRUCTURE --> DG_ENRICHISSEMENT
+        DG_ENRICHISSEMENT --> DG_OUTPUT
+    end
+
+    XML_PAGES -.->|Parallèle| DG_OCHOA
+    NET_FINAL --> DG_FRIEDBERG
+
+    %% ========================================
+    %% SORTIE FINALE
+    %% ========================================
+    END([🎯 DONNÉES FINALES<br/>Corpus complet])
+
+    NET_FINAL --> END
+    DG_OUTPUT --> END
+
+    %% ========================================
+    %% ANNOTATIONS CLÉS
+    %% ========================================
+    note1[💡 Qualité images:<br/>300-600 DPI<br/>Format: TIF/JPG]
+    note2[💡 CER Éditions: 0.1-2%<br/>CER Manuscrits: 4-8%]
+    note3[💡 Regex: 90% automatisé<br/>Scripts Python]
+    note4[💡 ~4000 canons<br/>~3800 allégations]
+
+    SEAFILE -.-> note1
+    ESC_TYPE -.-> note2
+    NET_REGEX -.-> note3
+    DG_OUTPUT -.-> note4
+
+    %% ========================================
+    %% LÉGENDE
+    %% ========================================
+    subgraph LEGEND [📖 LÉGENDE]
+        L1{Décision / Choix}
+        L2[Processus automatique]
+        L3[✍️ Intervention manuelle]
+        L4[☁️ Stockage cloud]
+        L5[🎓 Entraînement ML]
+    end
+
+    %% ========================================
+    %% STATISTIQUES GLOBALES
+    %% ========================================
+    subgraph STATS [📊 MÉTRIQUES GLOBALES]
+        ST1[Pipeline complet: 2-6 mois]
+        ST2[Volume données: 50-500 GB]
+        ST3[Taux automatisation: ~85%]
+        ST4[Précision finale: >95%]
+    end
+
+    %% ========================================
+    %% STYLES
+    %% ========================================
+    classDef startEnd fill:#4caf50,stroke:#2e7d32,stroke-width:3px,color:#fff
+    classDef decision fill:#ffeb3b,stroke:#f57f17,stroke-width:2px
+    classDef acquisition fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+    classDef telechargement fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    classDef cloud fill:#bbdefb,stroke:#1976d2,stroke-width:3px
+    classDef escriptorium fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    classDef hpc fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    classDef xml fill:#ffccbc,stroke:#d84315,stroke-width:2px
+    classDef nettoyage fill:#f3e5f5,stroke:#8e24aa,stroke-width:2px
+    classDef decret fill:#f8bbd0,stroke:#c2185b,stroke-width:2px
+    classDef final fill:#a5d6a7,stroke:#2e7d32,stroke-width:3px
+    classDef note fill:#fff9c4,stroke:#f57f17,stroke-width:1px,stroke-dasharray: 5 5
+    classDef manuel fill:#ffab91,stroke:#d84315,stroke-width:2px
+
+    class START,END startEnd
+    class ACQ_MS,ACQ_ED,DL_DECISION,ESC_TYPE,ESC_SEG_DECISION,ESC_TRANS_DECISION,NET_LAYOUT decision
+    class ACQ_MS_ACHAT,ACQ_MS_SCRAPING,ACQ_ED_LIBRE,ACQ_ED_BNU acquisition
+    class DL_IIIF,DL_PDF,DL_HEXA,DL_TUILES telechargement
+    class SEAFILE,NET_STOCKAGE cloud
+    class ESC_INPUT,ESC_SEG,ESC_SEG_APPLY,ESC_TRANS,ESC_TRANS_APPLY escriptorium
+    class ESC_SEG_HPC,ESC_TRANS_HPC,HPC_1,HPC_2,HPC_3 hpc
+    class XML_PAGES xml
+    class NET_IMPORT,NET_LAYOUT,NET_1,NET_2,NET_4,NET_REGEX,NET_VERIF nettoyage
+    class NET_FINAL,DG_OUTPUT final
+    class DG_OCHOA,DG_ALGO,DG_ALLEG_CSV,DG_FRIEDBERG,DG_CANONS,DG_STRUCTURE,DG_ENRICHISSEMENT decret
+    class note1,note2,note3,note4 note
+    class ESC_SEG_MANUEL,ESC_TRANS_MANUEL manuel
+
+    style ACQUISITION fill:#e3f2fd,stroke:#1565c0,stroke-width:3px
+    style TELECHARGEMENT fill:#fff3e0,stroke:#e65100,stroke-width:3px
+    style ESCRIPTORIUM fill:#e8f5e9,stroke:#2e7d32,stroke-width:3px
+    style HPC_DETAIL fill:#fff8e1,stroke:#f57f17,stroke-width:2px,stroke-dasharray: 5 5
+    style NETTOYAGE fill:#f3e5f5,stroke:#6a1b9a,stroke-width:3px
+    style DECRET fill:#fce4ec,stroke:#c2185b,stroke-width:3px
+    style LEGEND fill:#f5f5f5,stroke:#616161,stroke-width:2px,stroke-dasharray: 3 3
+    style STATS fill:#e0f2f1,stroke:#00796b,stroke-width:2px,stroke-dasharray: 3 3

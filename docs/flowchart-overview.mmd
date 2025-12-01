@@ -1,0 +1,200 @@
+flowchart TD
+    %% ========================================
+    %% VUE D'ENSEMBLE - ARCHITECTURE COMPLÈTE
+    %% ========================================
+
+    START([🚀 DÉBUT DU PIPELINE])
+
+    %% ========================================
+    %% MODULE 1 - Récupération de manuscrits
+    %% ========================================
+    subgraph MODULE1 [📜 MODULE 1 - Récupération de manuscrits]
+        M1_DECISION{Source ?}
+        M1_ACHAT[💰 Achat]
+        M1_SCRAPING[🌐 Scraping Web]
+        M1_OUTPUT[📦 Manuscrits numérisés]
+
+        M1_DECISION -->|Déjà numérisés| M1_ACHAT
+        M1_DECISION -->|Pas numérisés| M1_ACHAT
+        M1_DECISION -->|En ligne| M1_SCRAPING
+        M1_ACHAT --> M1_OUTPUT
+        M1_SCRAPING --> M1_OUTPUT
+    end
+
+    %% ========================================
+    %% MODULE 2 - Méthodes de téléchargement
+    %% ========================================
+    subgraph MODULE2 [📥 MODULE 2 - Méthodes de téléchargement]
+        M2_DECISION{Méthode ?}
+        M2_IIIF[🖼️ IIIF]
+        M2_PDF[📄 PDF]
+        M2_COMPLEXE[⚙️ Méthodes complexes]
+        M2_SEAFILE[☁️ Seafile<br/>Stockage Cloud]
+
+        M2_DECISION -->|IIIF disponible| M2_IIIF
+        M2_DECISION -->|PDF seulement| M2_PDF
+        M2_DECISION -->|Méthode spéciale| M2_COMPLEXE
+        M2_IIIF -->|Bonne qualité| M2_SEAFILE
+        M2_PDF -->|Qualité variable| M2_SEAFILE
+        M2_COMPLEXE -->|Haute qualité| M2_SEAFILE
+    end
+
+    %% ========================================
+    %% MODULE 3 - Récupération d'éditions
+    %% ========================================
+    subgraph MODULE3 [📚 MODULE 3 - Récupération d'éditions]
+        M3_DECISION{Source ?}
+        M3_LIBRE[🌐 Libre de droit]
+        M3_BNU[🏛️ BNU]
+        M3_ACHAT[💰 Achat]
+        M3_CATEG[📋 Catégorisation]
+        M3_OUTPUT[📦 Éditions numérisées]
+
+        M3_DECISION -->|Internet| M3_LIBRE
+        M3_DECISION -->|Prêt| M3_BNU
+        M3_DECISION -->|Achat| M3_ACHAT
+        M3_LIBRE --> M3_CATEG
+        M3_BNU --> M3_CATEG
+        M3_ACHAT --> M3_CATEG
+        M3_CATEG -->|15e-20e s.<br/>Jamais sortie<br/>20e-21e s.| M3_OUTPUT
+    end
+
+    %% ========================================
+    %% MODULE 4 - Traitement eScriptorium
+    %% ========================================
+    subgraph MODULE4 [⚙️ MODULE 4 - Traitement eScriptorium]
+        M4_INPUT[📥 Images + métadonnées]
+        M4_DECISION{Type ?}
+        M4_EDITIONS[📖 Éditions]
+        M4_MANUSCRITS[📜 Manuscrits]
+
+        M4_SEG[🔲 Segmentation<br/>HPC Training]
+        M4_TRANS[✍️ Transcription<br/>HPC Training]
+
+        M4_OUTPUT[📄 XML Pages]
+
+        M4_INPUT --> M4_DECISION
+        M4_DECISION -->|Éditions| M4_EDITIONS
+        M4_DECISION -->|Manuscrits| M4_MANUSCRITS
+
+        M4_EDITIONS --> M4_SEG
+        M4_EDITIONS --> M4_TRANS
+        M4_MANUSCRITS --> M4_SEG
+        M4_MANUSCRITS --> M4_TRANS
+
+        M4_SEG --> M4_OUTPUT
+        M4_TRANS --> M4_OUTPUT
+    end
+
+    %% ========================================
+    %% MODULE 5 - Nettoyage et finalisation
+    %% ========================================
+    subgraph MODULE5 [🧹 MODULE 5 - Nettoyage Post-eScriptorium]
+        M5_INPUT[📥 Import XML Pages]
+        M5_SEAFILE[☁️ Stockage Seafile]
+        M5_DECISION{Layout ?}
+        M5_SIMPLE[📄 Simple page]
+        M5_DEUX[📄📄 Deux pages]
+        M5_QUATRE[📄📄<br/>📄📄 Quatre pages]
+        M5_REGEX[🔧 Application Regex]
+        M5_VERIF[✅ Vérification]
+        M5_OUTPUT[✨ Version finale XML Pages]
+
+        M5_INPUT --> M5_SEAFILE
+        M5_SEAFILE --> M5_DECISION
+        M5_DECISION -->|1 région| M5_SIMPLE
+        M5_DECISION -->|2 régions| M5_DEUX
+        M5_DECISION -->|4 régions| M5_QUATRE
+        M5_SIMPLE --> M5_REGEX
+        M5_DEUX --> M5_REGEX
+        M5_QUATRE --> M5_REGEX
+        M5_REGEX --> M5_VERIF
+        M5_VERIF --> M5_OUTPUT
+    end
+
+    %% ========================================
+    %% MODULE SPÉCIAL - Décret de Gratien
+    %% ========================================
+    subgraph DECRET [⚖️ MODULE SPÉCIAL - Décret de Gratien]
+        DG_INPUT1[📥 XML Pages]
+        DG_INPUT2[📥 Friedberg + Münchener]
+        DG_ALLEGATIONS[📊 Allégations CSV]
+        DG_ENRICHISSEMENT[✨ Enrichissement]
+        DG_OUTPUT[📦 Décret enrichi]
+
+        DG_INPUT1 --> DG_ALLEGATIONS
+        DG_INPUT2 --> DG_ENRICHISSEMENT
+        DG_ALLEGATIONS --> DG_ENRICHISSEMENT
+        DG_ENRICHISSEMENT --> DG_OUTPUT
+    end
+
+    %% ========================================
+    %% CONNEXIONS INTER-MODULES
+    %% ========================================
+    START --> MODULE1
+    START --> MODULE3
+
+    M1_OUTPUT -->|Export local→Cloud| M2_SEAFILE
+    M3_OUTPUT -->|Export local→Cloud| M2_SEAFILE
+
+    M2_SEAFILE -->|Export images| M4_INPUT
+
+    M4_OUTPUT --> M5_INPUT
+    M4_OUTPUT -.->|Parallèle| DG_INPUT1
+
+    M5_OUTPUT --> DG_INPUT2
+
+    DG_OUTPUT --> END
+
+    END([🎯 DONNÉES FINALES])
+
+    %% ========================================
+    %% ANNOTATIONS
+    %% ========================================
+    note1[💡 Qualité cible Éditions:<br/>CER 0.1-2%]
+    note2[💡 Qualité cible Manuscrits:<br/>CER 4-8%]
+    note3[💡 Formats supportés:<br/>IIIF, PDF, TIF, JPG]
+
+    M4_EDITIONS -.-> note1
+    M4_MANUSCRITS -.-> note2
+    M2_SEAFILE -.-> note3
+
+    %% ========================================
+    %% LÉGENDE
+    %% ========================================
+    subgraph LEGEND [📖 LÉGENDE]
+        LEG1[💰 Processus d'achat]
+        LEG2{Décision}
+        LEG3[☁️ Stockage cloud]
+        LEG4[⚙️ Traitement automatique]
+        LEG5[✅ Validation manuelle]
+    end
+
+    %% ========================================
+    %% STYLES
+    %% ========================================
+    classDef moduleAcquisition fill:#e3f2fd,stroke:#1565c0,stroke-width:3px
+    classDef moduleTelechargement fill:#fff3e0,stroke:#e65100,stroke-width:3px
+    classDef moduleEditions fill:#f3e5f5,stroke:#6a1b9a,stroke-width:3px
+    classDef moduleTraitement fill:#e8f5e9,stroke:#2e7d32,stroke-width:3px
+    classDef moduleNettoyage fill:#fce4ec,stroke:#c2185b,stroke-width:3px
+    classDef moduleDecret fill:#fff9c4,stroke:#f57f17,stroke-width:3px
+    classDef decision fill:#ffeb3b,stroke:#f57f17,stroke-width:2px
+    classDef cloud fill:#bbdefb,stroke:#1976d2,stroke-width:2px
+    classDef output fill:#c8e6c9,stroke:#388e3c,stroke-width:2px
+    classDef startEnd fill:#4caf50,stroke:#2e7d32,stroke-width:3px,color:#fff
+    classDef note fill:#fff9c4,stroke:#f57f17,stroke-width:1px,stroke-dasharray: 5 5
+
+    class MODULE1 moduleAcquisition
+    class MODULE2 moduleTelechargement
+    class MODULE3 moduleEditions
+    class MODULE4 moduleTraitement
+    class MODULE5 moduleNettoyage
+    class DECRET moduleDecret
+    class M1_DECISION,M2_DECISION,M3_DECISION,M4_DECISION,M5_DECISION decision
+    class M2_SEAFILE,M5_SEAFILE cloud
+    class M1_OUTPUT,M3_OUTPUT,M4_OUTPUT,M5_OUTPUT,DG_OUTPUT output
+    class START,END startEnd
+    class note1,note2,note3 note
+
+    style LEGEND fill:#f5f5f5,stroke:#616161,stroke-width:2px,stroke-dasharray: 3 3
