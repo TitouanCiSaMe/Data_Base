@@ -27,7 +27,8 @@ class CorpusAnnotator:
 
     def __init__(self, csv_path: str, txt_path: str, output_path: str = None,
                  column_mapping: Dict[str, str] = None, corpus_name: str = None,
-                 corpus_source: str = None, id_prefix: str = None, csv_delimiter: str = ','):
+                 corpus_source: str = None, id_prefix: str = None, csv_delimiter: str = ',',
+                 debug: bool = False):
         """
         Initialise l'annotateur de corpus.
 
@@ -42,10 +43,12 @@ class CorpusAnnotator:
             corpus_source: Source du corpus (par défaut: basé sur le fichier)
             id_prefix: Préfixe pour les IDs (par défaut: LIB)
             csv_delimiter: Délimiteur du CSV (par défaut: ',')
+            debug: Mode debug pour afficher les détails du matching
         """
         self.csv_path = Path(csv_path)
         self.txt_path = Path(txt_path)
         self.csv_delimiter = csv_delimiter
+        self.debug = debug
 
         if output_path:
             self.output_path = Path(output_path)
@@ -237,8 +240,13 @@ class CorpusAnnotator:
         """
         csv_title_norm = self.normalize_text(csv_title)
 
+        if self.debug:
+            print(f"\n🔍 DEBUG - Recherche de match pour: {csv_title[:60]}...")
+            print(f"   Titre normalisé: {csv_title_norm[:60]}...")
+
         best_match = None
         best_score = 0.0
+        best_txt_title = ""
 
         for txt_article in self.articles_text:
             txt_title_norm = txt_article['title_normalized']
@@ -251,6 +259,8 @@ class CorpusAnnotator:
 
                 # Si le titre court est un préfixe du titre long, c'est un match parfait
                 if longer.startswith(shorter) and len(shorter) >= 30:
+                    if self.debug:
+                        print(f"   ✅ Match parfait (préfixe) avec: {txt_article['title'][:60]}...")
                     return txt_article
 
             # Sinon, utiliser le fuzzy matching classique
@@ -259,6 +269,14 @@ class CorpusAnnotator:
             if score > best_score:
                 best_score = score
                 best_match = txt_article
+                best_txt_title = txt_article['title']
+
+        if self.debug:
+            print(f"   Meilleur score: {best_score:.2%}")
+            if best_match:
+                print(f"   Meilleur match: {best_txt_title[:60]}...")
+            else:
+                print(f"   ❌ Aucun match trouvé (seuil: 70%)")
 
         # Seuil de 70% pour considérer un match
         if best_score >= 0.70:
@@ -701,6 +719,11 @@ Exemples d'utilisation:
         default=',',
         help='Délimiteur du CSV (défaut: ,). Utiliser ";" pour les CSV français standards'
     )
+    parser.add_argument(
+        '--debug',
+        action='store_true',
+        help='Activer le mode debug pour voir les détails du matching'
+    )
 
     args = parser.parse_args()
 
@@ -751,7 +774,8 @@ Exemples d'utilisation:
         corpus_name=corpus_name,
         corpus_source=corpus_source,
         id_prefix=id_prefix,
-        csv_delimiter=args.delimiter
+        csv_delimiter=args.delimiter,
+        debug=args.debug
     )
     annotator.process()
 
