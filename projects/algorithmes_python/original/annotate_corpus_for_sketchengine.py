@@ -27,7 +27,7 @@ class CorpusAnnotator:
 
     def __init__(self, csv_path: str, txt_path: str, output_path: str = None,
                  column_mapping: Dict[str, str] = None, corpus_name: str = None,
-                 corpus_source: str = None, id_prefix: str = None):
+                 corpus_source: str = None, id_prefix: str = None, csv_delimiter: str = ','):
         """
         Initialise l'annotateur de corpus.
 
@@ -41,9 +41,11 @@ class CorpusAnnotator:
             corpus_name: Nom du corpus (par défaut: basé sur le fichier)
             corpus_source: Source du corpus (par défaut: basé sur le fichier)
             id_prefix: Préfixe pour les IDs (par défaut: LIB)
+            csv_delimiter: Délimiteur du CSV (par défaut: ',')
         """
         self.csv_path = Path(csv_path)
         self.txt_path = Path(txt_path)
+        self.csv_delimiter = csv_delimiter
 
         if output_path:
             self.output_path = Path(output_path)
@@ -93,9 +95,10 @@ class CorpusAnnotator:
     def load_csv(self) -> List[Dict]:
         """Charge le fichier CSV des métadonnées."""
         print(f"📖 Lecture du fichier CSV: {self.csv_path}")
+        print(f"   ℹ️  Délimiteur utilisé: '{self.csv_delimiter}'")
 
         with open(self.csv_path, 'r', encoding='utf-8') as f:
-            reader = csv.DictReader(f)
+            reader = csv.DictReader(f, delimiter=self.csv_delimiter)
             self.articles_metadata = list(reader)
 
         print(f"   ✓ {len(self.articles_metadata)} articles avec métadonnées chargés")
@@ -103,7 +106,7 @@ class CorpusAnnotator:
         # Afficher les colonnes détectées pour debug
         if self.articles_metadata:
             # Filtrer les clés None qui peuvent apparaître si le CSV a des colonnes vides
-            columns = [col for col in self.articles_metadata[0].keys() if col is not None]
+            columns = [col for col in self.articles_metadata[0].keys() if col is not None and col.strip()]
             print(f"   ℹ️  Colonnes détectées: {', '.join(columns)}")
 
         return self.articles_metadata
@@ -613,11 +616,12 @@ Exemples d'utilisation:
   # Avec les valeurs par défaut (Libération)
   python annotate_corpus_for_sketchengine.py --csv metadata.csv --txt corpus.txt
 
-  # Pour Le Figaro avec mapping personnalisé
+  # Pour Le Figaro avec preset (CSV avec point-virgule)
   python annotate_corpus_for_sketchengine.py \\
     --csv articles_figaro.csv \\
     --txt corpus_figaro.txt \\
-    --preset figaro
+    --preset figaro \\
+    --delimiter ";"
 
   # Avec mapping manuel
   python annotate_corpus_for_sketchengine.py \\
@@ -675,6 +679,11 @@ Exemples d'utilisation:
         '--id-prefix',
         help='Préfixe pour les IDs d\'articles (défaut: LIB)'
     )
+    parser.add_argument(
+        '--delimiter',
+        default=',',
+        help='Délimiteur du CSV (défaut: ,). Utiliser ";" pour les CSV français standards'
+    )
 
     args = parser.parse_args()
 
@@ -724,7 +733,8 @@ Exemples d'utilisation:
         column_mapping=column_mapping,
         corpus_name=corpus_name,
         corpus_source=corpus_source,
-        id_prefix=id_prefix
+        id_prefix=id_prefix,
+        csv_delimiter=args.delimiter
     )
     annotator.process()
 
