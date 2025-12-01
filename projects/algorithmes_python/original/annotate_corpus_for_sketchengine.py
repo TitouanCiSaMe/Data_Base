@@ -118,7 +118,7 @@ class CorpusAnnotator:
         """
         Parse le fichier texte pour extraire les articles.
 
-        Structure attendue :
+        Structure FIXE attendue (TOUJOURS la même) :
         - Ligne n : Titre
         - Ligne n+1 : vide
         - Ligne n+2 : Sous-titre
@@ -133,63 +133,76 @@ class CorpusAnnotator:
             lines = f.readlines()
 
         articles = []
-        i = 0
 
-        while i < len(lines):
-            line = lines[i].strip()
+        # Première passe : trouver toutes les dates (marqueurs d'articles)
+        date_positions = []
+        date_pattern = re.compile(r'^\d{4}-\d{2}-\d{2}$')
 
-            # Détecter un titre (ligne non vide suivie d'une ligne vide)
-            if line and i + 1 < len(lines) and not lines[i + 1].strip():
-                title = line
-                start_line = i
-                i += 2  # Passer le titre et la ligne vide
+        for i, line in enumerate(lines):
+            if date_pattern.match(line.strip()):
+                date_positions.append(i)
 
-                # Lire le sous-titre
-                subtitle = ""
-                if i < len(lines) and lines[i].strip():
-                    subtitle = lines[i].strip()
-                    i += 1
-                    if i < len(lines) and not lines[i].strip():
-                        i += 1
+        if self.debug:
+            print(f"   🔍 DEBUG - {len(date_positions)} dates trouvées dans le fichier")
 
-                # Lire la date
-                date = ""
-                if i < len(lines):
-                    potential_date = lines[i].strip()
-                    if re.match(r'^\d{4}-\d{2}-\d{2}$', potential_date):
-                        date = potential_date
-                        i += 1
-                        if i < len(lines) and not lines[i].strip():
-                            i += 1
+        # Deuxième passe : extraire chaque article à partir des dates
+        for idx, date_line in enumerate(date_positions):
+            # La structure est fixe : remonter de 4 lignes pour trouver le titre
+            # date_line - 4 = titre
+            # date_line - 3 = vide
+            # date_line - 2 = sous-titre
+            # date_line - 1 = vide
+            # date_line = date
 
-                # Lire le contenu jusqu'au prochain article
-                content_lines = []
-                while i < len(lines):
-                    # Détecter le prochain article
-                    if (i + 2 < len(lines) and
-                        lines[i].strip() and
-                        not lines[i + 1].strip() and
-                        lines[i + 2].strip() and
-                        self._looks_like_title(lines[i].strip())):
-                        break
-                    content_lines.append(lines[i])
-                    i += 1
+            if date_line < 4:
+                continue  # Pas assez de lignes avant pour avoir un titre
 
-                article = {
-                    'title': title,
-                    'subtitle': subtitle,
-                    'date': date,
-                    'content': ''.join(content_lines).strip(),
-                    'start_line': start_line,
-                    'end_line': i - 1,
-                    'title_normalized': self.normalize_text(title)
-                }
-                articles.append(article)
+            title_line = date_line - 4
+            subtitle_line = date_line - 2
+
+            title = lines[title_line].strip()
+            subtitle = lines[subtitle_line].strip()
+            date = lines[date_line].strip()
+
+            # Vérifier que la ligne avant le titre est vide (fin de l'article précédent)
+            if title_line > 0 and lines[title_line - 1].strip():
+                # Ce n'est probablement pas un début d'article valide
+                continue
+
+            # Le contenu commence après la date et la ligne vide
+            content_start = date_line + 2 if date_line + 1 < len(lines) and not lines[date_line + 1].strip() else date_line + 1
+
+            # Le contenu se termine au prochain article (ou à la fin du fichier)
+            if idx + 1 < len(date_positions):
+                # Prochain article : remonter jusqu'à la ligne vide avant le prochain titre
+                next_title_line = date_positions[idx + 1] - 4
+                content_end = next_title_line - 1 if next_title_line > 0 and not lines[next_title_line - 1].strip() else next_title_line
             else:
-                i += 1
+                content_end = len(lines)
+
+            # Extraire le contenu
+            content_lines = lines[content_start:content_end]
+            content = ''.join(content_lines).strip()
+
+            article = {
+                'title': title,
+                'subtitle': subtitle,
+                'date': date,
+                'content': content,
+                'start_line': title_line,
+                'end_line': content_end - 1,
+                'title_normalized': self.normalize_text(title)
+            }
+            articles.append(article)
 
         self.articles_text = articles
         print(f"   ✓ {len(articles)} articles extraits du fichier texte")
+
+        if self.debug and len(articles) > 0:
+            print(f"   🔍 DEBUG - Premiers titres extraits:")
+            for art in articles[:3]:
+                print(f"      • {art['title'][:60]}...")
+
         return articles
 
     def _looks_like_title(self, text: str) -> bool:
