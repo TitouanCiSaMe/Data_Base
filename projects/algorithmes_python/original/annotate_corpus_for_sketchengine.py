@@ -102,7 +102,9 @@ class CorpusAnnotator:
 
         # Afficher les colonnes détectées pour debug
         if self.articles_metadata:
-            print(f"   ℹ️  Colonnes détectées: {', '.join(self.articles_metadata[0].keys())}")
+            # Filtrer les clés None qui peuvent apparaître si le CSV a des colonnes vides
+            columns = [col for col in self.articles_metadata[0].keys() if col is not None]
+            print(f"   ℹ️  Colonnes détectées: {', '.join(columns)}")
 
         return self.articles_metadata
 
