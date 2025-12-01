@@ -25,7 +25,9 @@ from datetime import datetime
 class CorpusAnnotator:
     """Classe pour annoter un corpus avec métadonnées pour SketchEngine."""
 
-    def __init__(self, csv_path: str, txt_path: str, output_path: str = None):
+    def __init__(self, csv_path: str, txt_path: str, output_path: str = None,
+                 column_mapping: Dict[str, str] = None, corpus_name: str = None,
+                 corpus_source: str = None, id_prefix: str = None):
         """
         Initialise l'annotateur de corpus.
 
@@ -33,6 +35,12 @@ class CorpusAnnotator:
             csv_path: Chemin vers le fichier CSV des métadonnées
             txt_path: Chemin vers le fichier texte des articles
             output_path: Chemin du fichier annoté (par défaut: corpus_annotated.txt)
+            column_mapping: Mapping des colonnes CSV vers les noms standardisés.
+                           Par défaut: {'title': 'Titre', 'subtitle': 'Sous-titre',
+                                       'date': 'Date', 'url': 'Lien'}
+            corpus_name: Nom du corpus (par défaut: basé sur le fichier)
+            corpus_source: Source du corpus (par défaut: basé sur le fichier)
+            id_prefix: Préfixe pour les IDs (par défaut: LIB)
         """
         self.csv_path = Path(csv_path)
         self.txt_path = Path(txt_path)
@@ -42,11 +50,45 @@ class CorpusAnnotator:
         else:
             self.output_path = self.txt_path.parent / f"{self.txt_path.stem}_annotated.txt"
 
+        # Mapping des colonnes (standardisation)
+        if column_mapping is None:
+            # Mapping par défaut pour Libération
+            self.column_mapping = {
+                'title': 'Titre',
+                'subtitle': 'Sous-titre',
+                'date': 'Date',
+                'url': 'Lien'
+            }
+        else:
+            self.column_mapping = column_mapping
+
+        # Paramètres du corpus
+        self.corpus_name = corpus_name or "Liberation"
+        self.corpus_source = corpus_source or "Libération"
+        self.id_prefix = id_prefix or "LIB"
+
         self.articles_metadata = []
         self.articles_text = []
         self.matched_count = 0
         self.unmatched_articles = []
         self.matched_articles = []  # Pour stocker les articles appariés
+
+    def _get_column(self, article: Dict, key: str, default: str = "") -> str:
+        """
+        Récupère une valeur de colonne en utilisant le mapping.
+
+        Args:
+            article: Dictionnaire de l'article
+            key: Clé standardisée ('title', 'subtitle', 'date', 'url')
+            default: Valeur par défaut si la colonne n'existe pas
+
+        Returns:
+            Valeur de la colonne ou default
+        """
+        column_name = self.column_mapping.get(key)
+        if column_name and column_name in article:
+            return article[column_name]
+        return default
 
     def load_csv(self) -> List[Dict]:
         """Charge le fichier CSV des métadonnées."""
@@ -57,6 +99,11 @@ class CorpusAnnotator:
             self.articles_metadata = list(reader)
 
         print(f"   ✓ {len(self.articles_metadata)} articles avec métadonnées chargés")
+
+        # Afficher les colonnes détectées pour debug
+        if self.articles_metadata:
+            print(f"   ℹ️  Colonnes détectées: {', '.join(self.articles_metadata[0].keys())}")
+
         return self.articles_metadata
 
     def parse_text_file(self) -> List[Dict]:
@@ -201,7 +248,7 @@ class CorpusAnnotator:
         """
         Génère un identifiant unique.
 
-        Format: LIB_YYYY_NNN
+        Format: PREFIX_YYYY_NNN (ex: LIB_2020_001, FIG_2020_001)
 
         Args:
             index: Numéro séquentiel
@@ -216,7 +263,7 @@ class CorpusAnnotator:
             if match:
                 year = match.group(1)
 
-        return f"LIB_{year}_{index:03d}"
+        return f"{self.id_prefix}_{year}_{index:03d}"
 
     def escape_xml(self, text: str) -> str:
         """Échappe les caractères spéciaux XML."""
@@ -244,29 +291,34 @@ class CorpusAnnotator:
         """
         attributes = [f'id="{article_id}"']
 
-        # Ajouter toutes les métadonnées du CSV
-        if metadata.get('Titre'):
-            attributes.append(f'title="{self.escape_xml(metadata["Titre"])}"')
+        # Ajouter les métadonnées standardisées en utilisant le mapping
+        title = self._get_column(metadata, 'title')
+        if title:
+            attributes.append(f'title="{self.escape_xml(title)}"')
 
-        if metadata.get('Sous-titre'):
-            attributes.append(f'subtitle="{self.escape_xml(metadata["Sous-titre"])}"')
+        subtitle = self._get_column(metadata, 'subtitle')
+        if subtitle:
+            attributes.append(f'subtitle="{self.escape_xml(subtitle)}"')
 
-        if metadata.get('Date'):
-            attributes.append(f'date="{self.escape_xml(metadata["Date"])}"')
+        date = self._get_column(metadata, 'date')
+        if date:
+            attributes.append(f'date="{self.escape_xml(date)}"')
             # Ajouter aussi année, mois, jour séparément pour faciliter les requêtes
-            date_match = re.match(r'(\d{4})-(\d{2})-(\d{2})', metadata['Date'])
+            date_match = re.match(r'(\d{4})-(\d{2})-(\d{2})', date)
             if date_match:
                 attributes.append(f'year="{date_match.group(1)}"')
                 attributes.append(f'month="{date_match.group(2)}"')
                 attributes.append(f'day="{date_match.group(3)}"')
 
-        if metadata.get('Lien'):
-            attributes.append(f'url="{self.escape_xml(metadata["Lien"])}"')
+        url = self._get_column(metadata, 'url')
+        if url:
+            attributes.append(f'url="{self.escape_xml(url)}"')
 
         # Ajouter des métadonnées supplémentaires si disponibles
-        # (pour l'extensibilité future)
+        # (exclure les colonnes déjà traitées via le mapping)
+        mapped_columns = set(self.column_mapping.values())
         for key in metadata:
-            if key not in ['Titre', 'Sous-titre', 'Date', 'Lien']:
+            if key not in mapped_columns:
                 safe_key = key.lower().replace(' ', '_').replace('-', '_')
                 attributes.append(f'{safe_key}="{self.escape_xml(metadata[key])}"')
 
@@ -285,18 +337,23 @@ class CorpusAnnotator:
 
         # En-tête du corpus
         annotated_content.append('<?xml version="1.0" encoding="UTF-8"?>')
-        annotated_content.append('<corpus name="Liberation" '
-                                'source="Libération" '
+        annotated_content.append(f'<corpus name="{self.corpus_name}" '
+                                f'source="{self.corpus_source}" '
                                 f'created="{datetime.now().strftime("%Y-%m-%d")}">')
         annotated_content.append('')
 
         # Traiter chaque article du CSV
         for i, csv_article in enumerate(self.articles_metadata, start=1):
             # Générer l'ID
-            article_id = self.generate_id(i, csv_article.get('Date', ''))
+            article_id = self.generate_id(i, self._get_column(csv_article, 'date'))
 
             # Trouver l'article correspondant dans le texte
-            txt_article = self.find_best_match(csv_article['Titre'])
+            title = self._get_column(csv_article, 'title')
+            if not title:
+                # Si pas de titre, on ne peut pas faire le matching
+                continue
+
+            txt_article = self.find_best_match(title)
 
             if txt_article:
                 self.matched_count += 1
@@ -304,11 +361,11 @@ class CorpusAnnotator:
                 # Stocker l'article apparié pour les exports titres/sous-titres
                 self.matched_articles.append({
                     'id': article_id,
-                    'title': csv_article['Titre'],
-                    'subtitle': csv_article.get('Sous-titre', ''),
-                    'date': csv_article.get('Date', ''),
-                    'journal': 'Libération',
-                    'url': csv_article.get('Lien', '')
+                    'title': title,
+                    'subtitle': self._get_column(csv_article, 'subtitle'),
+                    'date': self._get_column(csv_article, 'date'),
+                    'journal': self.corpus_source,
+                    'url': self._get_column(csv_article, 'url')
                 })
 
                 # Balise d'ouverture avec métadonnées
@@ -325,8 +382,8 @@ class CorpusAnnotator:
                 # Article non trouvé : on ne l'inclut pas dans le corpus annoté
                 self.unmatched_articles.append({
                     'id': article_id,
-                    'title': csv_article['Titre'],
-                    'date': csv_article.get('Date', '')
+                    'title': title,
+                    'date': self._get_column(csv_article, 'date')
                 })
 
             # Afficher la progression
@@ -546,27 +603,127 @@ class CorpusAnnotator:
 def main():
     """Fonction principale avec support des arguments."""
     parser = argparse.ArgumentParser(
-        description='Annote un corpus d\'articles avec métadonnées pour SketchEngine'
+        description='Annote un corpus d\'articles avec métadonnées pour SketchEngine',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Exemples d'utilisation:
+
+  # Avec les valeurs par défaut (Libération)
+  python annotate_corpus_for_sketchengine.py --csv metadata.csv --txt corpus.txt
+
+  # Pour Le Figaro avec mapping personnalisé
+  python annotate_corpus_for_sketchengine.py \\
+    --csv articles_figaro.csv \\
+    --txt corpus_figaro.txt \\
+    --preset figaro
+
+  # Avec mapping manuel
+  python annotate_corpus_for_sketchengine.py \\
+    --csv metadata.csv --txt corpus.txt \\
+    --title-col "Title" --subtitle-col "Subtitle" \\
+    --date-col "PublishDate" --url-col "URL" \\
+    --corpus-name "Figaro" --corpus-source "Le Figaro" \\
+    --id-prefix "FIG"
+        """
     )
     parser.add_argument(
         '--csv',
-        default='articles_metadata_liberation.csv',
+        required=True,
         help='Chemin vers le fichier CSV des métadonnées'
     )
     parser.add_argument(
         '--txt',
-        default='liberation_01012020_31122022(1).txt',
+        required=True,
         help='Chemin vers le fichier texte des articles'
     )
     parser.add_argument(
         '--output',
         help='Chemin du fichier annoté de sortie (défaut: [fichier]_annotated.txt)'
     )
+    parser.add_argument(
+        '--preset',
+        choices=['liberation', 'figaro'],
+        help='Utiliser un preset prédéfini pour un journal (liberation ou figaro)'
+    )
+    parser.add_argument(
+        '--title-col',
+        help='Nom de la colonne contenant le titre (défaut: Titre)'
+    )
+    parser.add_argument(
+        '--subtitle-col',
+        help='Nom de la colonne contenant le sous-titre (défaut: Sous-titre)'
+    )
+    parser.add_argument(
+        '--date-col',
+        help='Nom de la colonne contenant la date (défaut: Date)'
+    )
+    parser.add_argument(
+        '--url-col',
+        help='Nom de la colonne contenant l\'URL (défaut: Lien)'
+    )
+    parser.add_argument(
+        '--corpus-name',
+        help='Nom du corpus (défaut: Liberation)'
+    )
+    parser.add_argument(
+        '--corpus-source',
+        help='Source du corpus (défaut: Libération)'
+    )
+    parser.add_argument(
+        '--id-prefix',
+        help='Préfixe pour les IDs d\'articles (défaut: LIB)'
+    )
 
     args = parser.parse_args()
 
+    # Déterminer le mapping de colonnes
+    column_mapping = None
+    corpus_name = args.corpus_name
+    corpus_source = args.corpus_source
+    id_prefix = args.id_prefix
+
+    # Appliquer les presets si spécifié
+    if args.preset == 'liberation':
+        column_mapping = {
+            'title': 'Titre',
+            'subtitle': 'Sous-titre',
+            'date': 'Date',
+            'url': 'Lien'
+        }
+        corpus_name = corpus_name or "Liberation"
+        corpus_source = corpus_source or "Libération"
+        id_prefix = id_prefix or "LIB"
+    elif args.preset == 'figaro':
+        # Preset pour Le Figaro (ajuster selon le format réel)
+        column_mapping = {
+            'title': 'Titre',
+            'subtitle': 'Sous-titre',
+            'date': 'Date',
+            'url': 'Lien'
+        }
+        corpus_name = corpus_name or "Figaro"
+        corpus_source = corpus_source or "Le Figaro"
+        id_prefix = id_prefix or "FIG"
+
+    # Les arguments individuels remplacent le preset
+    if any([args.title_col, args.subtitle_col, args.date_col, args.url_col]):
+        column_mapping = {
+            'title': args.title_col or 'Titre',
+            'subtitle': args.subtitle_col or 'Sous-titre',
+            'date': args.date_col or 'Date',
+            'url': args.url_col or 'Lien'
+        }
+
     # Créer l'annotateur et lancer le traitement
-    annotator = CorpusAnnotator(args.csv, args.txt, args.output)
+    annotator = CorpusAnnotator(
+        args.csv,
+        args.txt,
+        args.output,
+        column_mapping=column_mapping,
+        corpus_name=corpus_name,
+        corpus_source=corpus_source,
+        id_prefix=id_prefix
+    )
     annotator.process()
 
 
