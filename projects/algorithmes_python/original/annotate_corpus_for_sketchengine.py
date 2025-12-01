@@ -203,8 +203,10 @@ class CorpusAnnotator:
     def normalize_text(self, text: str) -> str:
         """Normalise le texte pour la comparaison des titres."""
         text = text.lower()
+        # Retirer les points de suspension et autres marques de troncature
+        text = text.replace('...', '').replace('…', '')
         # Supprimer les guillemets et apostrophes
-        for char in ['«', '»', '"', '"', '"', "'", "'", '`', '…']:
+        for char in ['«', '»', '"', '"', '"', "'", "'", '`']:
             text = text.replace(char, ' ')
         # Supprimer la ponctuation
         text = re.sub(r'[^\w\s]', ' ', text)
@@ -225,6 +227,8 @@ class CorpusAnnotator:
         """
         Trouve le meilleur article du texte correspondant au titre du CSV.
 
+        Gère les titres tronqués en vérifiant d'abord si l'un est un préfixe de l'autre.
+
         Args:
             csv_title: Titre de l'article dans le CSV
 
@@ -237,7 +241,20 @@ class CorpusAnnotator:
         best_score = 0.0
 
         for txt_article in self.articles_text:
-            score = self.similarity_score(csv_title_norm, txt_article['title_normalized'])
+            txt_title_norm = txt_article['title_normalized']
+
+            # Vérifier d'abord si un titre est un préfixe de l'autre (titres tronqués)
+            # On considère un préfixe valide s'il fait au moins 30 caractères
+            if len(csv_title_norm) >= 30 or len(txt_title_norm) >= 30:
+                shorter = csv_title_norm if len(csv_title_norm) < len(txt_title_norm) else txt_title_norm
+                longer = txt_title_norm if len(csv_title_norm) < len(txt_title_norm) else csv_title_norm
+
+                # Si le titre court est un préfixe du titre long, c'est un match parfait
+                if longer.startswith(shorter) and len(shorter) >= 30:
+                    return txt_article
+
+            # Sinon, utiliser le fuzzy matching classique
+            score = self.similarity_score(csv_title_norm, txt_title_norm)
 
             if score > best_score:
                 best_score = score
