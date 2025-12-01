@@ -77,6 +77,7 @@ class CorpusAnnotator:
         self.matched_count = 0
         self.unmatched_articles = []
         self.matched_articles = []  # Pour stocker les articles appariés
+        self.used_txt_articles = set()  # Pour éviter les doublons de matching
 
     def _get_column(self, article: Dict, key: str, default: str = "") -> str:
         """
@@ -244,6 +245,7 @@ class CorpusAnnotator:
         Trouve le meilleur article du texte correspondant au titre du CSV.
 
         Gère les titres tronqués en vérifiant d'abord si l'un est un préfixe de l'autre.
+        Ignore les articles du TXT déjà matchés pour éviter les doublons.
 
         Args:
             csv_title: Titre de l'article dans le CSV
@@ -262,6 +264,11 @@ class CorpusAnnotator:
         best_txt_title = ""
 
         for txt_article in self.articles_text:
+            # Ignorer les articles déjà matchés pour éviter les doublons
+            article_id = id(txt_article)  # Utiliser l'ID Python de l'objet
+            if article_id in self.used_txt_articles:
+                continue
+
             txt_title_norm = txt_article['title_normalized']
 
             # Vérifier d'abord si un titre est un préfixe de l'autre (titres tronqués)
@@ -274,6 +281,8 @@ class CorpusAnnotator:
                 if longer.startswith(shorter) and len(shorter) >= 30:
                     if self.debug:
                         print(f"   ✅ Match parfait (préfixe) avec: {txt_article['title'][:60]}...")
+                    # Marquer cet article comme utilisé
+                    self.used_txt_articles.add(article_id)
                     return txt_article
 
             # Sinon, utiliser le fuzzy matching classique
@@ -292,7 +301,9 @@ class CorpusAnnotator:
                 print(f"   ❌ Aucun match trouvé (seuil: 70%)")
 
         # Seuil de 70% pour considérer un match
-        if best_score >= 0.70:
+        if best_score >= 0.70 and best_match:
+            # Marquer cet article comme utilisé
+            self.used_txt_articles.add(id(best_match))
             return best_match
 
         return None
