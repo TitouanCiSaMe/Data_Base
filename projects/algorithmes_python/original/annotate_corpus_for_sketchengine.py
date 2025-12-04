@@ -27,7 +27,8 @@ class CorpusAnnotator:
 
     def __init__(self, csv_path: str, txt_path: str, output_path: str = None,
                  column_mapping: Dict[str, str] = None, corpus_name: str = None,
-                 corpus_source: str = None, id_prefix: str = None, csv_delimiter: str = ','):
+                 corpus_source: str = None, id_prefix: str = None, csv_delimiter: str = ',',
+                 debug: bool = False):
         """
         Initialise l'annotateur de corpus.
 
@@ -42,10 +43,12 @@ class CorpusAnnotator:
             corpus_source: Source du corpus (par défaut: basé sur le fichier)
             id_prefix: Préfixe pour les IDs (par défaut: LIB)
             csv_delimiter: Délimiteur du CSV (par défaut: ',')
+            debug: Mode debug pour afficher les détails du matching
         """
         self.csv_path = Path(csv_path)
         self.txt_path = Path(txt_path)
         self.csv_delimiter = csv_delimiter
+        self.debug = debug
 
         if output_path:
             self.output_path = Path(output_path)
@@ -74,6 +77,7 @@ class CorpusAnnotator:
         self.matched_count = 0
         self.unmatched_articles = []
         self.matched_articles = []  # Pour stocker les articles appariés
+        self.used_txt_articles = set()  # Pour éviter les doublons de matching
 
     def _get_column(self, article: Dict, key: str, default: str = "") -> str:
         """
@@ -115,7 +119,7 @@ class CorpusAnnotator:
         """
         Parse le fichier texte pour extraire les articles.
 
-        Structure attendue :
+        Structure FIXE attendue (TOUJOURS la même) :
         - Ligne n : Titre
         - Ligne n+1 : vide
         - Ligne n+2 : Sous-titre
@@ -130,63 +134,76 @@ class CorpusAnnotator:
             lines = f.readlines()
 
         articles = []
-        i = 0
 
-        while i < len(lines):
-            line = lines[i].strip()
+        # Première passe : trouver toutes les dates (marqueurs d'articles)
+        date_positions = []
+        date_pattern = re.compile(r'^\d{4}-\d{2}-\d{2}$')
 
-            # Détecter un titre (ligne non vide suivie d'une ligne vide)
-            if line and i + 1 < len(lines) and not lines[i + 1].strip():
-                title = line
-                start_line = i
-                i += 2  # Passer le titre et la ligne vide
+        for i, line in enumerate(lines):
+            if date_pattern.match(line.strip()):
+                date_positions.append(i)
 
-                # Lire le sous-titre
-                subtitle = ""
-                if i < len(lines) and lines[i].strip():
-                    subtitle = lines[i].strip()
-                    i += 1
-                    if i < len(lines) and not lines[i].strip():
-                        i += 1
+        if self.debug:
+            print(f"   🔍 DEBUG - {len(date_positions)} dates trouvées dans le fichier")
 
-                # Lire la date
-                date = ""
-                if i < len(lines):
-                    potential_date = lines[i].strip()
-                    if re.match(r'^\d{4}-\d{2}-\d{2}$', potential_date):
-                        date = potential_date
-                        i += 1
-                        if i < len(lines) and not lines[i].strip():
-                            i += 1
+        # Deuxième passe : extraire chaque article à partir des dates
+        for idx, date_line in enumerate(date_positions):
+            # La structure est fixe : remonter de 4 lignes pour trouver le titre
+            # date_line - 4 = titre
+            # date_line - 3 = vide
+            # date_line - 2 = sous-titre
+            # date_line - 1 = vide
+            # date_line = date
 
-                # Lire le contenu jusqu'au prochain article
-                content_lines = []
-                while i < len(lines):
-                    # Détecter le prochain article
-                    if (i + 2 < len(lines) and
-                        lines[i].strip() and
-                        not lines[i + 1].strip() and
-                        lines[i + 2].strip() and
-                        self._looks_like_title(lines[i].strip())):
-                        break
-                    content_lines.append(lines[i])
-                    i += 1
+            if date_line < 4:
+                continue  # Pas assez de lignes avant pour avoir un titre
 
-                article = {
-                    'title': title,
-                    'subtitle': subtitle,
-                    'date': date,
-                    'content': ''.join(content_lines).strip(),
-                    'start_line': start_line,
-                    'end_line': i - 1,
-                    'title_normalized': self.normalize_text(title)
-                }
-                articles.append(article)
+            title_line = date_line - 4
+            subtitle_line = date_line - 2
+
+            title = lines[title_line].strip()
+            subtitle = lines[subtitle_line].strip()
+            date = lines[date_line].strip()
+
+            # Vérifier que la ligne avant le titre est vide (fin de l'article précédent)
+            if title_line > 0 and lines[title_line - 1].strip():
+                # Ce n'est probablement pas un début d'article valide
+                continue
+
+            # Le contenu commence après la date et la ligne vide
+            content_start = date_line + 2 if date_line + 1 < len(lines) and not lines[date_line + 1].strip() else date_line + 1
+
+            # Le contenu se termine au prochain article (ou à la fin du fichier)
+            if idx + 1 < len(date_positions):
+                # Prochain article : remonter jusqu'à la ligne vide avant le prochain titre
+                next_title_line = date_positions[idx + 1] - 4
+                content_end = next_title_line - 1 if next_title_line > 0 and not lines[next_title_line - 1].strip() else next_title_line
             else:
-                i += 1
+                content_end = len(lines)
+
+            # Extraire le contenu
+            content_lines = lines[content_start:content_end]
+            content = ''.join(content_lines).strip()
+
+            article = {
+                'title': title,
+                'subtitle': subtitle,
+                'date': date,
+                'content': content,
+                'start_line': title_line,
+                'end_line': content_end - 1,
+                'title_normalized': self.normalize_text(title)
+            }
+            articles.append(article)
 
         self.articles_text = articles
         print(f"   ✓ {len(articles)} articles extraits du fichier texte")
+
+        if self.debug and len(articles) > 0:
+            print(f"   🔍 DEBUG - Premiers titres extraits:")
+            for art in articles[:3]:
+                print(f"      • {art['title'][:60]}...")
+
         return articles
 
     def _looks_like_title(self, text: str) -> bool:
@@ -203,8 +220,10 @@ class CorpusAnnotator:
     def normalize_text(self, text: str) -> str:
         """Normalise le texte pour la comparaison des titres."""
         text = text.lower()
+        # Retirer les points de suspension et autres marques de troncature
+        text = text.replace('...', '').replace('…', '')
         # Supprimer les guillemets et apostrophes
-        for char in ['«', '»', '"', '"', '"', "'", "'", '`', '…']:
+        for char in ['«', '»', '"', '"', '"', "'", "'", '`']:
             text = text.replace(char, ' ')
         # Supprimer la ponctuation
         text = re.sub(r'[^\w\s]', ' ', text)
@@ -225,6 +244,9 @@ class CorpusAnnotator:
         """
         Trouve le meilleur article du texte correspondant au titre du CSV.
 
+        Gère les titres tronqués en vérifiant d'abord si l'un est un préfixe de l'autre.
+        Ignore les articles du TXT déjà matchés pour éviter les doublons.
+
         Args:
             csv_title: Titre de l'article dans le CSV
 
@@ -233,18 +255,55 @@ class CorpusAnnotator:
         """
         csv_title_norm = self.normalize_text(csv_title)
 
+        if self.debug:
+            print(f"\n🔍 DEBUG - Recherche de match pour: {csv_title[:60]}...")
+            print(f"   Titre normalisé: {csv_title_norm[:60]}...")
+
         best_match = None
         best_score = 0.0
+        best_txt_title = ""
 
         for txt_article in self.articles_text:
-            score = self.similarity_score(csv_title_norm, txt_article['title_normalized'])
+            # Ignorer les articles déjà matchés pour éviter les doublons
+            article_id = id(txt_article)  # Utiliser l'ID Python de l'objet
+            if article_id in self.used_txt_articles:
+                continue
+
+            txt_title_norm = txt_article['title_normalized']
+
+            # Vérifier d'abord si un titre est un préfixe de l'autre (titres tronqués)
+            # On considère un préfixe valide s'il fait au moins 30 caractères
+            if len(csv_title_norm) >= 30 or len(txt_title_norm) >= 30:
+                shorter = csv_title_norm if len(csv_title_norm) < len(txt_title_norm) else txt_title_norm
+                longer = txt_title_norm if len(csv_title_norm) < len(txt_title_norm) else csv_title_norm
+
+                # Si le titre court est un préfixe du titre long, c'est un match parfait
+                if longer.startswith(shorter) and len(shorter) >= 30:
+                    if self.debug:
+                        print(f"   ✅ Match parfait (préfixe) avec: {txt_article['title'][:60]}...")
+                    # Marquer cet article comme utilisé
+                    self.used_txt_articles.add(article_id)
+                    return txt_article
+
+            # Sinon, utiliser le fuzzy matching classique
+            score = self.similarity_score(csv_title_norm, txt_title_norm)
 
             if score > best_score:
                 best_score = score
                 best_match = txt_article
+                best_txt_title = txt_article['title']
+
+        if self.debug:
+            print(f"   Meilleur score: {best_score:.2%}")
+            if best_match:
+                print(f"   Meilleur match: {best_txt_title[:60]}...")
+            else:
+                print(f"   ❌ Aucun match trouvé (seuil: 70%)")
 
         # Seuil de 70% pour considérer un match
-        if best_score >= 0.70:
+        if best_score >= 0.70 and best_match:
+            # Marquer cet article comme utilisé
+            self.used_txt_articles.add(id(best_match))
             return best_match
 
         return None
@@ -684,6 +743,11 @@ Exemples d'utilisation:
         default=',',
         help='Délimiteur du CSV (défaut: ,). Utiliser ";" pour les CSV français standards'
     )
+    parser.add_argument(
+        '--debug',
+        action='store_true',
+        help='Activer le mode debug pour voir les détails du matching'
+    )
 
     args = parser.parse_args()
 
@@ -734,7 +798,8 @@ Exemples d'utilisation:
         corpus_name=corpus_name,
         corpus_source=corpus_source,
         id_prefix=id_prefix,
-        csv_delimiter=args.delimiter
+        csv_delimiter=args.delimiter,
+        debug=args.debug
     )
     annotator.process()
 
