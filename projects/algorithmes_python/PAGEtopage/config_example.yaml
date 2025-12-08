@@ -1,0 +1,47 @@
+# ============================================================
+# Configuration PAGEtopage
+# Pipeline de traitement XML PAGE → Format Vertical → Texte
+# ============================================================
+
+# Métadonnées du corpus
+# Ces informations seront incluses dans chaque balise <doc>
+corpus:
+  edition_id: "Edi-7"
+  title: "Magistri Honorii Summa ''De iure canonico tractaturus''"
+  language: "Latin"
+  author: "Honorius"
+  source: "Summa ''De iure canonico tractaturus''"
+  type: "Droit canonique"
+  date: "1188"
+  lieu: "France"
+  ville: "Paris"
+
+# Configuration de la pagination
+pagination:
+  starting_page_number: 1        # Numéro de la première page
+  page_number_source: filename   # "filename" ou "zone"
+
+# Configuration de l'extraction (Étape 1)
+extraction:
+  column_mode: single            # "single" ou "dual"
+  merge_hyphenated: true         # Fusionner les mots coupés
+  main_zone_type: MainZone       # Type de zone principale
+  running_title_zone_type: RunningTitleZone
+  numbering_zone_type: NumberingZone
+  default_running_title: "No running title"
+
+# Configuration de l'enrichissement (Étape 2)
+enrichment:
+  lemmatizer: cltk               # "cltk" ou "simple"
+  language: lat                  # Code langue CLTK (lat = latin)
+  sentence_delimiters:           # Caractères de fin de phrase
+    - "."
+    - "?"
+    - "!"
+
+# Configuration de l'export (Étape 3)
+export:
+  format: clean                  # "clean", "diplomatic", "annotated"
+  generate_index: true           # Générer pages_index.json
+  generate_combined: true        # Générer texte_complet.txt
+  page_filename_pattern: "page_{number:04d}_{folio}.txt"

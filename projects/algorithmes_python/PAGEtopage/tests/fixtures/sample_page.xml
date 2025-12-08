@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PcGts xmlns="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15">
+    <Metadata>
+        <Creator>Test</Creator>
+        <Created>2024-01-01T00:00:00</Created>
+    </Metadata>
+    <Page imageFilename="0042_1.jpg" imageWidth="2000" imageHeight="3000">
+        <TextRegion id="r1" custom="structure {type:RunningTitleZone;}">
+            <Coords points="100,50 900,50 900,100 100,100"/>
+            <TextEquiv>
+                <Unicode>De Trinitate Liber I</Unicode>
+            </TextEquiv>
+        </TextRegion>
+
+        <TextRegion id="r2" custom="structure {type:NumberingZone;}">
+            <Coords points="950,50 1000,50 1000,100 950,100"/>
+            <TextEquiv>
+                <Unicode>42</Unicode>
+            </TextEquiv>
+        </TextRegion>
+
+        <TextRegion id="r3" custom="structure {type:MainZone;}">
+            <Coords points="100,150 900,150 900,2800 100,2800"/>
+            <TextLine id="l1">
+                <Coords points="100,150 900,150 900,200 100,200"/>
+                <TextEquiv>
+                    <Unicode>Dominus enim dicit in evangelio.</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l2">
+                <Coords points="100,210 900,210 900,260 100,260"/>
+                <TextEquiv>
+                    <Unicode>Qui perseveraverit usque in finem,</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l3">
+                <Coords points="100,270 900,270 900,320 100,320"/>
+                <TextEquiv>
+                    <Unicode>hic salvus erit.</Unicode>
+                </TextEquiv>
+            </TextLine>
+        </TextRegion>
+    </Page>
+</PcGts>
