@@ -1,0 +1,29 @@
+<doc folio="0042_1.xml" page_number="1" running_title="De Trinitate Liber I" edition_id="Edi-7" title="Test Corpus" language="Latin" author="Augustinus">
+<s>
+Dominus	NOM	dominus
+enim	ADV	enim
+dicit	VER	dico
+in	PRP	in
+evangelio	NOM	evangelium
+.	PUNCT	.
+</s>
+<s>
+Qui	PRO	qui
+perseveraverit	VER	persevero
+usque	ADV	usque
+in	PRP	in
+finem	NOM	finis
+,	PUNCT	,
+hic	PRO	hic
+salvus	ADJ	salvus
+erit	VER	sum
+.	PUNCT	.
+</s>
+</doc>
+
+<doc folio="0042_2.xml" page_number="2" running_title="De Trinitate Liber I" edition_id="Edi-7" title="Test Corpus" language="Latin" author="Augustinus">
+<s>
+Amen	INT	amen
+.	PUNCT	.
+</s>
+</doc>
