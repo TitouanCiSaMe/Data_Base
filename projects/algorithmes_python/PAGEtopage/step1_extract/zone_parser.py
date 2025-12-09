@@ -13,9 +13,13 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-# Namespace PAGE XML
-PAGE_NS = "http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15"
-NS = {"page": PAGE_NS}
+# Namespaces PAGE XML connus
+KNOWN_PAGE_NAMESPACES = [
+    "http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15",
+    "http://schema.primaresearch.org/PAGE/gts/pagecontent/2019-07-15",
+    "http://schema.primaresearch.org/PAGE/gts/pagecontent/2017-07-15",
+    "http://schema.primaresearch.org/PAGE/gts/pagecontent/2016-07-15",
+]
 
 
 @dataclass
@@ -25,6 +29,79 @@ class ZoneContent:
     lines: List[str]
     raw_text: str
     column_id: Optional[str] = None
+
+
+def detect_namespace(root: ET.Element) -> Optional[str]:
+    """
+    Détecte le namespace utilisé dans le document XML
+
+    Args:
+        root: Élément racine
+
+    Returns:
+        Namespace détecté ou None
+    """
+    # Méthode 1: Extrait le namespace du tag racine
+    tag = root.tag
+    if tag.startswith("{"):
+        ns_end = tag.find("}")
+        if ns_end > 0:
+            return tag[1:ns_end]
+
+    # Méthode 2: Cherche dans les attributs xmlns
+    for attr, value in root.attrib.items():
+        if attr == "xmlns" or attr.startswith("{"):
+            if "PAGE" in value or "pagecontent" in value:
+                return value
+
+    return None
+
+
+def find_elements(root: ET.Element, tag_name: str, namespace: Optional[str] = None) -> List[ET.Element]:
+    """
+    Trouve des éléments avec ou sans namespace
+
+    Args:
+        root: Élément racine
+        tag_name: Nom du tag à chercher
+        namespace: Namespace optionnel
+
+    Returns:
+        Liste d'éléments trouvés
+    """
+    results = []
+
+    # Essai 1: Avec namespace explicite
+    if namespace:
+        ns = {"ns": namespace}
+        results = root.findall(f".//ns:{tag_name}", ns)
+        if results:
+            return results
+
+    # Essai 2: Avec tag complet incluant namespace
+    if namespace:
+        results = root.findall(f".//{{{namespace}}}{tag_name}")
+        if results:
+            return results
+
+    # Essai 3: Essayer tous les namespaces connus
+    for known_ns in KNOWN_PAGE_NAMESPACES:
+        results = root.findall(f".//{{{known_ns}}}{tag_name}")
+        if results:
+            return results
+
+    # Essai 4: Sans namespace
+    results = root.findall(f".//{tag_name}")
+    if results:
+        return results
+
+    # Essai 5: Recherche manuelle (parcours de l'arbre)
+    for elem in root.iter():
+        local_name = elem.tag.split("}")[-1] if "}" in elem.tag else elem.tag
+        if local_name == tag_name:
+            results.append(elem)
+
+    return results
 
 
 class ZoneParser:
@@ -53,6 +130,7 @@ class ZoneParser:
         self.main_zone_type = main_zone_type
         self.running_title_zone_type = running_title_zone_type
         self.numbering_zone_type = numbering_zone_type
+        self._namespace: Optional[str] = None
 
     def parse_file(self, xml_path: str) -> Dict[str, List[ZoneContent]]:
         """
@@ -89,12 +167,15 @@ class ZoneParser:
             "other": [],
         }
 
-        # Trouve tous les TextRegion
-        text_regions = root.findall(".//page:TextRegion", NS)
+        # Détecte le namespace
+        self._namespace = detect_namespace(root)
+        if self._namespace:
+            logger.debug(f"Namespace détecté: {self._namespace}")
 
-        # Fallback sans namespace
-        if not text_regions:
-            text_regions = root.findall(".//TextRegion")
+        # Trouve tous les TextRegion avec gestion automatique du namespace
+        text_regions = find_elements(root, "TextRegion", self._namespace)
+
+        logger.debug(f"Trouvé {len(text_regions)} TextRegion")
 
         for region in text_regions:
             zone_type, column_id = self._get_zone_type(region)
@@ -153,15 +234,16 @@ class ZoneParser:
         """
         lines = []
 
-        # Cherche les TextLine
-        text_lines = region.findall(".//page:TextLine", NS)
-        if not text_lines:
-            text_lines = region.findall(".//TextLine")
+        # Cherche les TextLine avec gestion du namespace
+        text_lines = find_elements(region, "TextLine", self._namespace)
+
+        logger.debug(f"Zone {zone_type}: trouvé {len(text_lines)} TextLine")
 
         for text_line in text_lines:
             text = self._get_unicode_content(text_line)
             if text:
                 lines.append(text)
+                logger.debug(f"  Ligne extraite: {text[:50]}...")
 
         # Si pas de TextLine, cherche directement TextEquiv
         if not lines:
@@ -189,17 +271,21 @@ class ZoneParser:
         Returns:
             Texte Unicode ou chaîne vide
         """
-        # Cherche TextEquiv/Unicode
-        unicode_elem = element.find(".//page:TextEquiv/page:Unicode", NS)
-        if unicode_elem is None:
-            unicode_elem = element.find(".//TextEquiv/Unicode")
-        if unicode_elem is None:
-            unicode_elem = element.find(".//page:Unicode", NS)
-        if unicode_elem is None:
-            unicode_elem = element.find(".//Unicode")
+        # Cherche TextEquiv puis Unicode avec gestion du namespace
+        text_equivs = find_elements(element, "TextEquiv", self._namespace)
 
-        if unicode_elem is not None and unicode_elem.text:
-            return unicode_elem.text.strip()
+        for text_equiv in text_equivs:
+            # Cherche Unicode dans TextEquiv
+            unicodes = find_elements(text_equiv, "Unicode", self._namespace)
+            for unicode_elem in unicodes:
+                if unicode_elem is not None and unicode_elem.text:
+                    return unicode_elem.text.strip()
+
+        # Fallback: cherche Unicode directement
+        unicodes = find_elements(element, "Unicode", self._namespace)
+        for unicode_elem in unicodes:
+            if unicode_elem is not None and unicode_elem.text:
+                return unicode_elem.text.strip()
 
         return ""
 

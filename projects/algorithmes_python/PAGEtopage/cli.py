@@ -315,6 +315,19 @@ def cmd_export(args) -> int:
     return 0
 
 
+def sanitize_filename(name: str) -> str:
+    """Nettoie un nom pour l'utiliser comme nom de fichier/dossier"""
+    import re
+    # Remplace les caractères interdits
+    name = re.sub(r'[<>:"/\\|?*]', '_', name)
+    # Remplace les apostrophes doubles par des simples
+    name = name.replace("''", "'")
+    # Limite la longueur
+    if len(name) > 100:
+        name = name[:100]
+    return name.strip()
+
+
 def cmd_run(args) -> int:
     """Exécute le pipeline complet"""
     logger.info("=== PIPELINE COMPLET ===")
@@ -329,8 +342,17 @@ def cmd_run(args) -> int:
             logger.error(f"Erreur de configuration: {error}")
         return 1
 
-    output_folder = Path(args.output)
+    # Utilise le titre du corpus pour nommer le dossier et les fichiers
+    corpus_title = config.corpus.title or "corpus"
+    corpus_name = sanitize_filename(corpus_title)
+
+    # Crée le dossier de sortie avec le nom du corpus
+    base_output = Path(args.output)
+    output_folder = base_output / corpus_name
     output_folder.mkdir(parents=True, exist_ok=True)
+
+    logger.info(f"Corpus: {corpus_title}")
+    logger.info(f"Dossier de sortie: {output_folder}")
 
     # === ÉTAPE 1 ===
     logger.info("--- Étape 1: Extraction XML ---")
@@ -351,11 +373,11 @@ def cmd_run(args) -> int:
     annotated_pages = processor.process_pages(extracted_pages)
 
     if args.keep_intermediate:
-        intermediate_vertical = output_folder / "intermediate" / "corpus.vertical.txt"
+        intermediate_vertical = output_folder / "intermediate" / f"{corpus_name}.vertical.txt"
         processor.save_vertical(annotated_pages, intermediate_vertical)
 
-    # Sauvegarde le vertical final
-    vertical_path = output_folder / "corpus.vertical.txt"
+    # Sauvegarde le vertical final avec le nom du corpus
+    vertical_path = output_folder / f"{corpus_name}.vertical.txt"
     processor.save_vertical(annotated_pages, vertical_path)
 
     # === ÉTAPE 3 ===
