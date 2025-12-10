@@ -31,9 +31,14 @@ extraction:
   default_running_title: "No running title"
 
 # Configuration de l'enrichissement (Étape 2)
+# IMPORTANT: Choix du lemmatiseur
+#   - treetagger : RECOMMANDÉ (~1 min pour 350 pages)
+#   - cltk       : Précis mais TRÈS LENT (~1h+ pour 350 pages)
+#   - simple     : Pas de lemmatisation (instantané)
 enrichment:
-  lemmatizer: cltk               # "cltk" ou "simple"
-  language: lat                  # Code langue CLTK (lat = latin)
+  lemmatizer: treetagger         # "treetagger" (recommandé), "cltk", ou "simple"
+  language: lat                  # Code langue (lat = latin)
+  # treetagger_path: /opt/treetagger  # Optionnel: chemin TreeTagger (auto-détecté)
   sentence_delimiters:           # Caractères de fin de phrase
     - "."
     - "?"

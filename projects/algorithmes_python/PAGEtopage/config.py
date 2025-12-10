@@ -69,10 +69,10 @@ class ExtractionConfig:
 @dataclass
 class EnrichmentConfig:
     """Configuration de l'étape 2 : Enrichissement"""
-    lemmatizer: str = "cltk"  # "cltk", "stanza", ou "treetagger"
-    language: str = "lat"  # Code langue pour CLTK
+    lemmatizer: str = "treetagger"  # "treetagger" (recommandé), "cltk" (lent), ou "simple"
+    language: str = "lat"  # Code langue
     sentence_delimiters: List[str] = field(default_factory=lambda: [".", "?", "!"])
-    treetagger_path: Optional[str] = None  # Si lemmatizer == "treetagger"
+    treetagger_path: Optional[str] = None  # Chemin TreeTagger (auto-détecté si non spécifié)
 
 
 @dataclass
