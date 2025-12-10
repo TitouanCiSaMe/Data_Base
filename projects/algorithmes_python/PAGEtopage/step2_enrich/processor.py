@@ -64,7 +64,8 @@ class EnrichmentProcessor:
         # Initialise le lemmatiseur
         self.lemmatizer = create_lemmatizer(
             backend=config.enrichment.lemmatizer,
-            language=config.enrichment.language
+            language=config.enrichment.language,
+            treetagger_path=config.enrichment.treetagger_path
         )
 
         self._processed_count = 0

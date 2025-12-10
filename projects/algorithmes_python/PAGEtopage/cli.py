@@ -129,14 +129,18 @@ Exemples:
     )
     enrich_parser.add_argument(
         "--lemmatizer",
-        choices=["cltk", "simple"],
-        default="cltk",
-        help="Lemmatiseur à utiliser"
+        choices=["treetagger", "cltk", "simple"],
+        default="treetagger",
+        help="Lemmatiseur: treetagger (~1min), cltk (~1h, lent!), simple (sans lemme)"
     )
     enrich_parser.add_argument(
         "--language",
         default="lat",
         help="Code langue (lat pour latin)"
+    )
+    enrich_parser.add_argument(
+        "--treetagger-path",
+        help="Chemin vers TreeTagger (auto-détecté si non spécifié)"
     )
 
     # === Commande EXPORT ===
@@ -265,6 +269,8 @@ def cmd_enrich(args) -> int:
     # Applique les options CLI
     config.enrichment.lemmatizer = args.lemmatizer
     config.enrichment.language = args.language
+    if hasattr(args, 'treetagger_path') and args.treetagger_path:
+        config.enrichment.treetagger_path = args.treetagger_path
 
     # Crée le processeur
     processor = EnrichmentProcessor(config)
