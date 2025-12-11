@@ -39,10 +39,13 @@ Python est généralement pré-installé. Vérifiez avec : `python3 --version`
 Ouvrez un terminal (ou "Invite de commandes" sur Windows) et tapez :
 
 ```bash
-pip install pyyaml cltk
+pip install pyyaml treetaggerwrapper
 ```
 
 > **Note** : Sur Mac/Linux, utilisez `pip3` au lieu de `pip` si la commande ne fonctionne pas.
+
+**TreeTagger s'installe automatiquement !**
+TreeTagger (outil de lemmatisation rapide) sera téléchargé et installé automatiquement lors de la première utilisation. Pas besoin de configuration manuelle !
 
 ---
 
@@ -108,7 +111,7 @@ extraction:
 
 # === ENRICHISSEMENT (Étape 2) ===
 enrichment:
-  lemmatizer: cltk                        # Lemmatiseur pour le latin
+  lemmatizer: treetagger                  # Lemmatiseur pour le latin (rapide, auto-installé)
   language: lat                           # Code langue (lat = latin)
 
 # === EXPORT (Étape 3) ===
@@ -195,7 +198,7 @@ Cette commande :
 - Analyse chaque mot (lemme, partie du discours)
 - Crée le corpus au format vertical
 
-> **Note** : La première exécution peut prendre quelques minutes car CLTK télécharge les modèles linguistiques.
+> **Note** : La première exécution téléchargera automatiquement TreeTagger (~20 Mo). Les exécutions suivantes seront rapides (~1 minute pour 350 pages).
 
 #### Étape 3 : Export en fichiers texte
 
@@ -313,13 +316,13 @@ python3 -m PAGEtopage run --input ./xml_pages/ --output ./output/ --config confi
 1. Vérifiez que vous êtes dans le dossier contenant `PAGEtopage/`
 2. La commande `ls` (Mac/Linux) ou `dir` (Windows) doit afficher le dossier PAGEtopage
 
-### "No module named cltk"
+### "No module named treetaggerwrapper"
 
 **Cause :** Les dépendances ne sont pas installées.
 
 **Solution :**
 ```bash
-pip install cltk pyyaml
+pip install treetaggerwrapper pyyaml
 ```
 
 ### "FileNotFoundError: config.yaml"
@@ -330,11 +333,19 @@ pip install cltk pyyaml
 1. Vérifiez que `config.yaml` existe dans votre dossier de travail
 2. Utilisez le chemin complet si nécessaire : `--config /chemin/complet/vers/config.yaml`
 
-### L'enrichissement est très lent
+### L'enrichissement prend du temps la première fois
 
-**Cause :** CLTK télécharge les modèles linguistiques (première utilisation uniquement).
+**Cause :** TreeTagger est téléchargé automatiquement (~20 Mo).
 
-**Solution :** Patientez, les prochaines exécutions seront plus rapides.
+**Solution :** Patientez, les prochaines exécutions seront très rapides (~1 minute pour 350 pages).
+
+### Erreur d'installation automatique de TreeTagger
+
+**Cause :** Problème de connexion internet ou permissions insuffisantes.
+
+**Solution :** TreeTagger sera installé dans le dossier `PAGEtopage/vendor/treetagger`. Assurez-vous d'avoir :
+- Une connexion internet active
+- Les droits d'écriture dans le dossier PAGEtopage
 
 ### Caractères étranges dans le texte
 
@@ -427,7 +438,7 @@ python -m PAGEtopage run -v --input ./xml_pages/ --output ./output/ --config con
 | **Lemme** | Forme de base d'un mot (ex: "dicit" → "dico") |
 | **POS** | Part of Speech - Partie du discours (nom, verbe, adjectif...) |
 | **Format vertical** | Format d'annotation linguistique avec un mot par ligne |
-| **CLTK** | Classical Language Toolkit - Bibliothèque Python pour les langues anciennes |
+| **TreeTagger** | Outil de lemmatisation et POS tagging rapide pour le latin |
 | **MainZone** | Zone de texte principal dans un fichier XML PAGE |
 | **Folio** | Feuillet d'un manuscrit (une page) |
 
