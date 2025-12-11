@@ -116,7 +116,7 @@ enrichment:
 
 # === EXPORT (Étape 3) ===
 export:
-  format: clean                           # "clean", "diplomatic" ou "annotated"
+  format: scholarly                       # "scholarly" (recommandé), "clean", "diplomatic" ou "annotated"
   generate_index: true                    # Créer un fichier d'index JSON
   generate_combined: true                 # Créer un fichier texte complet
 ```
@@ -215,7 +215,25 @@ Cette commande :
 
 ## Les formats de sortie
 
-### Format "clean" (par défaut)
+### Format "scholarly" (recommandé)
+
+Format académique avec en-tête détaillé et texte en lignes continues :
+
+```
+================================================================================
+PAGE 79
+Source: Fraher_Induent_sancti_proofs_SK_poor.pdf_page_109.xml
+Image: Fraher_Induent_sancti_proofs_SK_poor.pdf_page_109.jpg
+Titre courant: DISTINCTIO OCTOGESIMA
+Œuvre: Summa 'Induent sancti'
+Auteur: Anonyme
+Date: 1194
+================================================================================
+catum susceperit biennio in lectoratu erit, et sequenti quinquennio acolitus
+et subdiaconus fiet, et de cetero superiores quandocumque poterit accipere...
+```
+
+### Format "clean"
 
 Texte brut, facilement lisible :
 
@@ -246,7 +264,7 @@ dicit	VER	dico
 Pour changer de format, modifiez `export: format:` dans `config.yaml` ou utilisez l'option `--format` :
 
 ```bash
-python -m PAGEtopage export --input ./corpus.vertical.txt --output ./pages/ --format diplomatic
+python -m PAGEtopage export --input ./corpus.vertical.txt --output ./pages/ --format scholarly
 ```
 
 ---
@@ -353,6 +371,24 @@ pip install treetaggerwrapper pyyaml
 
 **Solution :** Vérifiez que vos fichiers XML sont en UTF-8. La plupart des logiciels HTR exportent déjà en UTF-8.
 
+### Apostrophes et guillemets dans config.yaml
+
+Si votre titre contient des apostrophes (') ou guillemets ("), utilisez des guillemets doubles pour entourer la valeur :
+
+```yaml
+corpus:
+  title: "Summa 'Induent sancti'"  # ✓ Correct
+  author: "Jean de la Rochelle"    # ✓ Correct
+```
+
+Si la valeur contient des guillemets doubles, échappez-les ou utilisez des guillemets simples :
+
+```yaml
+corpus:
+  title: 'Il dit "Veni"'          # ✓ Correct
+  title: "Il dit \"Veni\""        # ✓ Correct aussi
+```
+
 ---
 
 ## Exemples pratiques
@@ -382,13 +418,14 @@ extraction:
   column_mode: dual    # Changez "single" en "dual"
 ```
 
-### Exemple 3 : Obtenir les trois formats de sortie
+### Exemple 3 : Obtenir différents formats de sortie
 
 ```bash
 # D'abord, créez le corpus vertical
 python -m PAGEtopage run --input ./xml_pages/ --output ./output/ --config config.yaml
 
 # Puis exportez dans chaque format
+python -m PAGEtopage export --input ./output/corpus.vertical.txt --output ./format_scholarly/ --format scholarly
 python -m PAGEtopage export --input ./output/corpus.vertical.txt --output ./format_clean/ --format clean
 python -m PAGEtopage export --input ./output/corpus.vertical.txt --output ./format_diplo/ --format diplomatic
 python -m PAGEtopage export --input ./output/corpus.vertical.txt --output ./format_annot/ --format annotated

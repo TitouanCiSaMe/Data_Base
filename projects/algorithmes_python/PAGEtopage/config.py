@@ -244,8 +244,8 @@ class Config:
         # Note: treetagger_path est optionnel (auto-détecté si non spécifié)
 
         # Validation export
-        if self.export.format not in ("clean", "diplomatic", "annotated"):
-            errors.append(f"format invalide: {self.export.format} (attendu: clean, diplomatic, ou annotated)")
+        if self.export.format not in ("clean", "diplomatic", "annotated", "scholarly"):
+            errors.append(f"format invalide: {self.export.format} (attendu: clean, diplomatic, annotated, ou scholarly)")
 
         # Validation pagination
         if self.pagination.starting_page_number < 0:
