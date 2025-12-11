@@ -4,7 +4,7 @@
 
 **PAGEtopage** est un outil qui transforme vos fichiers XML (issus de la transcription automatique HTR/OCR, par exemple avec Transkribus ou eScriptorium) en fichiers texte exploitables, avec annotations linguistiques (lemmes, parties du discours).
 
-### Le pipeline en 3 étapes
+### Le pipeline en 3 étapes (+ correction)
 
 ```
 Fichiers XML PAGE     →     Format Vertical     →     Fichiers Texte
@@ -12,6 +12,15 @@ Fichiers XML PAGE     →     Format Vertical     →     Fichiers Texte
 
    ÉTAPE 1                    ÉTAPE 2                   ÉTAPE 3
    extract                    enrich                    export
+
+                                  ↑
+                           CORRECTION
+                          (facultatif)
+                                  |
+                      Fichiers Texte Corrigés
+                                  |
+                           ÉTAPE 4 (optionnelle)
+                           re-enrich
 ```
 
 ---
@@ -203,13 +212,29 @@ Cette commande :
 #### Étape 3 : Export en fichiers texte
 
 ```bash
-python -m PAGEtopage export --input ./corpus.vertical.txt --output ./pages/ --format clean
+python -m PAGEtopage export --input ./corpus.vertical.txt --output ./pages/ --format scholarly
 ```
 
 Cette commande :
 - Lit le corpus vertical
 - Crée un fichier texte par page
 - Génère les fichiers d'index
+
+#### Étape 4 (optionnelle) : Ré-enrichissement après correction
+
+Si vous avez corrigé manuellement vos fichiers texte (coquilles, erreurs OCR, etc.), vous pouvez régénérer le fichier vertical :
+
+```bash
+python -m PAGEtopage re-enrich --input ./pages_corrigees/ --output ./corpus_corrige.vertical.txt --config config.yaml
+```
+
+Cette commande :
+- Parse vos fichiers texte corrigés (format scholarly)
+- Extrait le texte et les métadonnées
+- Re-tokenise et re-lemmatise avec TreeTagger
+- Génère un nouveau fichier vertical avec vos corrections
+
+> **Note** : Cette fonctionnalité vous permet de corriger facilement les coquilles dans des fichiers texte lisibles, puis de regénérer automatiquement les annotations linguistiques.
 
 ---
 
@@ -431,6 +456,22 @@ python -m PAGEtopage export --input ./output/corpus.vertical.txt --output ./form
 python -m PAGEtopage export --input ./output/corpus.vertical.txt --output ./format_annot/ --format annotated
 ```
 
+### Exemple 4 : Corriger des coquilles et regénérer le vertical
+
+```bash
+# 1. Générez le corpus initial
+python -m PAGEtopage run --input ./xml_pages/ --output ./output/ --config config.yaml
+
+# 2. Corrigez manuellement les fichiers dans output/pages/
+#    (ouvrez les .txt dans un éditeur et corrigez les coquilles)
+
+# 3. Régénérez le corpus vertical avec vos corrections
+python -m PAGEtopage re-enrich --input ./output/pages/ --output ./corpus_corrige.vertical.txt --config config.yaml
+
+# 4. (Optionnel) Réexportez si besoin
+python -m PAGEtopage export --input ./corpus_corrige.vertical.txt --output ./pages_finales/ --format scholarly
+```
+
 ---
 
 ## Aide et commandes utiles
@@ -447,6 +488,7 @@ python -m PAGEtopage --help
 python -m PAGEtopage extract --help
 python -m PAGEtopage enrich --help
 python -m PAGEtopage export --help
+python -m PAGEtopage re-enrich --help
 ```
 
 ### Générer un fichier de configuration vide

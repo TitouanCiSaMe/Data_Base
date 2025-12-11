@@ -2,15 +2,17 @@
 Interface en ligne de commande pour PAGEtopage
 
 Fournit les commandes:
-    - extract : XML PAGE → JSON
-    - enrich  : JSON → Format Vertical
-    - export  : Format Vertical → Texte
-    - run     : Pipeline complet
+    - extract   : XML PAGE → JSON
+    - enrich    : JSON → Format Vertical
+    - export    : Format Vertical → Texte
+    - re-enrich : Texte corrigé → Format Vertical
+    - run       : Pipeline complet
 
 Usage:
     python -m PAGEtopage extract --input ./xml/ --output ./extracted/
     python -m PAGEtopage enrich --input ./extracted/ --output ./vertical/
     python -m PAGEtopage export --input ./vertical/ --output ./pages/
+    python -m PAGEtopage re-enrich --input ./pages_corrigees/ --output ./corpus_corrige.vertical.txt
     python -m PAGEtopage run --input ./xml/ --output ./output/ --config config.yaml
 """
 
@@ -24,6 +26,7 @@ from .config import Config
 from .step1_extract import XMLPageExtractor
 from .step2_enrich import EnrichmentProcessor
 from .step3_export import TextExporter
+from .step4_reenrich import ReEnricher
 
 # Configuration du logging
 logging.basicConfig(
@@ -164,8 +167,8 @@ Exemples:
     )
     export_parser.add_argument(
         "--format", "-f",
-        choices=["clean", "diplomatic", "annotated"],
-        default="clean",
+        choices=["clean", "diplomatic", "annotated", "scholarly"],
+        default="scholarly",
         help="Format de sortie"
     )
     export_parser.add_argument(
@@ -177,6 +180,37 @@ Exemples:
         "--no-combined",
         action="store_true",
         help="Ne pas générer le texte complet"
+    )
+
+    # === Commande RE-ENRICH ===
+    reenrich_parser = subparsers.add_parser(
+        "re-enrich",
+        help="Ré-enrichit des fichiers texte corrigés"
+    )
+    reenrich_parser.add_argument(
+        "--input", "-i",
+        required=True,
+        help="Dossier de pages corrigées ou fichier texte_complet.txt"
+    )
+    reenrich_parser.add_argument(
+        "--output", "-o",
+        required=True,
+        help="Fichier vertical de sortie"
+    )
+    reenrich_parser.add_argument(
+        "--config", "-c",
+        help="Fichier de configuration YAML"
+    )
+    reenrich_parser.add_argument(
+        "--pattern",
+        default="*.txt",
+        help="Pattern de fichiers à traiter (si dossier)"
+    )
+    reenrich_parser.add_argument(
+        "--lemmatizer",
+        choices=["treetagger", "cltk", "simple"],
+        default="treetagger",
+        help="Lemmatiseur à utiliser"
     )
 
     # === Commande RUN (pipeline complet) ===
@@ -403,6 +437,42 @@ def cmd_run(args) -> int:
     return 0
 
 
+def cmd_reenrich(args) -> int:
+    """Exécute la commande re-enrich"""
+    logger.info("=== RÉ-ENRICHISSEMENT ===")
+
+    # Charge ou crée la config
+    if args.config:
+        config = Config.from_yaml(args.config)
+    else:
+        config = Config()
+
+    # Applique les options CLI
+    if hasattr(args, 'lemmatizer') and args.lemmatizer:
+        config.enrichment.lemmatizer = args.lemmatizer
+
+    # Crée le ré-enrichisseur
+    reenricher = ReEnricher(config)
+
+    # Ré-enrichit
+    output_path = Path(args.output)
+    if output_path.suffix == "":
+        output_path = output_path / "corpus_corrige.vertical.txt"
+
+    pages = reenricher.reenrich_and_save(
+        args.input,
+        output_path,
+        pattern=args.pattern
+    )
+
+    if not pages:
+        logger.error("Aucune page ré-enrichie")
+        return 1
+
+    logger.info(f"✓ {len(pages)} pages ré-enrichies → {output_path}")
+    return 0
+
+
 def cmd_init(args) -> int:
     """Génère un fichier de configuration exemple"""
     output_path = Path(args.output)
@@ -448,6 +518,8 @@ def main() -> int:
         return cmd_enrich(args)
     elif args.command == "export":
         return cmd_export(args)
+    elif args.command == "re-enrich":
+        return cmd_reenrich(args)
     elif args.command == "run":
         return cmd_run(args)
     elif args.command == "init":
