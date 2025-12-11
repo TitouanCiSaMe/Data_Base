@@ -546,12 +546,19 @@ def create_lemmatizer(
     """
     if backend == "treetagger":
         try:
-            return TreeTaggerLemmatizer(treetagger_path=treetagger_path, language=language)
+            lemmatizer = TreeTaggerLemmatizer(treetagger_path=treetagger_path, language=language)
+            # Force l'initialisation pour détecter les erreurs immédiatement
+            lemmatizer._initialize()
+            return lemmatizer
         except ImportError:
             logger.warning("TreeTagger non disponible, essai de CLTK...")
             backend = "cltk"
         except FileNotFoundError as e:
             logger.warning(f"TreeTagger: {e}")
+            logger.warning("Essai de CLTK...")
+            backend = "cltk"
+        except Exception as e:
+            logger.warning(f"Erreur TreeTagger: {e}")
             logger.warning("Essai de CLTK...")
             backend = "cltk"
 
