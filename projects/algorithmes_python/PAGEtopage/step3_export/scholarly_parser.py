@@ -48,11 +48,15 @@ class ScholarlyParser:
         'folio': re.compile(r'^Source:\s*(.+?)\s*$', re.IGNORECASE),
         'image': re.compile(r'^Image:\s*(.+?)\s*$', re.IGNORECASE),
         'running_title': re.compile(r'^Titre courant:\s*(.+?)\s*$', re.IGNORECASE),
+        'edition_id': re.compile(r'^Edition ID:\s*(.+?)\s*$', re.IGNORECASE),
         'title': re.compile(r'^Œuvre:\s*(.+?)\s*$', re.IGNORECASE),
         'author': re.compile(r'^Auteur:\s*(.+?)\s*$', re.IGNORECASE),
         'date': re.compile(r'^Date:\s*(.+?)\s*$', re.IGNORECASE),
         'language': re.compile(r'^Langue:\s*(.+?)\s*$', re.IGNORECASE),
         'source': re.compile(r'^Provenance:\s*(.+?)\s*$', re.IGNORECASE),
+        'type': re.compile(r'^Type:\s*(.+?)\s*$', re.IGNORECASE),
+        'lieu': re.compile(r'^Lieu:\s*(.+?)\s*$', re.IGNORECASE),
+        'ville': re.compile(r'^Ville:\s*(.+?)\s*$', re.IGNORECASE),
     }
 
     def parse_file(self, file_path: str | Path) -> Optional[ExtractedPage]:
@@ -104,17 +108,22 @@ class ScholarlyParser:
         text_lines = self._extract_text(lines[text_start:])
 
         # Crée la PageMetadata
+        # Construit le dictionnaire corpus_metadata avec TOUTES les métadonnées disponibles
+        corpus_metadata = {}
+        for key in ['edition_id', 'title', 'author', 'date', 'language', 'source', 'type', 'lieu', 'ville']:
+            if key in metadata and metadata[key]:
+                corpus_metadata[key] = metadata[key]
+
+        # Ajoute toute autre métadonnée qui n'est pas dans la liste standard
+        for key, value in metadata.items():
+            if key not in ['page_number', 'folio', 'image', 'running_title'] and key not in corpus_metadata and value:
+                corpus_metadata[key] = value
+
         page_metadata = PageMetadata(
             folio=metadata.get('folio', 'unknown.xml'),
             page_number=metadata.get('page_number', 0),
             running_title=metadata.get('running_title', 'No running title'),
-            corpus_metadata={
-                'title': metadata.get('title', ''),
-                'author': metadata.get('author', ''),
-                'date': metadata.get('date', ''),
-                'language': metadata.get('language', ''),
-                'source': metadata.get('source', ''),
-            }
+            corpus_metadata=corpus_metadata
         )
 
         return ExtractedPage(
