@@ -83,50 +83,29 @@ class TreeTaggerLemmatizer:
         self._initialized = False
 
     def _initialize(self) -> None:
-        """Initialise TreeTagger (lazy loading)"""
+        """Initialise TreeTagger (lazy loading avec installation automatique)"""
         if self._initialized:
             return
 
         try:
             import treetaggerwrapper
+            from .treetagger_installer import get_treetagger_path
 
             # Détermine le chemin TreeTagger
             tagdir = self.treetagger_path
 
-            # Chemins par défaut selon l'OS
+            # Si pas de chemin spécifié, utilise l'installation automatique
             if not tagdir:
-                import os
-                import platform
+                logger.info("Recherche de TreeTagger...")
+                tagdir_path = get_treetagger_path(auto_install=True)
 
-                if platform.system() == "Linux":
-                    possible_paths = [
-                        "/opt/treetagger",
-                        "/usr/local/treetagger",
-                        "/usr/share/treetagger",
-                        os.path.expanduser("~/treetagger"),
-                    ]
-                elif platform.system() == "Darwin":  # macOS
-                    possible_paths = [
-                        "/usr/local/treetagger",
-                        "/opt/treetagger",
-                        os.path.expanduser("~/treetagger"),
-                    ]
-                else:  # Windows
-                    possible_paths = [
-                        "C:\\TreeTagger",
-                        "C:\\Program Files\\TreeTagger",
-                    ]
-
-                for path in possible_paths:
-                    if os.path.exists(path):
-                        tagdir = path
-                        break
-
-            if not tagdir:
-                raise FileNotFoundError(
-                    "TreeTagger non trouvé. Spécifiez le chemin avec treetagger_path "
-                    "ou installez TreeTagger dans un emplacement standard."
-                )
+                if tagdir_path:
+                    tagdir = str(tagdir_path)
+                else:
+                    raise FileNotFoundError(
+                        "TreeTagger non trouvé et installation automatique échouée. "
+                        "Spécifiez le chemin avec treetagger_path."
+                    )
 
             logger.info(f"Initialisation de TreeTagger depuis {tagdir}...")
 
@@ -135,7 +114,7 @@ class TreeTaggerLemmatizer:
                 TAGDIR=tagdir,
             )
             self._initialized = True
-            logger.info("TreeTagger initialisé avec succès")
+            logger.info("✓ TreeTagger initialisé avec succès")
 
         except ImportError:
             raise ImportError(
@@ -526,7 +505,9 @@ class SimpleLemmatizer:
 def create_lemmatizer(
     backend: str = "treetagger",
     language: str = "lat",
-    treetagger_path: Optional[str] = None
+    treetagger_path: Optional[str] = None,
+    auto_install: bool = True,
+    fallback_to_cltk: bool = False
 ) -> Union[TreeTaggerLemmatizer, CLTKLemmatizer, SimpleLemmatizer]:
     """
     Factory pour créer un lemmatiseur
@@ -534,33 +515,55 @@ def create_lemmatizer(
     Args:
         backend: "treetagger" (recommandé), "cltk", ou "simple"
         language: Code langue
-        treetagger_path: Chemin TreeTagger (optionnel)
+        treetagger_path: Chemin TreeTagger (optionnel, auto-détecté si None)
+        auto_install: Si True, installe automatiquement TreeTagger s'il n'est pas trouvé
+        fallback_to_cltk: Si True, bascule vers CLTK en cas d'échec (lent!)
 
     Returns:
         Instance de lemmatiseur
 
     Performance comparée (350 pages de latin):
-        - TreeTagger: ~1 minute (RECOMMANDÉ)
+        - TreeTagger: ~1 minute (RECOMMANDÉ) ✓ Installation automatique
         - CLTK: ~1h+ (précis mais très lent)
         - Simple: instantané (pas de lemmatisation réelle)
+
+    Note:
+        Par défaut, TreeTagger sera téléchargé et installé automatiquement
+        dans le projet lors de la première utilisation (mode clé en main).
     """
     if backend == "treetagger":
         try:
             lemmatizer = TreeTaggerLemmatizer(treetagger_path=treetagger_path, language=language)
             # Force l'initialisation pour détecter les erreurs immédiatement
+            # (cela déclenchera l'installation automatique si nécessaire)
             lemmatizer._initialize()
             return lemmatizer
-        except ImportError:
-            logger.warning("TreeTagger non disponible, essai de CLTK...")
-            backend = "cltk"
+        except ImportError as e:
+            if "treetaggerwrapper" in str(e):
+                logger.error(
+                    "treetaggerwrapper n'est pas installé. "
+                    "Installez-le avec: pip install treetaggerwrapper"
+                )
+            if fallback_to_cltk:
+                logger.warning("Essai de CLTK comme alternative...")
+                backend = "cltk"
+            else:
+                logger.error("Installation de treetaggerwrapper requise pour continuer.")
+                raise
         except FileNotFoundError as e:
-            logger.warning(f"TreeTagger: {e}")
-            logger.warning("Essai de CLTK...")
-            backend = "cltk"
+            logger.error(f"TreeTagger: {e}")
+            if fallback_to_cltk:
+                logger.warning("Essai de CLTK comme alternative...")
+                backend = "cltk"
+            else:
+                raise
         except Exception as e:
-            logger.warning(f"Erreur TreeTagger: {e}")
-            logger.warning("Essai de CLTK...")
-            backend = "cltk"
+            logger.error(f"Erreur TreeTagger: {e}")
+            if fallback_to_cltk:
+                logger.warning("Essai de CLTK comme alternative...")
+                backend = "cltk"
+            else:
+                raise
 
     if backend == "cltk":
         try:
