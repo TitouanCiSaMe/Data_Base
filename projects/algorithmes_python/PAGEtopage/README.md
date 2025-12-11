@@ -250,13 +250,21 @@ PAGE 79
 Source: Fraher_Induent_sancti_proofs_SK_poor.pdf_page_109.xml
 Image: Fraher_Induent_sancti_proofs_SK_poor.pdf_page_109.jpg
 Titre courant: DISTINCTIO OCTOGESIMA
+Edition ID: Edi-7
 Œuvre: Summa 'Induent sancti'
 Auteur: Anonyme
 Date: 1194
+Langue: Latin
+Provenance: Paris BnF MS lat. 3909
+Type: Droit canonique
+Lieu: France
+Ville: Paris
 ================================================================================
 catum susceperit biennio in lectoratu erit, et sequenti quinquennio acolitus
 et subdiaconus fiet, et de cetero superiores quandocumque poterit accipere...
 ```
+
+> **Note** : L'en-tête inclut TOUTES les métadonnées du corpus définies dans `config.yaml`. Cela garantit que le ré-enrichissement (`re-enrich`) préserve parfaitement toutes les métadonnées.
 
 ### Format "clean"
 

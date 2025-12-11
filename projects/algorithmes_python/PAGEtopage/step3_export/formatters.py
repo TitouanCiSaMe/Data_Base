@@ -310,20 +310,33 @@ class ScholarlyFormatter(TextFormatter):
         if page.metadata.running_title and page.metadata.running_title != "No running title":
             lines.append(f"Titre courant: {page.metadata.running_title}")
 
-        # Métadonnées du corpus
+        # Métadonnées du corpus (TOUTES les métadonnées, dans un ordre cohérent)
         corpus_meta = page.metadata.corpus_metadata
 
-        # Œuvre (title)
-        if corpus_meta.get("title"):
-            lines.append(f"Œuvre: {corpus_meta['title']}")
+        # Ordre préféré des métadonnées
+        metadata_labels = {
+            "edition_id": "Edition ID",
+            "title": "Œuvre",
+            "author": "Auteur",
+            "date": "Date",
+            "language": "Langue",
+            "source": "Provenance",
+            "type": "Type",
+            "lieu": "Lieu",
+            "ville": "Ville",
+        }
 
-        # Auteur
-        if corpus_meta.get("author"):
-            lines.append(f"Auteur: {corpus_meta['author']}")
+        # Affiche les métadonnées dans l'ordre préféré
+        for key, label in metadata_labels.items():
+            if corpus_meta.get(key):
+                lines.append(f"{label}: {corpus_meta[key]}")
 
-        # Date
-        if corpus_meta.get("date"):
-            lines.append(f"Date: {corpus_meta['date']}")
+        # Ajoute toute métadonnée supplémentaire non listée
+        for key, value in corpus_meta.items():
+            if key not in metadata_labels and value:
+                # Capitalise la première lettre de la clé pour le label
+                label = key.replace("_", " ").title()
+                lines.append(f"{label}: {value}")
 
         # Ligne de séparation finale
         lines.append(separator)
