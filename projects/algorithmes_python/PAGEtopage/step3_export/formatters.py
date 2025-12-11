@@ -240,12 +240,174 @@ class VerticalFormatter(TextFormatter):
         return ".vertical.txt"
 
 
+class ScholarlyFormatter(TextFormatter):
+    """
+    Format scholarly : format avec en-tête détaillé et texte continu
+
+    Produit des pages avec un en-tête complet contenant toutes les métadonnées
+    et le texte en lignes continues (comme dans un livre imprimé).
+
+    Exemple:
+        ================================================================================
+        PAGE 79
+        Source: manuscript_page_109.xml
+        Image: manuscript_page_109.jpg
+        Titre courant: DISTINCTIO OCTOGESIMA
+        Œuvre: Summa 'Induent sancti'
+        Auteur: Anonyme
+        Date: 1194
+        ================================================================================
+        catum susceperit biennio in lectoratu erit, et sequenti quinquennio...
+    """
+
+    def __init__(
+        self,
+        header_width: int = 80,
+        include_punctuation: bool = True,
+        line_width: int = 80
+    ):
+        """
+        Args:
+            header_width: Largeur de la ligne de séparation
+            include_punctuation: Inclure la ponctuation
+            line_width: Largeur maximale des lignes de texte (0 = pas de limite)
+        """
+        self.header_width = header_width
+        self.include_punctuation = include_punctuation
+        self.line_width = line_width
+
+    def format_page(self, page: AnnotatedPage) -> str:
+        """Formate une page avec en-tête scholarly"""
+        if page.is_empty:
+            return ""
+
+        # Génère l'en-tête
+        header = self._format_header(page)
+
+        # Génère le texte
+        text = self._format_text(page)
+
+        # Combine
+        return f"{header}\n{text}"
+
+    def _format_header(self, page: AnnotatedPage) -> str:
+        """Génère l'en-tête de la page"""
+        separator = "=" * self.header_width
+        lines = [separator]
+
+        # Numéro de page
+        lines.append(f"PAGE {page.metadata.page_number}")
+
+        # Source (nom du fichier XML)
+        lines.append(f"Source: {page.metadata.folio}")
+
+        # Image (déduit du nom du fichier XML)
+        from pathlib import Path
+        image_name = Path(page.metadata.folio).stem + ".jpg"
+        lines.append(f"Image: {image_name}")
+
+        # Titre courant
+        if page.metadata.running_title and page.metadata.running_title != "No running title":
+            lines.append(f"Titre courant: {page.metadata.running_title}")
+
+        # Métadonnées du corpus
+        corpus_meta = page.metadata.corpus_metadata
+
+        # Œuvre (title)
+        if corpus_meta.get("title"):
+            lines.append(f"Œuvre: {corpus_meta['title']}")
+
+        # Auteur
+        if corpus_meta.get("author"):
+            lines.append(f"Auteur: {corpus_meta['author']}")
+
+        # Date
+        if corpus_meta.get("date"):
+            lines.append(f"Date: {corpus_meta['date']}")
+
+        # Ligne de séparation finale
+        lines.append(separator)
+
+        return "\n".join(lines)
+
+    def _format_text(self, page: AnnotatedPage) -> str:
+        """Formate le texte de la page en lignes continues"""
+        # Collecte tous les mots
+        all_words = []
+
+        for sentence in page.sentences:
+            for token in sentence.tokens:
+                if token.pos == "PUNCT":
+                    if self.include_punctuation:
+                        # Attache la ponctuation au mot précédent
+                        if all_words:
+                            all_words[-1] += token.word
+                        else:
+                            all_words.append(token.word)
+                else:
+                    all_words.append(token.word)
+
+        # Crée le texte continu
+        text = " ".join(all_words)
+
+        # Si line_width est défini, découpe en lignes
+        if self.line_width > 0:
+            return self._wrap_text(text, self.line_width)
+        else:
+            return text
+
+    def _wrap_text(self, text: str, width: int) -> str:
+        """Découpe le texte en lignes de largeur maximale"""
+        words = text.split()
+        lines = []
+        current_line = []
+        current_length = 0
+
+        for word in words:
+            word_length = len(word)
+
+            # Si ajouter ce mot dépasse la largeur
+            if current_length + word_length + len(current_line) > width:
+                if current_line:  # Finit la ligne actuelle
+                    lines.append(" ".join(current_line))
+                    current_line = [word]
+                    current_length = word_length
+                else:  # Le mot seul est trop long, on le met quand même
+                    lines.append(word)
+                    current_length = 0
+            else:
+                current_line.append(word)
+                current_length += word_length
+
+        # Ajoute la dernière ligne
+        if current_line:
+            lines.append(" ".join(current_line))
+
+        return "\n".join(lines)
+
+    def format_sentence(self, sentence: Sentence) -> str:
+        """Formate une sentence en texte clean"""
+        words = []
+
+        for token in sentence.tokens:
+            if token.pos == "PUNCT":
+                if self.include_punctuation:
+                    if words:
+                        words[-1] += token.word
+                    else:
+                        words.append(token.word)
+            else:
+                words.append(token.word)
+
+        return " ".join(words)
+
+
 def create_formatter(format_type: str) -> TextFormatter:
     """
     Factory pour créer un formateur
 
     Args:
-        format_type: "clean", "diplomatic", "annotated", ou "vertical"
+        format_type: "clean", "diplomatic", "annotated", "vertical", ou "scholarly"
 
     Returns:
         Instance de TextFormatter
@@ -255,6 +417,7 @@ def create_formatter(format_type: str) -> TextFormatter:
         "diplomatic": DiplomaticFormatter,
         "annotated": AnnotatedFormatter,
         "vertical": VerticalFormatter,
+        "scholarly": ScholarlyFormatter,
     }
 
     if format_type not in formatters:

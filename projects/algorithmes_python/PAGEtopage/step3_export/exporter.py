@@ -11,7 +11,7 @@ import logging
 from ..config import Config
 from ..models import AnnotatedPage, AnnotatedCorpus
 from .vertical_parser import VerticalParser
-from .formatters import create_formatter, TextFormatter
+from .formatters import create_formatter, TextFormatter, ScholarlyFormatter
 from .index_generator import IndexGenerator
 
 logger = logging.getLogger(__name__)
@@ -191,8 +191,14 @@ class TextExporter:
         """
         output_path = output_folder / "texte_complet.txt"
 
-        # Sépare les pages par une ligne vide
-        combined = "\n\n".join(part for part in text_parts if part.strip())
+        # Pour le format scholarly, les pages ont déjà leur en-tête
+        # Pour les autres formats, on les sépare simplement par deux lignes vides
+        if isinstance(self.formatter, ScholarlyFormatter):
+            # Les pages incluent déjà l'en-tête, on les sépare par une ligne vide
+            combined = "\n\n".join(part for part in text_parts if part.strip())
+        else:
+            # Pour les autres formats, sépare simplement les pages
+            combined = "\n\n".join(part for part in text_parts if part.strip())
 
         with open(output_path, "w", encoding="utf-8") as f:
             f.write(combined)
