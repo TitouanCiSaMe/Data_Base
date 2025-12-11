@@ -238,11 +238,10 @@ class Config:
             errors.append(f"column_mode invalide: {self.extraction.column_mode} (attendu: single ou dual)")
 
         # Validation enrichment
-        if self.enrichment.lemmatizer not in ("cltk", "stanza", "treetagger"):
-            errors.append(f"lemmatizer invalide: {self.enrichment.lemmatizer} (attendu: cltk, stanza, ou treetagger)")
+        if self.enrichment.lemmatizer not in ("treetagger", "cltk", "simple"):
+            errors.append(f"lemmatizer invalide: {self.enrichment.lemmatizer} (attendu: treetagger, cltk, ou simple)")
 
-        if self.enrichment.lemmatizer == "treetagger" and not self.enrichment.treetagger_path:
-            errors.append("treetagger_path requis si lemmatizer == 'treetagger'")
+        # Note: treetagger_path est optionnel (auto-détecté si non spécifié)
 
         # Validation export
         if self.export.format not in ("clean", "diplomatic", "annotated"):
